@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+/* Optional: Use the font globally via CSS variable */
+html {
+  font-family: var(--font-plus-jakarta), sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+@layer components {
+  .input-default-style {
+    @apply w-full my-2 rounded-md outline outline-gray-300 outline-offset-2 py-2 px-3 hover:outline-sky-500 invalid:border-pink-500 invalid:text-pink-600 focus:border-sky-500 focus:outline-2 focus:outline-offset-2  focus:outline-sky-500 focus:invalid:border-pink-500 focus:invalid:outline-pink-500 transition duration-100 ease-in-out;
+  }
+
+  .result-table-row-style > td {
+    @apply py-3 px-1.5 border border-gray-100 whitespace-nowrap;
+
+    &:not(&:nth-child(2)) {
+      @apply text-center;
+    }
+  }
+}
+
+.container {
+  max-width: min(85%, 900px);
+  margin-inline: auto;
+}
