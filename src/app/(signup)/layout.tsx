@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Plus_Jakarta_Sans } from "next/font/google"
 import "@/app/globals.css"
-import Modal from "@/components/modal"
+import Modal from "@/components/createCourseForm"
 
 const plusJakarta = Plus_Jakarta_Sans({
     subsets: ["latin"],
@@ -10,11 +10,7 @@ const plusJakarta = Plus_Jakarta_Sans({
     variable: "--font-plus-jakarta",
 })
 
-export default function RootLayout({
-    children,
-}: {
-    children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en" className={plusJakarta.className}>
             <body>{children}</body>
