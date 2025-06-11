@@ -75,10 +75,10 @@ export default function Modal({ initialIsOpen = false }: { initialIsOpen: boolea
                                 onChange={handleChange}
                                 required>
                                 <option value="">Select Session</option>
-                                <option value="2021/2022">2021/2022</option>
-                                <option value="2022/2023">2022/2023</option>
-                                <option value="2023/2024">2023/2024</option>
-                                <option value="2024/2025">2024/2025</option>
+                                <option value="2021-2022">2021-2022</option>
+                                <option value="2022-2023">2022-2023</option>
+                                <option value="2023-2024">2023-2024</option>
+                                <option value="2024-2025">2024-2025</option>
                             </select>
 
                             <select
@@ -88,8 +88,8 @@ export default function Modal({ initialIsOpen = false }: { initialIsOpen: boolea
                                 onChange={handleChange}
                                 required>
                                 <option value="">Select Semester</option>
-                                <option value="First">First Semester</option>
-                                <option value="Second">Second Semester</option>
+                                <option value="First Semester">First Semester</option>
+                                <option value="Second Semester">Second Semester</option>
                             </select>
                         </div>
 

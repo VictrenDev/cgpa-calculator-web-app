@@ -118,7 +118,30 @@ export async function loginUser(formdata: FormData) {
     console.log("found user")
 }
 
-export async function getUserCourse() {
+export async function getUserCourse(sessionId: string) {
+    const user = await prisma.user.findUnique({
+        where: { email: "vic@gmail.com" },
+        include: {
+            sessions: {
+                where: {
+                    name: sessionId,
+                },
+                include: {
+                    semester: {
+                        include: {
+                            courses: true,
+                        },
+                    },
+                },
+            },
+        },
+    })
+
+    if (!user) throw new Error("User not found")
+
+    return user.sessions
+}
+export async function getUserSessions() {
     const user = await prisma.user.findUnique({
         where: { email: "vic@gmail.com" },
         include: {

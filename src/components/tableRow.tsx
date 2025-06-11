@@ -7,7 +7,14 @@ export interface TableRowProps {
     calculated: number
 }
 
-export default function TableRowData({ id, courseName, courseCode, courseLoad, grade, calculated }: TableRowProps) {
+export default function TableRowData({
+    id,
+    courseName,
+    courseCode,
+    courseLoad,
+    grade,
+    calculated,
+}: TableRowProps) {
     return (
         <tr className="odd:bg-white even:bg-gray-100 whitespace-nowrap text-gray-600 result-table-row-style">
             <td>{id}</td>
