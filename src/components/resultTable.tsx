@@ -12,7 +12,7 @@ export default function ResultsTable({
     courses: TableRowProps[]
 }) {
     return (
-        <div className="w-screen overflow-x-auto container">
+        <div className="container">
             <table className="table-fixed min-w-full border-collapse border my-4 border-gray-300 border-spacing-4">
                 <caption className="caption-top mt-2 mb-4 text-md text-gray-500 font-bold">
                     {level} {title} Semester Results | GPA: <strong>{gpa}</strong>

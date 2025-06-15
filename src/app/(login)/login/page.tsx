@@ -3,18 +3,19 @@ import Link from "next/link"
 import Image from "next/image"
 import { useRef } from "react"
 import { loginUser } from "@/utils/serverActions"
-export default function Signup() {
-    // type check to ensure that the input are valid html inputs
+import { signIn } from "next-auth/react"
+
+export default function Login() {
     const emailRef = useRef<HTMLInputElement>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
 
     return (
-        <section className=" w-full h-screen fixed top-0 bg-gray-300/30 flex justify-center items-center">
-            <div className="w-120 p-4 pt-4  mx-4 bg-white rounded-xl text-gray-700 container">
+        <section className="w-full h-screen fixed top-0 bg-gray-300/30 flex justify-center items-center">
+            <div className="w-120 p-4 pt-4 mx-4 bg-white rounded-xl text-gray-700 container">
                 <h1 className="text-2xl md:text-4xl font-bold text-gray-800 mb-2">
                     Login to your Account
                 </h1>
-                <p className="text-sm text-gray-600 mb-6 ">
+                <p className="text-sm text-gray-600 mb-6">
                     Don&apos;t have an account?
                     <u className="inline-block ml-2">
                         <Link href="/signup">Signup</Link>
@@ -47,12 +48,13 @@ export default function Signup() {
                         </p>
                         <div className="w-full h-[1px] bg-gray-300"></div>
                     </div>
-                    <Link
-                        className="border border-gray-300 rounded-md w-full p-2 flex items-center justify-center gap-2 transition-colors duration-800 ease-in-out"
-                        href="/dashboard">
-                        <Image src="/search.png" alt="image" width={24} height={24}></Image>
+                    <button
+                        type="button"
+                        onClick={() => signIn("google")}
+                        className="border border-gray-300 rounded-md w-full p-2 flex items-center justify-center gap-2 transition-colors duration-800 ease-in-out">
+                        <Image src="/search.png" alt="Google logo" width={24} height={24} />
                         Google
-                    </Link>
+                    </button>
                 </form>
             </div>
         </section>

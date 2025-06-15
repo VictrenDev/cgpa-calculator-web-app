@@ -7,13 +7,34 @@
 
 /* Optional: Use the font globally via CSS variable */
 html {
+    --primary-color: #65007d;
+    /* --dashboard-navigation-hover-color: rgb(64, 64, 255); */
+    --dashboard-bg-color: #fafafa;
+    --dashboard-body-color: #1e1e1e;
+    --dashboard-light-color: #494949;
+    --dashboard-dark-color: #171717;
+    --dashboard-icon-color: #171717;
+    --dashboard-body-color-dark: #171717;
+    --dashboard-search-bg-color: #1e1e1e;
+}
+body {
+    font-family: "Space Grotesk", sans-serif;
+    max-width: 1920px;
+    margin-inline: auto;
+}
+.container-fluid {
+    width: min(90%, 1200px);
+    margin-inline: auto;
+}
+
+/* html {
     font-family: var(--font-plus-jakarta), sans-serif;
 }
 
 body {
     background: var(--background);
     color: var(--foreground);
-}
+} */
 
 @layer components {
     .input-default-style {

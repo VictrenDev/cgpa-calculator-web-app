@@ -1,0 +1,65 @@
+import { prisma } from "../src/utils/prisma" // or correct path to your prisma client
+
+const sessions = ["2020/2021", "2021/2022", "2022/2023", "2023/2024", "2024/2025"]
+
+const readableCourses: Record<string, { code: string; title: string; load: number }[]> = {
+    First: [
+        { code: "ENG101", title: "Introduction to Engineering", load: 3 },
+        { code: "MTH101", title: "Calculus I", load: 3 },
+        { code: "PHY101", title: "Mechanics", load: 2 },
+        { code: "CHM101", title: "General Chemistry", load: 2 },
+        { code: "GST101", title: "Use of English I", load: 2 },
+    ],
+    Second: [
+        { code: "ENG102", title: "Engineering Drawing", load: 2 },
+        { code: "MTH102", title: "Calculus II", load: 3 },
+        { code: "PHY102", title: "Electricity and Magnetism", load: 2 },
+        { code: "CHM102", title: "Organic Chemistry", load: 2 },
+        { code: "GST102", title: "Use of English II", load: 2 },
+    ],
+}
+
+const grades = ["A", "B", "C", "D", "E", "F"]
+
+function getRandomGrade() {
+    return grades[Math.floor(Math.random() * grades.length)]
+}
+
+async function main() {
+    for (const sessionName of sessions) {
+        const user = await prisma.user.findUnique({
+            where: {
+                email: "vic@gmail.com",
+            },
+        })
+        if (!user) return console.log("no user exist with this email")
+        await prisma.session.create({
+            data: {
+                userId: user.id,
+                name: sessionName,
+                semester: {
+                    create: ["First", "Second"].map((semesterName) => ({
+                        name: semesterName,
+                        courses: {
+                            create: readableCourses[semesterName].map((course) => ({
+                                courseCode: course.code,
+                                courseTitle: course.title,
+                                courseLoad: course.load,
+                                grade: getRandomGrade(),
+                            })),
+                        },
+                    })),
+                },
+            },
+        })
+    }
+
+    console.log(" Seeded readable course data for 5 sessions")
+}
+
+main()
+    .catch((e) => {
+        console.error(" Error:", e)
+        process.exit(1)
+    })
+    .finally(() => prisma.$disconnect())

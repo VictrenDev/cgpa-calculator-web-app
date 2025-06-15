@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Plus_Jakarta_Sans } from "next/font/google"
 import "@/app/globals.css"
+
 import Modal from "@/components/createCourseForm"
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -22,12 +23,11 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className={plusJakarta.className}>
-            <body className="antialiased relative">
+            <body>
                 {children}
-                <footer className="bg-white h-20 flex items-center justify-center text-center text-gray-800 text-sm font-semibold">
+                {/* <footer className="bg-white h-20 flex items-center justify-center text-center text-gray-800 text-sm font-semibold">
                     <p>Designer: Kevin || Developer: Victren</p>
-                </footer>
-                <Modal initialIsOpen={false} />
+                </footer> */}
             </body>
         </html>
     )

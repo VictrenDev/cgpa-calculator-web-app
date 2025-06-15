@@ -2,6 +2,8 @@
 
 import { prisma } from "@/utils/prisma"
 import bcrypt from "bcryptjs"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/utils/authOptions"
 
 export async function createUser(formData: FormData) {
     try {
@@ -38,6 +40,8 @@ export async function createUser(formData: FormData) {
 }
 
 export async function createCourse(formData: FormData) {
+    const session = await getServerSession(authOptions)
+
     const UserSession = formData.get("session") as string
     const courseTitle = formData.get("courseTitle") as string
     const courseCode = formData.get("courseCode") as string
@@ -48,11 +52,16 @@ export async function createCourse(formData: FormData) {
     if (!UserSession || !UserSession || !courseCode || !courseTitle || !courseLoad || !grade) {
         return console.log("one or more of the fields was left empty")
     }
+    if (!session?.user?.email) {
+        throw new Error("Not authenticated")
+    }
+
+    const email = session.user.email
     try {
-        const user = await prisma.user.findUnique({ where: { email: "vic@gmail.com" } })
+        const user = await prisma.user.findUnique({ where: { email: email } })
         if (!user) throw new Error("User not found")
 
-        const session = await prisma.session.upsert({
+        const session = await prisma.academicSession.upsert({
             where: {
                 userId_name: {
                     userId: user.id,
@@ -119,8 +128,14 @@ export async function loginUser(formdata: FormData) {
 }
 
 export async function getUserCourse(sessionId: string) {
+    const session = await getServerSession(authOptions)
+    if (!session?.user?.email) {
+        throw new Error("Not authenticated")
+    }
+
+    const email = session.user.email
     const user = await prisma.user.findUnique({
-        where: { email: "vic@gmail.com" },
+        where: { email: email },
         include: {
             sessions: {
                 where: {
@@ -142,22 +157,33 @@ export async function getUserCourse(sessionId: string) {
     return user.sessions
 }
 export async function getUserSessions() {
+    const session = await getServerSession(authOptions)
+
+    if (!session?.user?.email) {
+        throw new Error("Not authenticated")
+    }
+
+    const email = session.user.email
     const user = await prisma.user.findUnique({
-        where: { email: "vic@gmail.com" },
+        where: { email: email },
         include: {
             sessions: {
-                include: {
-                    semester: {
-                        include: {
-                            courses: true,
-                        },
-                    },
+                select: {
+                    id: true,
+                    name: true,
+                    createdAt: true,
+                },
+                orderBy: {
+                    createdAt: "asc",
                 },
             },
         },
     })
-
+    const sessionsWithLevels = user?.sessions.map((session, index) => {
+        const level = (index + 1) * 100
+        return { ...session, level }
+    })
     if (!user) throw new Error("User not found")
 
-    return user.sessions
+    return { sessions: sessionsWithLevels, totalSessions: user.sessions.length }
 }
