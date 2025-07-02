@@ -1,6 +1,6 @@
 "use client"
 
-import { createCourse } from "@/utils/serverActions"
+import { createCourse } from "@/lib/serverActions"
 import React, { useState } from "react"
 
 export default function Modal({ initialIsOpen = false }: { initialIsOpen: boolean }) {
@@ -60,7 +60,7 @@ export default function Modal({ initialIsOpen = false }: { initialIsOpen: boolea
                 onClick={toggleVisibility}
                 className={`${
                     !isOpen ? "hidden" : ""
-                } w-full h-screen fixed top-0 bg-gray-300/30 flex justify-center items-center`}>
+                } w-full h-screen fixed top-0 left-0 z-50 bg-gray-300/30 flex justify-center items-center`}>
                 <div
                     onClick={(e) => {
                         e.stopPropagation()

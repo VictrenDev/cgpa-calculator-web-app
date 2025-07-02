@@ -1,5 +1,5 @@
 "use server"
-import { prisma } from "@/utils/prisma"
+import { prisma } from "@/lib/prisma"
 
 export default async function createCourse(formData: FormData) {
     const UserSession = formData.get("session") as string

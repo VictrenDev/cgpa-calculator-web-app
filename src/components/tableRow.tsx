@@ -1,6 +1,6 @@
 export interface TableRowProps {
     id?: number
-    courseName: string
+    courseTitle: string
     courseCode: string
     courseLoad: number
     grade: "a" | "b" | "c" | "d" | "e" | "f"
@@ -9,7 +9,7 @@ export interface TableRowProps {
 
 export default function TableRowData({
     id,
-    courseName,
+    courseTitle,
     courseCode,
     courseLoad,
     grade,
@@ -18,7 +18,7 @@ export default function TableRowData({
     return (
         <tr className="odd:bg-white even:bg-gray-100 whitespace-nowrap text-gray-600 result-table-row-style">
             <td>{id}</td>
-            <td className="capitalize">{courseName}</td>
+            <td className="capitalize">{courseTitle}</td>
             <td className="uppercase">{courseCode}</td>
             <td>{courseLoad}</td>
             <td className="uppercase">{grade}</td>

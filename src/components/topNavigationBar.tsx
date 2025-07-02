@@ -22,16 +22,16 @@ export default function TopNavigationBar() {
                                 <path
                                     d="M8.62451 15.751C12.5595 15.751 15.7495 12.561 15.7495 8.62598C15.7495 4.69095 12.5595 1.50098 8.62451 1.50098C4.68948 1.50098 1.49951 4.69095 1.49951 8.62598C1.49951 12.561 4.68948 15.751 8.62451 15.751Z"
                                     stroke="#000"
-                                    stroke-width="1.125"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
+                                    strokeWidth="1.125"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                                 />
                                 <path
                                     d="M16.4995 16.501L14.9995 15.001"
                                     stroke="#000"
-                                    stroke-width="1.125"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
+                                    strokeWidth="1.125"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                                 />
                             </svg>
                         </span>

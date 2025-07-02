@@ -1,5 +1,5 @@
 "use server"
-import { prisma } from "@/utils/prisma"
+import { prisma } from "@/lib/prisma"
 import bcrypt from "bcryptjs"
 
 export default async function loginUser(formdata: FormData) {
