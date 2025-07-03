@@ -4,11 +4,17 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import { prisma } from "@/lib/prisma"
 import bcrypt from "bcryptjs"
 import type { NextAuthOptions } from "next-auth"
-
+interface CreateUserData {
+    email: string
+    image?: string
+    firstName?: string
+    lastName?: string
+    name?: string
+}
 export const authOptions: NextAuthOptions = {
     adapter: {
         ...PrismaAdapter(prisma),
-        async createUser(data: any) {
+        async createUser(data: CreateUserData) {
             const firstName = data.firstName || data.name?.split(" ")[0] || ""
             const lastName = data.lastName || data.name?.split(" ").slice(1).join(" ") || ""
 
@@ -77,6 +83,7 @@ export const authOptions: NextAuthOptions = {
         },
         async session({ session, token }) {
             if (token) {
+                session.user = session.user || {}
                 session.user.id = token.id as string
                 session.user.email = token.email as string
                 session.user.firstName = token.firstName as string

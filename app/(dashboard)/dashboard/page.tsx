@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/authOptions"
 import { redirect } from "next/navigation"
-// import LogoutButton from "@/components/signOut"
+import LogoutButton from "@/components/signOut"
 import Chart from "@/components/chartComponent"
 import ScrollEffect from "@/components/intersectionObserver"
 
@@ -21,10 +21,10 @@ export default async function Dashboard() {
 
     return (
         <div className="bg-[#f5f5f5]">
-            {/* <h1>
+            <h1>
                 Welcome {firstName || ""} {lastName || ""} ({email})
             </h1>
-            <LogoutButton /> */}
+            <LogoutButton />
 
             <div className=" grid grid-cols-4 grid-rows-6 gap-2 p-4">
                 <ScrollEffect className="bg-[#fefefe] lg:row-start-1 lg:row-end-2 lg:col-start-1 lg:col-end-2 rounded-md p-2">
