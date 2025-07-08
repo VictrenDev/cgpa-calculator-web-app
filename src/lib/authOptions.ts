@@ -99,7 +99,11 @@ export const authOptions: NextAuthOptions = {
             return dbUser?.verified ?? true
         },
         async redirect({ baseUrl }) {
-            return `${baseUrl}/dashboard`
+            // Use Vercel's URL if available
+            const deployedUrl = process.env.VERCEL_URL
+                ? `https://${process.env.VERCEL_URL}`
+                : baseUrl
+            return `${deployedUrl}/dashboard`
         },
     },
     secret: process.env.NEXTAUTH_SECRET,
