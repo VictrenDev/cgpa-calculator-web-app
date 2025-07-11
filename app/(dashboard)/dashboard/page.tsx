@@ -20,7 +20,7 @@ export default async function Dashboard() {
     console.log(session.user)
 
     return (
-        <div className="bg-[#f5f5f5]">
+        <div className="bg-[#f0f8ff] min-h-screen">
             <h1>
                 Welcome {firstName || ""} {lastName || ""} ({email})
             </h1>
