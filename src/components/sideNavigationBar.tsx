@@ -27,7 +27,7 @@ export default function MainNavigationBar() {
                 <p className="text-gray-500 text-xs font-semibold mb-2">Dashboard</p>
                 <ul className="space-y-1">
                     <ScrollEffect as="li" delay={100}>
-                        <NavLinks link="Overview">
+                        <NavLinks linkPath="/dashboard" linkName="Overview">
                             <OverviewIcon />
                         </NavLinks>
                     </ScrollEffect>
@@ -49,7 +49,7 @@ export default function MainNavigationBar() {
                     </ScrollEffect> */}
                     <ScrollEffect as="li" delay={300}>
 
-                        <NavLinks link="Profile">
+                        <NavLinks linkName="Profile" linkPath="profile">
                             <ProfileIcon />
                         </NavLinks>       </ScrollEffect>
                     {/* <ScrollEffect as="li" delay={350}>
