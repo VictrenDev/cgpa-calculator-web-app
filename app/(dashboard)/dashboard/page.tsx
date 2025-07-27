@@ -39,8 +39,7 @@ export default async function Dashboard() {
                     3
                 </ScrollEffect>
 
-                <ScrollEffect delay={400} className="bg-[#fefefe] lg:row-start-1 lg:row-end-4 lg:col-start-3 lg:col-end-5 rounded-md p-2 flex justify-center items-center flex-col">
-                    <p className="mb-6 text-4xl text-gray-500">Grade Graph</p>
+                <ScrollEffect delay={400} className="bg-[#fefefe] lg:row-start-1 lg:row-end-4 lg:col-start-3 lg:col-end-5 rounded-md p-2 flex justify-center items-center flex-col py-8">
                     <Chart />
                 </ScrollEffect>
 

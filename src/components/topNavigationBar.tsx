@@ -10,7 +10,7 @@ export default function TopNavigationBar() {
                     <div className="bg-white rounded-sm w-5 h-[2px]"></div>
                     <div className="bg-white rounded-sm w-5 h-[2px]"></div>
                 </button>
-                <form action="">
+                {/* <form action="">
                     <div className="flex items-center gap-1 rounded-md outline md:py-2 md:px-4 outline-[var(--dashboard-light-color)]  focus-within:outline-2 focus-within:outline-blue-300 transition-colors duration-100 ease-in-out">
                         <span className="p-2 cursor-pointer">
                             <svg
@@ -41,10 +41,10 @@ export default function TopNavigationBar() {
                             placeholder="Type to Search"
                         />
                     </div>
-                </form>
+                </form> */}
             </div>
 
-            <a className="inline-block p-2" href="">
+            {/* <a className="inline-block p-2" href="">
                 <svg
                     width="24"
                     height="24"
@@ -60,7 +60,7 @@ export default function TopNavigationBar() {
                         fill="#000"
                     />
                 </svg>
-            </a>
+            </a> */}
         </section>
     )
 }

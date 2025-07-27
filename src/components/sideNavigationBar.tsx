@@ -1,11 +1,11 @@
 import ScrollEffect from "./intersectionObserver"
 import {
-    AnalyticsIcon,
-    CourseManagementIcon,
-    HelpIcon,
+    // AnalyticsIcon,
+    // CourseManagementIcon,
+    // HelpIcon,
     OverviewIcon,
     ProfileIcon,
-    SettingsIcon,
+    // SettingsIcon,
 } from "./navigationIcons"
 import NavLinks from "./navLinks"
 export default function MainNavigationBar() {
@@ -31,12 +31,12 @@ export default function MainNavigationBar() {
                             <OverviewIcon />
                         </NavLinks>
                     </ScrollEffect>
-                    <ScrollEffect as="li" delay={150}>
+                    {/* <ScrollEffect as="li" delay={150}>
                         <NavLinks link="Course Manager">
                             <CourseManagementIcon />
                         </NavLinks>
-                    </ScrollEffect>
-                    <ScrollEffect as="li" delay={200}>
+                    </ScrollEffect> */}
+                    {/* <ScrollEffect as="li" delay={200}>
 
                         <NavLinks link="Analytics">
                             <AnalyticsIcon />
@@ -46,22 +46,17 @@ export default function MainNavigationBar() {
                         <NavLinks link="Settings">
                             <SettingsIcon />
                         </NavLinks>
-                    </ScrollEffect>
+                    </ScrollEffect> */}
                     <ScrollEffect as="li" delay={300}>
 
                         <NavLinks link="Profile">
                             <ProfileIcon />
                         </NavLinks>       </ScrollEffect>
-                    <ScrollEffect as="li" delay={350}>
+                    {/* <ScrollEffect as="li" delay={350}>
                         <NavLinks link="Help / Guide">
                             <HelpIcon />
                         </NavLinks>
-                    </ScrollEffect>
-
-
-
-
-
+                    </ScrollEffect> */}
                 </ul>
             </div>
         </nav>

@@ -14,10 +14,10 @@ type RawCourse = {
 export default async function SessionPage({
     params,
 }: {
-    params: { sessionId: string }
+    params: Promise<{ sessionId: string }>
 }) {
     // 1. Fetch all sessions with levels
-    const { sessionId } = params
+    const { sessionId } = await params
     const { sessions, totalSessions, email } = await getUserSessions()
     if (!sessions) return notFound()
 
