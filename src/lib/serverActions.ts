@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma"
 import bcrypt from "bcryptjs"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/authOptions"
+import { gradePointMap } from "./utilities"
 
 export async function createUser(formData: FormData) {
     try {
@@ -159,33 +160,102 @@ export async function getUserCourse(sessionId: string) {
 }
 
 export async function getUserSessions() {
-    const session = await getServerSession(authOptions)
+    // 🔐 1. Authenticate the user
+    const authSession = await getServerSession(authOptions)
 
-    if (!session?.user?.email) {
+    if (!authSession?.user?.email) {
         throw new Error("Not authenticated")
     }
 
-    const email = session.user.email
+    const email = authSession.user.email
+
+    // 🗄️ 2. Fetch user with sessions → semesters → courses
     const user = await prisma.user.findUnique({
-        where: { email: email },
+        where: { email },
         include: {
             sessions: {
-                select: {
-                    id: true,
-                    name: true,
-                    createdAt: true,
+                include: {
+                    semester: {
+                        include: { courses: true },
+                    },
                 },
-                orderBy: {
-                    createdAt: "asc",
-                },
+                orderBy: { createdAt: "asc" }, // oldest session first
             },
         },
     })
-    const sessionsWithLevels = user?.sessions.map((session, index) => {
-        const level = (index + 1) * 100
-        return { ...session, level }
-    })
+
     if (!user) throw new Error("User not found")
 
-    return { sessions: sessionsWithLevels, totalSessions: user.sessions.length, email: email }
+    // 📊 3. Add GPA to each semester and session
+    const sessionsWithStats = user.sessions.map((session, index) => {
+        let sessionQualityPoints = 0
+        let sessionCredits = 0
+
+        // Loop through semesters in this session
+        const semestersWithGPA = session.semester.map((sem) => {
+            let semesterQualityPoints = 0
+            let semesterCredits = 0
+
+            // Loop through courses in this semester
+            sem.courses.forEach((course) => {
+                const points = gradePointMap[course.grade.toUpperCase()] ?? 0
+                semesterQualityPoints += points * course.courseLoad
+                semesterCredits += course.courseLoad
+            })
+
+            // 🎯 GPA = total points ÷ total credits for this semester
+            const semesterGPA = semesterCredits > 0 ? semesterQualityPoints / semesterCredits : 0
+
+            // Add semester totals to session totals
+            sessionQualityPoints += semesterQualityPoints
+            sessionCredits += semesterCredits
+
+            // Return the semester with GPA included
+            return {
+                ...sem,
+                gpa: semesterGPA,
+            }
+        })
+
+        // 🎯 Calculate GPA for the entire session
+        const sessionGPA = sessionCredits > 0 ? sessionQualityPoints / sessionCredits : 0
+
+        return {
+            ...session,
+            level: (index + 1) * 100, // 100, 200, 300 level, etc.
+            semesters: semestersWithGPA, // now includes GPA per semester
+            gpa: sessionGPA,
+            cgpa: sessionGPA, // currently same as GPA (can be cumulative)
+        }
+    })
+
+    // 📈 4. Calculate overall CGPA across all sessions
+    const overallQualityPoints = sessionsWithStats.reduce((sum, s) => {
+        return (
+            sum +
+            s.semesters
+                .flatMap((sem) => sem.courses)
+                .reduce(
+                    (csum, c) => csum + (gradePointMap[c.grade.toUpperCase()] ?? 0) * c.courseLoad,
+                    0
+                )
+        )
+    }, 0)
+
+    const overallCredits = sessionsWithStats.reduce((sum, s) => {
+        return (
+            sum +
+            s.semesters.flatMap((sem) => sem.courses).reduce((csum, c) => csum + c.courseLoad, 0)
+        )
+    }, 0)
+
+    const overallCGPA = overallCredits > 0 ? overallQualityPoints / overallCredits : 0
+
+    // 📦 5. Return data for the dashboard
+    return {
+        sessions: sessionsWithStats,
+        totalSessions: user.sessions.length,
+        email,
+        overallCGPA,
+    }
 }

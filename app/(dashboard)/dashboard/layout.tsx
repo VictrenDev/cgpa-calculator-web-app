@@ -3,7 +3,7 @@ import { Plus_Jakarta_Sans } from "next/font/google"
 import "/app/globals.css"
 import Modal from "@/components/createCourseForm"
 import TopNavigationBar from "@/components/topNavigationBar"
-import MainNavigationBar from "@/components/sideNavigationBar"
+// import MainNavigationBar from "@/components/sideNavigationBar"
 import SessionProviderWrapper from "@/components/sessionproviderwrapper"
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -26,7 +26,7 @@ export default function RootLayout({
     return (
         <html lang="en" className={plusJakarta.className}>
             <body className="antialiased relative flex h-screen">
-                <MainNavigationBar />
+                {/* <MainNavigationBar /> */}
                 <main className=" w-full overflow-y-auto">
                     <TopNavigationBar />
                     <SessionProviderWrapper>{children}</SessionProviderWrapper>

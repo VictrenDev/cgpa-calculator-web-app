@@ -11,14 +11,10 @@ type RawCourse = {
     grade: string
     semesterId: string
 }
-export default async function SessionPage({
-    params,
-}: {
-    params: Promise<{ sessionId: string }>
-}) {
+export default async function SessionPage({ params }: { params: Promise<{ sessionId: string }> }) {
     // 1. Fetch all sessions with levels
     const { sessionId } = await params
-    const { sessions, totalSessions, email } = await getUserSessions()
+    const { sessions, totalSessions } = await getUserSessions()
     if (!sessions) return notFound()
 
     // 2. Find the current session
@@ -56,36 +52,39 @@ export default async function SessionPage({
     const sessionCGPA = calculateGPA([...firstSemesterCourses, ...secondSemesterCourses])
 
     return (
-        <section className="p-6 space-y-8">
+        <section className="container-fluid">
             {/* Session Header */}
-            <div className="flex justify-between items-center border-b pb-4">
-                <h1 className="text-2xl font-bold">
+            <div className="flex justify-end items-center pb-4">
+                {/* <h1 className="text-2xl font-bold">
                     {currentSession.name} - {currentSession.level}L -{email}
-                </h1>
-                <div className="text-lg bg-gray-100 px-4 py-2 rounded">
-                    CGPA: <span className="font-semibold">{sessionCGPA.toFixed(2)}</span>
-                </div>
+                </h1> */}
+                <p className="bg-blue-100 px-4 py-2 rounded text-blue-500">
+                    {currentSession.level} Level CGPA:{" "}
+                    <span className="font-semibold ">{sessionCGPA.toFixed(2)}</span>
+                </p>
             </div>
 
-            {/* First Semester Table */}
-            {firstSemesterCourses.length > 0 && (
-                <ResultsTable
-                    level={currentSession.level}
-                    gpa={firstSemesterGPA}
-                    title="First Semester"
-                    courses={firstSemesterCourses}
-                />
-            )}
+            <div className="grid gap-20 mt-8">
+                {/* First Semester Table */}
+                {firstSemesterCourses.length > 0 && (
+                    <ResultsTable
+                        level={currentSession.level}
+                        gpa={firstSemesterGPA}
+                        title="First Semester"
+                        courses={firstSemesterCourses}
+                    />
+                )}
 
-            {/* Second Semester Table */}
-            {secondSemesterCourses.length > 0 && (
-                <ResultsTable
-                    level={currentSession.level}
-                    gpa={secondSemesterGPA}
-                    title="Second Semester"
-                    courses={secondSemesterCourses}
-                />
-            )}
+                {/* Second Semester Table */}
+                {secondSemesterCourses.length > 0 && (
+                    <ResultsTable
+                        level={currentSession.level}
+                        gpa={secondSemesterGPA}
+                        title="Second Semester"
+                        courses={secondSemesterCourses}
+                    />
+                )}
+            </div>
         </section>
     )
 }

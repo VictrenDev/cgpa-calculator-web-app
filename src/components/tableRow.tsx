@@ -1,3 +1,4 @@
+
 export interface TableRowProps {
     id?: number
     courseTitle: string
@@ -15,15 +16,40 @@ export default function TableRowData({
     grade,
     calculated,
 }: TableRowProps) {
+    const gradeColor = {
+        a: "bg-green-100 text-green-800",
+        b: "bg-blue-100 text-blue-800",
+        c: "bg-yellow-100 text-yellow-800",
+        d: "bg-orange-100 text-orange-800",
+        e: "bg-red-100 text-red-800",
+        f: "bg-red-100 text-red-800",
+    }[grade]
+
     return (
-        <tr className="odd:bg-white even:bg-gray-100 whitespace-nowrap text-gray-600 result-table-row-style">
-            <td>{id}</td>
-            <td className="capitalize">{courseTitle}</td>
-            <td className="uppercase">{courseCode}</td>
-            <td>{courseLoad}</td>
-            <td className="uppercase">{grade}</td>
-            <td>{calculated}</td>
-            <td></td>
+        <tr className="hover:bg-gray-50 result-table-row-style">
+            <td className="">
+                {id}
+            </td>
+            <td className="font-medium capitalize">
+                {courseTitle}
+            </td>
+            <td className="font-medium uppercase">
+                {courseCode}
+            </td>
+            <td className="">
+                {courseLoad}
+            </td>
+            <td className="">
+                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${gradeColor}`}>
+                    {grade.toUpperCase()}
+                </span>
+            </td>
+            <td className="">
+                {calculated}
+            </td>
+            <td className="">
+                {/* Action buttons would go here */}
+            </td>
         </tr>
     )
 }
