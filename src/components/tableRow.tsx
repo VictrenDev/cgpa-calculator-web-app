@@ -1,3 +1,4 @@
+import MenuActions from "./menuAction"
 
 export interface TableRowProps {
     id?: number
@@ -27,28 +28,19 @@ export default function TableRowData({
 
     return (
         <tr className="hover:bg-gray-50 result-table-row-style">
-            <td className="">
-                {id}
-            </td>
-            <td className="font-medium capitalize">
-                {courseTitle}
-            </td>
-            <td className="font-medium uppercase">
-                {courseCode}
-            </td>
-            <td className="">
-                {courseLoad}
-            </td>
-            <td className="">
-                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${gradeColor}`}>
+            <td className="">{id}</td>
+            <td className="font-medium capitalize">{courseTitle}</td>
+            <td className="font-medium uppercase">{courseCode}</td>
+            <td className="text-center">{courseLoad}</td>
+            <td className="text-center">
+                <span
+                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${gradeColor}`}>
                     {grade.toUpperCase()}
                 </span>
             </td>
-            <td className="">
-                {calculated}
-            </td>
-            <td className="">
-                {/* Action buttons would go here */}
+            <td className="text-center">{calculated}</td>
+            <td className="text-center">
+                <MenuActions edit="edit text" remove="remove text" />
             </td>
         </tr>
     )

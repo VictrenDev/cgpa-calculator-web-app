@@ -15,7 +15,7 @@ export default async function Dashboard() {
 
     return (
         <>
-            <div className="flex justify-end font-medium m-8 container-fluid">
+            <div className="flex justify-end font-medium m-8 px-4 container-fluid">
                 <span className="text-blue-500 bg-blue-100 rounded-2xl py-1 px-3">
                     {totalSessions} Sessions
                 </span>

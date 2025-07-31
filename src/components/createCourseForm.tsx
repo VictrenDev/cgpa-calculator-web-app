@@ -3,7 +3,6 @@
 import { createCourse } from "@/lib/serverActions"
 import React, { useState } from "react"
 
-
 export default function Modal({ initialIsOpen = false }: { initialIsOpen: boolean }) {
     const [isPending, setIsPending] = useState(false)
     const [isOpen, setIsOpen] = useState(initialIsOpen)
@@ -35,7 +34,14 @@ export default function Modal({ initialIsOpen = false }: { initialIsOpen: boolea
         })
         try {
             await createCourse(data)
-            setFormData({ session: "", semester: "", courseTitle: "", courseCode: "", grade: "", courseLoad: "", })
+            setFormData({
+                session: "",
+                semester: "",
+                courseTitle: "",
+                courseCode: "",
+                grade: "",
+                courseLoad: "",
+            })
         } catch (err) {
             console.error("Failed to create course:", err)
         } finally {
@@ -52,8 +58,9 @@ export default function Modal({ initialIsOpen = false }: { initialIsOpen: boolea
 
             <section
                 onClick={toggleVisibility}
-                className={`${!isOpen ? "hidden" : ""
-                    } w-full h-screen fixed top-0 left-0 z-50 bg-gray-300/30 flex justify-center items-center`}>
+                className={`${
+                    !isOpen ? "hidden" : ""
+                } w-full h-screen fixed top-0 left-0 z-50 bg-gray-300/30 flex justify-center items-center`}>
                 <div
                     onClick={(e) => {
                         e.stopPropagation()
@@ -144,7 +151,11 @@ export default function Modal({ initialIsOpen = false }: { initialIsOpen: boolea
                             <button
                                 type="submit"
                                 disabled={isPending}
-                                className={`mt-6  ${isPending ? "bg-sky-300 hover:outline-sky-300" : "bg-sky-500 hover:outline-sky-500"} hover:outline-2 hover:outline-offset-2  rounded-md px-4 py-2 text-white text-sm font-bold cursor-pointer`}>
+                                className={`mt-6  ${
+                                    isPending
+                                        ? "bg-sky-300 hover:outline-sky-300"
+                                        : "bg-sky-500 hover:outline-sky-500"
+                                } hover:outline-2 hover:outline-offset-2  rounded-md px-4 py-2 text-white text-sm font-bold cursor-pointer`}>
                                 {isPending ? "Creating Course..." : "Create Course"}
                             </button>
                         </div>

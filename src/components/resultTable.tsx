@@ -1,4 +1,5 @@
 import TableRowData, { TableRowProps } from "@/components/tableRow"
+import MenuActions from "./menuAction"
 
 export default function ResultsTable({
     title,
@@ -11,8 +12,8 @@ export default function ResultsTable({
     courses: TableRowProps[]
 }) {
     return (
-        <div className="w-full max-w-6xl mx-auto px-2 sm:px-4">
-            <div className="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+        <>
+            <div className="relative rounded-lg shadow-md bg-white mb-6 w-full max-w-6xl mx-auto bg-orange-70">
                 <div className=" py-6 px-4 bg-gray-50 border-b border-gray-200 flex justify-between items-center w-full">
                     <h2 className="md:text-lg font-medium text-gray-700">{title} Results</h2>
                     <p className="text-sm text-gray-500 mt-1 flex gap-2 items-center  ">
@@ -24,19 +25,19 @@ export default function ResultsTable({
                 </div>
 
                 {/* Desktop Table */}
-                <div className="hidden md:block overflow-x-auto">
+                <div className="hidden md:block ">
                     <table className="min-w-full divide-y divide-gray-200">
                         <thead className="bg-gray-50">
                             <tr className="table-head-row-styles">
                                 <th scope="col" className="">
                                     S/N
                                 </th>
-                                <th scope="col">Course Title</th>
-                                <th scope="col">Code</th>
-                                <th scope="col">Units</th>
-                                <th scope="col">Grade</th>
-                                <th scope="col">Points</th>
-                                <th scope="col">Action</th>
+                                <th scope="col text-left">Course Title</th>
+                                <th scope="col text-left">Code</th>
+                                <th scope="col text-center">Units</th>
+                                <th scope="col text-center">Grade</th>
+                                <th scope="col text-center">Points</th>
+                                <th scope="col text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
@@ -54,7 +55,7 @@ export default function ResultsTable({
                     ))}
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
@@ -99,10 +100,9 @@ TableRowProps & { gpa: number }) {
                     <p className="text-gray-500">Points</p>
                     <p className="font-medium">{calculated}</p>
                 </div>
-                {/* <div>
-                    <p className="text-gray-500">Code</p>
-                    <p className="font-medium">{courseCode}</p>
-                </div> */}
+                <div>
+                    <MenuActions edit="" remove="" />
+                </div>
             </div>
         </div>
     )
