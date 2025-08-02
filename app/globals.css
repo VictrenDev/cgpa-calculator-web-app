@@ -16,6 +16,7 @@ html {
     --dashboard-icon-color: #171717;
     --dashboard-body-color-dark: #171717;
     --dashboard-search-bg-color: #1e1e1e;
+    scroll-behavior: smooth;
 }
 body {
     font-family: "Space Grotesk", sans-serif;

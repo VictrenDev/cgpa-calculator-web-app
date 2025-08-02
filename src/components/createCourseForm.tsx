@@ -2,11 +2,18 @@
 
 import { createCourse } from "@/lib/serverActions"
 import React, { useState } from "react"
-
+type CreateCourse = {
+    session?: string
+    semester?: string
+    courseTitle: string
+    courseCode: number | ""
+    grade: "A" | "B" | "C" | "D" | "E" | "F" | ""
+    courseLoad: number | ""
+}
 export default function Modal({ initialIsOpen = false }: { initialIsOpen: boolean }) {
     const [isPending, setIsPending] = useState(false)
     const [isOpen, setIsOpen] = useState(initialIsOpen)
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<CreateCourse>({
         session: "",
         semester: "",
         courseTitle: "",
@@ -35,8 +42,6 @@ export default function Modal({ initialIsOpen = false }: { initialIsOpen: boolea
         try {
             await createCourse(data)
             setFormData({
-                session: "",
-                semester: "",
                 courseTitle: "",
                 courseCode: "",
                 grade: "",

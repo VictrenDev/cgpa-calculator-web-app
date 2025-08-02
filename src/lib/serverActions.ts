@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/authOptions"
 import { gradePointMap } from "./utilities"
+import { revalidatePath } from "next/cache"
 
 export async function createUser(formData: FormData) {
     try {
@@ -100,6 +101,7 @@ export async function createCourse(formData: FormData) {
             },
         })
         console.log(createCourse)
+        revalidatePath("/dashboard")
     } catch (error) {
         console.log(error)
     }
