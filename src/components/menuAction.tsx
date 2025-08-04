@@ -1,10 +1,13 @@
 "use client"
+import { deleteAction } from "@/lib/serverActions"
 import { useState, useRef, useEffect } from "react"
 import { MoreVertical, Edit, Trash2 } from "lucide-react"
+import { useRouter } from "next/navigation"
 
-export default function MenuActions({ remove, edit }: { remove: string; edit: string }) {
+export default function MenuActions({ courseId }: { courseId: string }) {
     const [isOpen, setIsOpen] = useState(false)
     const menuRef = useRef<HTMLDivElement>(null)
+    const router = useRouter()
 
     // Close menu when clicking outside
     useEffect(() => {
@@ -18,6 +21,12 @@ export default function MenuActions({ remove, edit }: { remove: string; edit: st
         return () => document.removeEventListener("mousedown", handleClickOutside)
     }, [])
 
+    const handleDelete = async () => {
+        await deleteAction(courseId)
+        setIsOpen(false)
+        console.log(courseId)
+        router.refresh()
+    }
     const toggleMenu = (e: React.MouseEvent) => {
         e.stopPropagation() // Prevent immediate closing
         setIsOpen((prev) => !prev)
@@ -40,7 +49,7 @@ export default function MenuActions({ remove, edit }: { remove: string; edit: st
                     </button>
                     <button
                         className="w-full p-4 hover:bg-gray-100 hover:cursor-pointer flex gap-2 items-center"
-                        onClick={() => setIsOpen(false)}>
+                        onClick={handleDelete}>
                         <Trash2 className="w-4 h-4" />
                         <span className="text-xs md:text-sm text-nowrap">Delete Course</span>
                     </button>

@@ -12,6 +12,7 @@ export default async function Dashboard() {
         redirect("/login")
     }
     const { sessions, totalSessions, overallCGPA } = await getUserSessions()
+    if (overallCGPA) return
 
     return (
         <>
@@ -26,7 +27,6 @@ export default async function Dashboard() {
                         (sum, semester) => sum + (semester.courses?.length || 0),
                         0
                     )
-
                     return (
                         <div key={item.id} className="p-6 rounded-lg shadow-lg">
                             <div className="flex justify-between items-center w-full">
@@ -65,7 +65,7 @@ export default async function Dashboard() {
                                 </div>
                                 <p className="bg-gray-50 flex-1 flex flex-col py-6 rounded-md px-4 ">
                                     <span className="text-gray-500 text-sm">Session CGPA</span>
-                                    <span>{overallCGPA.toFixed(2)}</span>
+                                    <span>{item.cgpa.toFixed(2)}</span>
                                 </p>
                             </div>
                             <Link

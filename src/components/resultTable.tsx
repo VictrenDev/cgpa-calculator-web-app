@@ -41,9 +41,9 @@ export default function ResultsTable({
                             </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
-                            {courses.map((course, index) => (
-                                <TableRowData key={index} {...course} id={index + 1} />
-                            ))}
+                            {courses.map((course, index) => {
+                                return <TableRowData key={index} {...course} id={index + 1} />
+                            })}
                         </tbody>
                     </table>
                 </div>
@@ -60,7 +60,7 @@ export default function ResultsTable({
 }
 
 function MobileCourseCard({
-    // id,
+    courseId,
     courseTitle,
     courseCode,
     courseLoad,
@@ -101,7 +101,7 @@ TableRowProps & { gpa: number }) {
                     <p className="font-medium">{calculated}</p>
                 </div>
                 <div>
-                    <MenuActions edit="" remove="" />
+                    <MenuActions courseId={courseId} />
                 </div>
             </div>
         </div>

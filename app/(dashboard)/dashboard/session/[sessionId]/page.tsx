@@ -36,6 +36,7 @@ export default async function SessionPage({ params }: { params: Promise<{ sessio
     // 5. Map courses to table format
     const mapCourses = (courses: RawCourse[]) =>
         courses.map((course) => ({
+            courseId: course.id,
             courseTitle: course.courseTitle,
             courseCode: course.courseCode,
             courseLoad: course.courseLoad,
@@ -59,7 +60,7 @@ export default async function SessionPage({ params }: { params: Promise<{ sessio
                     {currentSession.name} - {currentSession.level}L -{email}
                 </h1> */}
                 <p className="bg-blue-100 px-4 py-2 rounded text-blue-500">
-                    {currentSession.level} Level CGPA:{" "}
+                    {currentSession.level} Level GPA:{" "}
                     <span className="font-semibold ">{sessionCGPA.toFixed(2)}</span>
                 </p>
             </div>

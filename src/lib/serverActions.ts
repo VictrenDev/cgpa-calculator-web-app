@@ -161,6 +161,17 @@ export async function getUserCourse(sessionId: string) {
     return user.sessions
 }
 
+export async function deleteAction(courseId: string) {
+    const session = await getServerSession(authOptions)
+    if (!session?.user?.email) throw new Error("Not authenticated")
+
+    await prisma.course.delete({
+        where: { id: courseId },
+    })
+
+    revalidatePath("/dashboard")
+}
+
 export async function getUserSessions() {
     // 🔐 1. Authenticate the user
     const authSession = await getServerSession(authOptions)

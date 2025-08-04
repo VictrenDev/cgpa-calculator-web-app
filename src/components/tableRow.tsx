@@ -2,6 +2,7 @@ import MenuActions from "./menuAction"
 
 export interface TableRowProps {
     id?: number
+    courseId: string
     courseTitle: string
     courseCode: string
     courseLoad: number
@@ -11,6 +12,7 @@ export interface TableRowProps {
 
 export default function TableRowData({
     id,
+    courseId,
     courseTitle,
     courseCode,
     courseLoad,
@@ -40,7 +42,7 @@ export default function TableRowData({
             </td>
             <td className="text-center">{calculated}</td>
             <td className="text-center">
-                <MenuActions edit="edit text" remove="remove text" />
+                <MenuActions courseId={courseId} />
             </td>
         </tr>
     )
