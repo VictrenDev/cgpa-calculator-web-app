@@ -51,7 +51,7 @@ export default function ResultsTable({
                 {/* Mobile Cards */}
                 <div className="md:hidden">
                     {courses.map((course, index) => (
-                        <MobileCourseCard key={index} {...course} id={index + 1} gpa={gpa} />
+                        <MobileCourseCard key={index} {...course} gpa={gpa} />
                     ))}
                 </div>
             </div>
@@ -59,15 +59,7 @@ export default function ResultsTable({
     )
 }
 
-function MobileCourseCard({
-    courseId,
-    courseTitle,
-    courseCode,
-    courseLoad,
-    grade,
-    calculated,
-}: // gpa
-TableRowProps & { gpa: number }) {
+function MobileCourseCard({ ...course }: TableRowProps & { gpa: number }) {
     const gradeColor = {
         a: "bg-green-100 text-green-800",
         b: "bg-blue-100 text-blue-800",
@@ -75,33 +67,35 @@ TableRowProps & { gpa: number }) {
         d: "bg-orange-100 text-orange-800",
         e: "bg-red-100 text-red-800",
         f: "bg-red-100 text-red-800",
-    }[grade]
+    }[course.grade]
     return (
         <div className="p-4 border-b border-gray-200 last:border-b-0">
             <div className="flex justify-between items-start">
                 <div>
                     <h3 className="text-sm font-medium text-gray-900">
-                        {courseCode.toUpperCase()}
+                        {course.courseCode.toUpperCase()}
                     </h3>
-                    <p className="text-sm text-gray-500 mt-1 capitalize">{courseTitle}</p>
+                    <p className="text-sm text-gray-500 mt-1 capitalize">
+                        {course.courseTitle.toUpperCase()}
+                    </p>
                 </div>
                 <span
                     className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${gradeColor}`}>
-                    {grade.toUpperCase()}
+                    {course.grade.toUpperCase()}
                 </span>
             </div>
 
             <div className="mt-3 grid grid-cols-3 gap-2 text-sm">
                 <div>
                     <p className="text-gray-500">Units</p>
-                    <p className="font-medium">{courseLoad}</p>
+                    <p className="font-medium">{course.courseLoad}</p>
                 </div>
                 <div>
                     <p className="text-gray-500">Points</p>
-                    <p className="font-medium">{calculated}</p>
+                    <p className="font-medium">{course.calculated}</p>
                 </div>
                 <div>
-                    <MenuActions courseId={courseId} />
+                    <MenuActions course={course} />
                 </div>
             </div>
         </div>

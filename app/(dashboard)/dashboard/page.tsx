@@ -12,13 +12,12 @@ export default async function Dashboard() {
         redirect("/login")
     }
     const { sessions, totalSessions, overallCGPA } = await getUserSessions()
-    if (overallCGPA) return
-
+    if (!overallCGPA) return
     return (
         <>
             <div className="flex justify-end font-medium m-8 px-4 container-fluid">
                 <span className="text-blue-500 bg-blue-100 rounded-2xl py-1 px-3">
-                    {totalSessions} Sessions
+                    {totalSessions} Sessions {overallCGPA.toFixed(2)} CGPA
                 </span>
             </div>
             <div className="container-fluid grid space-y-12">

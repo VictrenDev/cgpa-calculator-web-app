@@ -1,19 +1,18 @@
 "use client"
 
-import { createCourse } from "@/lib/serverActions"
-import React, { useState } from "react"
-type CreateCourse = {
-    session?: string
-    semester?: string
-    courseTitle: string
-    courseCode: string | ""
-    grade: "A" | "B" | "C" | "D" | "E" | "F" | ""
-    courseLoad: number | ""
+import { editCourse, getCourseWithDetails } from "@/lib/serverActions"
+import React, { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
+
+type EditCourseProps = {
+    courseId: string
+    initialIsOpen?: boolean
 }
-export default function CreateCourseModal({ initialIsOpen = false }: { initialIsOpen?: boolean }) {
+
+export default function EditCourseModal({ courseId, initialIsOpen = false }: EditCourseProps) {
     const [isPending, setIsPending] = useState(false)
     const [isOpen, setIsOpen] = useState(initialIsOpen)
-    const [formData, setFormData] = useState<CreateCourse>({
+    const [formData, setFormData] = useState({
         session: "",
         semester: "",
         courseTitle: "",
@@ -21,6 +20,26 @@ export default function CreateCourseModal({ initialIsOpen = false }: { initialIs
         grade: "",
         courseLoad: "",
     })
+    const router = useRouter()
+    // fetch course details from server
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const course = await getCourseWithDetails(courseId) // ⬅️ must be a server action returning JSON
+                setFormData({
+                    session: course.semester.session.name,
+                    semester: course.semester.name,
+                    courseTitle: course.courseTitle,
+                    courseCode: course.courseCode,
+                    grade: course.grade,
+                    courseLoad: course.courseLoad.toString(),
+                })
+            } catch (err) {
+                console.error("Failed to fetch course details:", err)
+            }
+        }
+        fetchData()
+    }, [courseId])
 
     function toggleVisibility(e: React.MouseEvent) {
         e.preventDefault()
@@ -40,18 +59,11 @@ export default function CreateCourseModal({ initialIsOpen = false }: { initialIs
             data.append(key, value.toString())
         })
         try {
-            await createCourse(data)
-            setFormData({
-                session: "",
-                semester: "",
-                courseTitle: "",
-                courseCode: "",
-                grade: "",
-                courseLoad: "",
-            })
+            await editCourse(courseId, data)
+            router.refresh()
             setIsOpen(false)
         } catch (err) {
-            console.error("Failed to create course:", err)
+            console.error("Failed to update course:", err)
         } finally {
             setIsPending(false)
         }
@@ -62,44 +74,30 @@ export default function CreateCourseModal({ initialIsOpen = false }: { initialIs
             <button
                 onClick={toggleVisibility}
                 className="py-3 px-4 rounded-md bg-gray-800 fixed bottom-10 right-10 cursor-pointer text-xs text-white font-semibold">
-                Create Course
+                Edit Course
             </button>
-
             <section
                 onClick={toggleVisibility}
                 className={`${
                     !isOpen ? "hidden" : ""
                 } w-full h-screen fixed top-0 left-0 z-50 bg-gray-300/30 flex justify-center items-center`}>
                 <div
-                    onClick={(e) => {
-                        e.stopPropagation()
-                    }}
+                    onClick={(e) => e.stopPropagation()}
                     className="w-120 p-4 pt-8 mx-4 bg-white rounded-xl text-gray-700">
                     <form className="space-y-4" onSubmit={handleSubmit}>
                         <div className="flex justify-center gap-4">
-                            <select
-                                className="input-default-style"
-                                name="session"
+                            <input
+                                type="text"
+                                className="input-default-style bg-gray-100"
                                 value={formData.session}
-                                onChange={handleChange}
-                                required>
-                                <option value="">Select Session</option>
-                                <option value="2021-2022">2021-2022</option>
-                                <option value="2022-2023">2022-2023</option>
-                                <option value="2023-2024">2023-2024</option>
-                                <option value="2024-2025">2024-2025</option>
-                            </select>
-
-                            <select
-                                className="input-default-style"
-                                name="semester"
+                                disabled
+                            />
+                            <input
+                                type="text"
+                                className="input-default-style bg-gray-100"
                                 value={formData.semester}
-                                onChange={handleChange}
-                                required>
-                                <option value="">Select Semester</option>
-                                <option value="First Semester">First Semester</option>
-                                <option value="Second Semester">Second Semester</option>
-                            </select>
+                                disabled
+                            />
                         </div>
 
                         <input
@@ -165,7 +163,7 @@ export default function CreateCourseModal({ initialIsOpen = false }: { initialIs
                                         ? "bg-sky-300 hover:outline-sky-300"
                                         : "bg-sky-500 hover:outline-sky-500"
                                 } hover:outline-2 hover:outline-offset-2  rounded-md px-4 py-2 text-white text-sm font-bold cursor-pointer`}>
-                                {isPending ? "Creating..." : "Create Course"}
+                                {isPending ? "Updating..." : "Update Course"}
                             </button>
                         </div>
                     </form>

@@ -30,7 +30,7 @@ body {
 
 @layer components {
     .input-default-style {
-        @apply w-full my-2 rounded-md outline outline-gray-300 outline-offset-2 py-2 px-3 hover:outline-sky-500  focus:border-sky-500 focus:outline-2 focus:outline-offset-2  focus:outline-sky-500 transition-colors duration-300 ease-in-out;
+        @apply w-full my-2 rounded-md outline outline-gray-300 outline-offset-2 py-2 px-3 hover:outline-sky-500  focus:border-sky-500 focus:outline-2 focus:outline-offset-2  focus:outline-sky-500 transition-colors duration-300 ease-in-out block;
     }
 
     .result-table-row-style > td {
@@ -67,5 +67,13 @@ body {
     }
     .table-head-row-styles > th {
         @apply px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider;
+    }
+    /* Anchor the dropdown to the trigger button */
+    .dropdown-menu {
+        position: absolute;
+        position-anchor: --trigger;
+        top: anchor(bottom);
+        left: anchor(start);
+        margin-top: 4px; /* spacing */
     }
 }

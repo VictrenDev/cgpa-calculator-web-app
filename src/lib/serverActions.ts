@@ -161,7 +161,7 @@ export async function getUserCourse(sessionId: string) {
     return user.sessions
 }
 
-export async function deleteAction(courseId: string) {
+export async function deleteCourse(courseId: string) {
     const session = await getServerSession(authOptions)
     if (!session?.user?.email) throw new Error("Not authenticated")
 
@@ -170,6 +170,50 @@ export async function deleteAction(courseId: string) {
     })
 
     revalidatePath("/dashboard")
+}
+
+export async function editCourse(courseId: string, formData: FormData) {
+    const session = await getServerSession(authOptions)
+    if (!session?.user?.email) throw new Error("Not authenticated")
+
+    const courseTitle = formData.get("courseTitle") as string
+    const courseCode = formData.get("courseCode") as string
+    const grade = formData.get("grade") as string
+    const courseLoad = Number(formData.get("courseLoad"))
+
+    if (!courseTitle || !courseCode || !grade || !courseLoad) {
+        throw new Error("All fields are required")
+    }
+
+    await prisma.course.update({
+        where: { id: courseId },
+        data: {
+            courseTitle,
+            courseCode,
+            grade,
+            courseLoad,
+        },
+    })
+}
+
+export async function getCourseWithDetails(courseId: string) {
+    const session = await getServerSession(authOptions)
+    if (!session?.user?.email) throw new Error("Not authenticated")
+
+    const course = await prisma.course.findUnique({
+        where: { id: courseId },
+        include: {
+            semester: {
+                include: {
+                    session: true,
+                },
+            },
+        },
+    })
+
+    if (!course) throw new Error("Course not found")
+
+    return course
 }
 
 export async function getUserSessions() {

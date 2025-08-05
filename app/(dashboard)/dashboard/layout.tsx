@@ -31,7 +31,7 @@ export default function RootLayout({
                     <TopNavigationBar />
                     <SessionProviderWrapper>{children}</SessionProviderWrapper>
                 </main>
-                <Modal initialIsOpen={false} />
+                <Modal mode="create" initialIsOpen={false} />
             </body>
         </html>
     )
