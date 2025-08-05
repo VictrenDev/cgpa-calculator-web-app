@@ -1,13 +1,13 @@
 "use client"
-import React, { useEffect, useState, useRef, ElementType, ComponentProps } from "react";
+import React, { useEffect, useState, useRef, ElementType, ComponentProps } from "react"
 
 type ScrollEffectProps<T extends ElementType> = {
-    as?: T;
-    children: React.ReactNode;
-    delay?: number;
-    threshold?: number;
-    className?: string;
-} & ComponentProps<T>;
+    as?: T
+    children: React.ReactNode
+    delay?: number
+    threshold?: number
+    className?: string
+} & ComponentProps<T>
 
 export default function ScrollEffect<T extends ElementType = "div">({
     as: Component = "div",
@@ -17,27 +17,27 @@ export default function ScrollEffect<T extends ElementType = "div">({
     threshold = 0.1,
     ...props
 }: ScrollEffectProps<T>) {
-    const [isVisible, setIsVisible] = useState(false);
-    const elementRef = useRef<any>(null); // Using any here to simplify
+    const [isVisible, setIsVisible] = useState(false)
+    const elementRef = useRef<HTMLElement>(null) // Using any here to simplify
 
     useEffect(() => {
-        const currentElement = elementRef.current;
-        if (!currentElement) return;
+        const currentElement = elementRef.current
+        if (!currentElement) return
 
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
-                    setIsVisible(true);
-                    observer.unobserve(entry.target);
+                    setIsVisible(true)
+                    observer.unobserve(entry.target)
                 }
             },
             { threshold, rootMargin: "0px" }
-        );
+        )
 
-        observer.observe(currentElement);
+        observer.observe(currentElement)
 
-        return () => observer.unobserve(currentElement);
-    }, [threshold]);
+        return () => observer.unobserve(currentElement)
+    }, [threshold])
 
     return (
         <Component
@@ -50,9 +50,8 @@ export default function ScrollEffect<T extends ElementType = "div">({
         ${className}
       `}
             style={{ transitionDelay: isVisible ? `${delay}ms` : "0ms" }}
-            {...props}
-        >
+            {...props}>
             {children}
         </Component>
-    );
+    )
 }

@@ -2,10 +2,18 @@
 
 import { createCourse } from "@/lib/serverActions"
 import React, { useState } from "react"
-
-export default function Modal({ initialIsOpen = false }: { initialIsOpen: boolean }) {
+type CreateCourse = {
+    session?: string
+    semester?: string
+    courseTitle: string
+    courseCode: string | ""
+    grade: "A" | "B" | "C" | "D" | "E" | "F" | ""
+    courseLoad: number | ""
+}
+export default function CreateCourseModal({ initialIsOpen = false }: { initialIsOpen?: boolean }) {
+    const [isPending, setIsPending] = useState(false)
     const [isOpen, setIsOpen] = useState(initialIsOpen)
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<CreateCourse>({
         session: "",
         semester: "",
         courseTitle: "",
@@ -23,15 +31,14 @@ export default function Modal({ initialIsOpen = false }: { initialIsOpen: boolea
         const { name, value } = e.target
         setFormData((prev) => ({ ...prev, [name]: value }))
     }
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        console.log("form is submitted")
-        e.preventDefault()
 
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        setIsPending(true)
         const data = new FormData()
         Object.entries(formData).forEach(([key, value]) => {
-            data.append(key, value)
+            data.append(key, value.toString())
         })
-
         try {
             await createCourse(data)
             setFormData({
@@ -42,9 +49,11 @@ export default function Modal({ initialIsOpen = false }: { initialIsOpen: boolea
                 grade: "",
                 courseLoad: "",
             })
-            setIsOpen(false) // close modal on success
+            setIsOpen(false)
         } catch (err) {
             console.error("Failed to create course:", err)
+        } finally {
+            setIsPending(false)
         }
     }
 
@@ -53,7 +62,7 @@ export default function Modal({ initialIsOpen = false }: { initialIsOpen: boolea
             <button
                 onClick={toggleVisibility}
                 className="py-3 px-4 rounded-md bg-gray-800 fixed bottom-10 right-10 cursor-pointer text-xs text-white font-semibold">
-                Upload Course
+                Create Course
             </button>
 
             <section
@@ -150,8 +159,13 @@ export default function Modal({ initialIsOpen = false }: { initialIsOpen: boolea
                             </button>
                             <button
                                 type="submit"
-                                className="mt-6 bg-sky-500 hover:bg-sky-700 hover:outline-2 hover:outline-offset-2 hover:outline-sky-700 rounded-md px-4 py-2 text-white text-sm font-bold cursor-pointer">
-                                Create Course
+                                disabled={isPending}
+                                className={`mt-6  ${
+                                    isPending
+                                        ? "bg-sky-300 hover:outline-sky-300"
+                                        : "bg-sky-500 hover:outline-sky-500"
+                                } hover:outline-2 hover:outline-offset-2  rounded-md px-4 py-2 text-white text-sm font-bold cursor-pointer`}>
+                                {isPending ? "Creating..." : "Create Course"}
                             </button>
                         </div>
                     </form>

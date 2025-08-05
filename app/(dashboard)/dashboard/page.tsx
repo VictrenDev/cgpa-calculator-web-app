@@ -1,9 +1,9 @@
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/authOptions"
 import { redirect } from "next/navigation"
-import LogoutButton from "@/components/signOut"
-import Chart from "@/components/chartComponent"
-import ScrollEffect from "@/components/intersectionObserver"
+import Link from "next/link"
+import { getUserSessions } from "@/lib/serverActions"
+// import LogoutButton from "@/components/signOut"
 
 export default async function Dashboard() {
     const session = await getServerSession(authOptions)
@@ -11,43 +11,71 @@ export default async function Dashboard() {
     if (!session) {
         redirect("/login")
     }
-
-    const { firstName, lastName, email } = session.user as {
-        firstName: string,
-        lastName: string,
-        email: string
-    }
-    console.log(session.user)
-
+    const { sessions, totalSessions, overallCGPA } = await getUserSessions()
+    if (!overallCGPA) return
     return (
-        <div className="bg-[#f0f8ff] min-h-screen">
-            <h1>
-                Welcome {firstName || ""} {lastName || ""} ({email})
-            </h1>
-            <LogoutButton />
-
-            <div className=" grid grid-cols-4 grid-rows-6 gap-2 p-4">
-                <ScrollEffect className="bg-[#fefefe] lg:row-start-1 lg:row-end-2 lg:col-start-1 lg:col-end-2 rounded-md p-2">
-                    1
-                </ScrollEffect>
-
-                <ScrollEffect delay={200} className="bg-[#fefefe] lg:row-start-1 lg:row-end-2 lg:col-start-2 lg:col-end-3 rounded-md p-2">
-                    2
-                </ScrollEffect>
-
-                <ScrollEffect delay={600} className="bg-[#fefefe] lg:row-start-2 lg:row-end-4 lg:col-start-1 lg:col-end-3 rounded-md p-2">
-                    3
-                </ScrollEffect>
-
-                <ScrollEffect delay={400} className="bg-[#fefefe] lg:row-start-1 lg:row-end-4 lg:col-start-3 lg:col-end-5 rounded-md p-2 flex justify-center items-center flex-col">
-                    <p className="mb-6 text-4xl text-gray-500">Grade Graph</p>
-                    <Chart />
-                </ScrollEffect>
-
-                <ScrollEffect delay={800} className="bg-[#fefefe] lg:row-start-4 lg:row-end-6 lg:col-start-1 lg:col-end-5 rounded-md p-2">
-                    5
-                </ScrollEffect>
+        <>
+            <div className="flex justify-end font-medium m-8 px-4 container-fluid">
+                <span className="text-blue-500 bg-blue-100 rounded-2xl py-1 px-3">
+                    {totalSessions} Sessions {overallCGPA.toFixed(2)} CGPA
+                </span>
             </div>
-        </div>
+            <div className="container-fluid grid space-y-12">
+                {sessions.map((item) => {
+                    const totalCourses = item.semesters.reduce(
+                        (sum, semester) => sum + (semester.courses?.length || 0),
+                        0
+                    )
+                    return (
+                        <div key={item.id} className="p-6 rounded-lg shadow-lg">
+                            <div className="flex justify-between items-center w-full">
+                                <p className="grid">
+                                    <span className="font-bold md:text-xl">{item.name}</span>
+                                    <span className="text-gray-500">Academic Session</span>
+                                </p>
+                                <span className="text-blue-500 bg-blue-100 px-3 py-1  text-sm font-medium rounded-2xl">
+                                    Level {item.level}
+                                </span>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-12">
+                                <p className="bg-gray-50 flex-1 flex flex-col py-6 rounded-md px-4 ">
+                                    <span className="text-gray-500 text-sm">Total Semesters</span>
+                                    <span>{item.semester.length}</span>
+                                </p>
+                                <p className="bg-gray-50 flex-1 flex flex-col py-6 rounded-md px-4 ">
+                                    <span className="text-gray-500 text-sm">Total Courses</span>
+                                    <span>{totalCourses}</span>
+                                </p>
+                                <div className="bg-gray-50 flex-1 flex flex-col py-6 rounded-md px-4 ">
+                                    <span className="text-gray-500 text-sm ">Session GPA</span>
+                                    <div className="flex gap-4 text-xs">
+                                        {item.semesters.map((semester) => (
+                                            <p
+                                                className="grid text-gray-500 mt-1"
+                                                key={semester.id}>
+                                                <span className="font-medium text-gray-700">
+                                                    {semester.name}
+                                                </span>
+                                                <span>GPA: {semester.gpa.toFixed(2)}</span>
+                                                <span>Courses: {semester.courses.length}</span>
+                                            </p>
+                                        ))}
+                                    </div>
+                                </div>
+                                <p className="bg-gray-50 flex-1 flex flex-col py-6 rounded-md px-4 ">
+                                    <span className="text-gray-500 text-sm">Session CGPA</span>
+                                    <span>{item.cgpa.toFixed(2)}</span>
+                                </p>
+                            </div>
+                            <Link
+                                className="px-6 py-4 bg-blue-700 rounded-md text-white inline-block mt-10 font-medium text-sm"
+                                href={`/dashboard/session/${item.name}`}>
+                                View Details
+                            </Link>
+                        </div>
+                    )
+                })}
+            </div>
+        </>
     )
 }
