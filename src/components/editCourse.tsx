@@ -20,26 +20,28 @@ export default function EditCourseModal({ courseId, initialIsOpen = false }: Edi
         grade: "",
         courseLoad: "",
     })
+    //initalize the router object
     const router = useRouter()
-    // fetch course details from server
+    // Load course details when modal opens
     useEffect(() => {
-        async function fetchData() {
+        if (!isOpen) return
+        async function loadCourse() {
             try {
-                const course = await getCourseWithDetails(courseId) // ⬅️ must be a server action returning JSON
+                const details = await getCourseWithDetails(courseId)
                 setFormData({
-                    session: course.semester.session.name,
-                    semester: course.semester.name,
-                    courseTitle: course.courseTitle,
-                    courseCode: course.courseCode,
-                    grade: course.grade,
-                    courseLoad: course.courseLoad.toString(),
+                    session: details.session,
+                    semester: details.semester,
+                    courseTitle: details.courseTitle,
+                    courseCode: details.courseCode,
+                    grade: details.grade,
+                    courseLoad: details.courseLoad.toString(),
                 })
             } catch (err) {
                 console.error("Failed to fetch course details:", err)
             }
         }
-        fetchData()
-    }, [courseId])
+        loadCourse()
+    }, [isOpen, courseId])
 
     function toggleVisibility(e: React.MouseEvent) {
         e.preventDefault()
@@ -60,7 +62,7 @@ export default function EditCourseModal({ courseId, initialIsOpen = false }: Edi
         })
         try {
             await editCourse(courseId, data)
-            router.refresh()
+            router.refresh() //refresh page after updating the course
             setIsOpen(false)
         } catch (err) {
             console.error("Failed to update course:", err)
@@ -71,11 +73,6 @@ export default function EditCourseModal({ courseId, initialIsOpen = false }: Edi
 
     return (
         <>
-            <button
-                onClick={toggleVisibility}
-                className="py-3 px-4 rounded-md bg-gray-800 fixed bottom-10 right-10 cursor-pointer text-xs text-white font-semibold">
-                Edit Course
-            </button>
             <section
                 onClick={toggleVisibility}
                 className={`${
@@ -87,16 +84,16 @@ export default function EditCourseModal({ courseId, initialIsOpen = false }: Edi
                     <form className="space-y-4" onSubmit={handleSubmit}>
                         <div className="flex justify-center gap-4">
                             <input
-                                type="text"
-                                className="input-default-style bg-gray-100"
+                                name="session"
                                 value={formData.session}
                                 disabled
+                                className="input-default-style bg-gray-100 cursor-not-allowed"
                             />
                             <input
-                                type="text"
-                                className="input-default-style bg-gray-100"
+                                name="semester"
                                 value={formData.semester}
                                 disabled
+                                className="input-default-style bg-gray-100 cursor-not-allowed"
                             />
                         </div>
 
@@ -158,11 +155,11 @@ export default function EditCourseModal({ courseId, initialIsOpen = false }: Edi
                             <button
                                 type="submit"
                                 disabled={isPending}
-                                className={`mt-6  ${
+                                className={`mt-6 ${
                                     isPending
                                         ? "bg-sky-300 hover:outline-sky-300"
                                         : "bg-sky-500 hover:outline-sky-500"
-                                } hover:outline-2 hover:outline-offset-2  rounded-md px-4 py-2 text-white text-sm font-bold cursor-pointer`}>
+                                } hover:outline-2 hover:outline-offset-2 rounded-md px-4 py-2 text-white text-sm font-bold cursor-pointer`}>
                                 {isPending ? "Updating..." : "Update Course"}
                             </button>
                         </div>

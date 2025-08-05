@@ -195,7 +195,6 @@ export async function editCourse(courseId: string, formData: FormData) {
         },
     })
 }
-
 export async function getCourseWithDetails(courseId: string) {
     const session = await getServerSession(authOptions)
     if (!session?.user?.email) throw new Error("Not authenticated")
@@ -205,7 +204,7 @@ export async function getCourseWithDetails(courseId: string) {
         include: {
             semester: {
                 include: {
-                    session: true,
+                    session: true, // get session info too
                 },
             },
         },
@@ -213,7 +212,15 @@ export async function getCourseWithDetails(courseId: string) {
 
     if (!course) throw new Error("Course not found")
 
-    return course
+    return {
+        courseId: course.id,
+        courseTitle: course.courseTitle,
+        courseCode: course.courseCode,
+        grade: course.grade,
+        courseLoad: course.courseLoad,
+        semester: course.semester.name,
+        session: course.semester.session.name,
+    }
 }
 
 export async function getUserSessions() {

@@ -34,7 +34,7 @@ body {
     }
 
     .result-table-row-style > td {
-        @apply p-3 whitespace-nowrap hover:cursor-pointer text-sm text-gray-700;
+        @apply py-3 px-4 whitespace-nowrap hover:cursor-pointer text-sm text-gray-700;
 
         &:first-child {
             @apply text-center;

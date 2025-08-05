@@ -29,10 +29,10 @@ export default function MenuActions({ course }: { course: TableRowProps }) {
     }
 
     return (
-        <div ref={menuRef} className="[anchor-name:--trigger] relative inline-block">
+        <div ref={menuRef} className="relative inline-block">
             <button
                 onClick={(e) => {
-                    e.stopPropagation()
+                    e.stopPropagation() // ✅ stops bubbling to outside click handler
                     setIsOpen((prev) => !prev)
                 }}
                 className="p-3 rounded-full border border-gray-200 hover:cursor-pointer">
@@ -40,9 +40,12 @@ export default function MenuActions({ course }: { course: TableRowProps }) {
             </button>
 
             {isOpen && (
-                <div className="dropdown-menu bg-gray-50 z-50 overflow-hidden rounded-md shadow">
+                <div
+                    className="dropdown-menu bg-gray-50 absolute right-0 mt-2 z-50 w-40 overflow-hidden rounded-md shadow"
+                    onClick={(e) => e.stopPropagation()} // ✅ stop closing when clicking inside
+                >
                     <button
-                        className="w-full p-4 hover:bg-gray-100 flex gap-2 items-center"
+                        className="px-4 py-6 hover:bg-gray-100 flex gap-2 items-center w-full border-b border-b-gray-200"
                         onClick={() => {
                             setIsEditing(true)
                             setIsOpen(false)
@@ -51,7 +54,7 @@ export default function MenuActions({ course }: { course: TableRowProps }) {
                         <span className="text-xs md:text-sm">Edit Course</span>
                     </button>
                     <button
-                        className="w-full p-4 hover:bg-gray-100 flex gap-2 items-center"
+                        className="px-4 py-6 hover:bg-gray-100 flex gap-2 items-center"
                         onClick={handleDelete}>
                         <Trash2 className="w-4 h-4" />
                         <span className="text-xs md:text-sm">Delete Course</span>
@@ -59,18 +62,7 @@ export default function MenuActions({ course }: { course: TableRowProps }) {
                 </div>
             )}
 
-            {isEditing && (
-                <EditCourseModal
-                    initialIsOpen={true}
-                    courseId={course.courseId}
-                    session=""
-                    semester=""
-                    courseTitle={course.courseTitle}
-                    courseCode={course.courseCode}
-                    grade={course.grade.toUpperCase() as "A" | "B" | "C" | "D" | "E" | "F"}
-                    courseLoad={course.courseLoad}
-                />
-            )}
+            {isEditing && <EditCourseModal initialIsOpen={true} courseId={course.courseId} />}
         </div>
     )
 }

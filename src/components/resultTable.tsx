@@ -29,15 +29,27 @@ export default function ResultsTable({
                     <table className="min-w-full divide-y divide-gray-200">
                         <thead className="bg-gray-50">
                             <tr className="table-head-row-styles">
-                                <th scope="col" className="">
+                                <th scope="col" className="text-left">
                                     S/N
                                 </th>
-                                <th scope="col text-left">Course Title</th>
-                                <th scope="col text-left">Code</th>
-                                <th scope="col text-center">Units</th>
-                                <th scope="col text-center">Grade</th>
-                                <th scope="col text-center">Points</th>
-                                <th scope="col text-center">Action</th>
+                                <th scope="col" className="text-left">
+                                    Course Title
+                                </th>
+                                <th scope="col" className="text-left">
+                                    Code
+                                </th>
+                                <th scope="col" className="text-center">
+                                    Units
+                                </th>
+                                <th scope="col" className="text-center">
+                                    Grade
+                                </th>
+                                <th scope="col" className="text-center">
+                                    Points
+                                </th>
+                                <th scope="col" className="text-center">
+                                    Action
+                                </th>
                             </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
