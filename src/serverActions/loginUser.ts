@@ -14,7 +14,7 @@ export default async function loginUser(formdata: FormData) {
         where: { email },
     })
 
-    if (!user) {
+    if (!user || user.password) {
         return console.log("User not found")
     }
 

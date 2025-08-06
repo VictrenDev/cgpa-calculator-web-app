@@ -1,10 +1,12 @@
 "use client"
 import Link from "next/link"
 import Image from "next/image"
-import { useRef } from "react"
+import { Loader2 } from "lucide-react"
+import { useRef, useState } from "react"
 import { signIn } from "next-auth/react"
 
 export default function Signup() {
+    const [isSigningIn, setIsSigningIn] = useState(false)
     const firstNameRef = useRef<HTMLInputElement>(null)
     const lastNameRef = useRef<HTMLInputElement>(null)
     const emailRef = useRef<HTMLInputElement>(null)
@@ -24,8 +26,13 @@ export default function Signup() {
         })
 
         if (res.ok) {
-            const { email, password } = await res.json()
-            await signIn("credentials", { email, password, callbackUrl: "/dashboard" })
+            try {
+                setIsSigningIn(true)
+                const { email, password } = await res.json()
+                await signIn("credentials", { email, password, callbackUrl: "/dashboard" })
+            } finally {
+                setIsSigningIn(false)
+            }
         } else {
             alert("Signup failed") // you can improve with better UI
         }
@@ -76,8 +83,19 @@ export default function Signup() {
                     />
                     <button
                         type="submit"
-                        className="border border-gray-300 rounded-md w-full p-2 flex items-center justify-center gap-2 transition-colors duration-800 ease-in-out mt-8 mb-4">
-                        Create Account
+                        disabled={isSigningIn}
+                        className={`w-full p-3 rounded-lg flex justify-center items-center text-white font-medium ${
+                            isSigningIn ? "bg-gray-800" : "bg-black"
+                        } hover:bg-gray-800 active:bg-gray-900 transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed shadow-sm hover:shadow-md mt-8 mb-4 cursor-pointer`}>
+                        {isSigningIn ? (
+                            <>
+                                {" "}
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Creating
+                                Account...{" "}
+                            </>
+                        ) : (
+                            "Create Account"
+                        )}
                     </button>
                     <div className="flex justify-between gap-6 my-4 mt-2 items-center">
                         <div className="w-full h-[1px] bg-gray-300"></div>
@@ -89,7 +107,7 @@ export default function Signup() {
                     <button
                         type="button"
                         onClick={() => signIn("google")}
-                        className="border border-gray-300 rounded-md w-full p-2 flex items-center justify-center gap-2 transition-colors duration-800 ease-in-out">
+                        className="border border-gray-300 rounded-md w-full p-2 flex items-center justify-center gap-2 transition-colors duration-800 ease-in-out cursor-pointer">
                         <Image src="/search.png" alt="Google logo" width={24} height={24} />
                         Google
                     </button>

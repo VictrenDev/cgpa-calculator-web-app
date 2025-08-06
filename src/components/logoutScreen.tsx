@@ -4,11 +4,17 @@ import { LogOut } from "lucide-react"
 import { signOut } from "next-auth/react"
 export default function LogoutUser() {
     const [isOpen, setIsOpen] = useState(false)
-    const handleLogout = () => {
-        signOut({
-            callbackUrl: "/",
-            redirect: true,
-        })
+    const [isLoggingOut, setIsLoggingOut] = useState(false)
+    const handleLogout = async () => {
+        setIsLoggingOut(true)
+        try {
+            signOut({
+                callbackUrl: "/",
+                redirect: true,
+            })
+        } finally {
+            setIsLoggingOut(false)
+        }
     }
     function toggleVisibility(e: React.MouseEvent) {
         e.preventDefault()
@@ -44,8 +50,11 @@ export default function LogoutUser() {
                         </button>
                         <button
                             onClick={handleLogout}
-                            className="py-3 px-6 text-sm rounded-lg bg-red-50 text-red-700 hover:bg-red-100 transition-colors duration-300 ease-in-out hover:cursor-pointer">
-                            Logout
+                            disabled={isLoggingOut}
+                            className={`py-3 px-6 text-sm rounded-lg bg-red-50 ${
+                                isLoggingOut ? "text-red-400 " : "text-red-700 "
+                            }  hover:bg-red-100 transition-colors duration-300 ease-in-out hover:cursor-pointer`}>
+                            {isLoggingOut ? "Logging Out..." : "Logout"}
                         </button>
                     </div>
                 </div>

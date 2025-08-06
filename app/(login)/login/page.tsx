@@ -4,14 +4,17 @@ import Image from "next/image"
 import { useRef, useState } from "react"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
+import { Loader2 } from "lucide-react"
 
 export default function Login() {
     const emailRef = useRef<HTMLInputElement>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
     const [error, setError] = useState("")
+    const [isSigningIn, setIsSigningIn] = useState<boolean>(false)
     const router = useRouter()
 
     const handleSubmit = async (e: React.FormEvent) => {
+        setIsSigningIn(true)
         e.preventDefault()
         setError("")
 
@@ -22,16 +25,18 @@ export default function Login() {
             setError("Email and password are required")
             return
         }
+        try {
+            const result = await signIn("credentials", {
+                redirect: false, // We’ll redirect manually
+                email,
+                password,
+            })
 
-        const result = await signIn("credentials", {
-            redirect: false, // We’ll redirect manually
-            email,
-            password,
-        })
-
-        if (result?.error) {
-            setError("Invalid email or password")
-        } else {
+            if (result?.error) {
+                setError("Invalid email or password")
+            }
+        } finally {
+            setIsSigningIn(false)
             router.push("/dashboard")
         }
     }
@@ -45,7 +50,7 @@ export default function Login() {
                 <p className="text-sm text-gray-600 mb-6">
                     Don&apos;t have an account?
                     <u className="inline-block ml-2">
-                        <Link href="/signup">Signup</Link>
+                        <Link href="/signup">Sign up</Link>
                     </u>
                 </p>
 
@@ -68,8 +73,18 @@ export default function Login() {
                     />
                     <button
                         type="submit"
-                        className="border border-gray-300 rounded-md w-full p-2 flex items-center justify-center gap-2 transition-colors duration-800 ease-in-out mt-8 mb-4">
-                        Login to CGPA Calculator
+                        disabled={isSigningIn}
+                        className={`w-full p-3 rounded-lg flex justify-center items-center text-white font-medium ${
+                            isSigningIn ? "bg-gray-800" : "bg-black"
+                        } hover:bg-gray-800 active:bg-gray-900 transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed shadow-sm hover:shadow-md mt-8 mb-4 cursor-pointer`}>
+                        {isSigningIn ? (
+                            <>
+                                {" "}
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Signing In...{" "}
+                            </>
+                        ) : (
+                            "Sign In"
+                        )}
                     </button>
 
                     <div className="flex justify-between gap-6 my-4 mt-2 items-center">
