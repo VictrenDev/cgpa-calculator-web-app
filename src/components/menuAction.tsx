@@ -62,7 +62,13 @@ export default function MenuActions({ course }: { course: TableRowProps }) {
                 </div>
             )}
 
-            {isEditing && <EditCourseModal initialIsOpen={true} courseId={course.courseId} />}
+            {isEditing && (
+                <EditCourseModal
+                    isOpen={isEditing}
+                    onClose={() => setIsEditing(false)}
+                    courseId={course.courseId}
+                />
+            )}
         </div>
     )
 }
