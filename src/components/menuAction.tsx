@@ -41,23 +41,23 @@ export default function MenuActions({ course }: { course: TableRowProps }) {
 
             {isOpen && (
                 <div
-                    className="dropdown-menu bg-gray-50 absolute right-0 mt-2 z-50 w-40 overflow-hidden rounded-md shadow"
+                    className="dropdown-menu bg-gray-50 absolute right-0 mt-2 z-50 overflow-hidden rounded-md shadow"
                     onClick={(e) => e.stopPropagation()} // ✅ stop closing when clicking inside
                 >
                     <button
-                        className="px-4 py-6 hover:bg-gray-100 flex gap-2 items-center w-full border-b border-b-gray-200"
+                        className="px-4 py-6 cursor-pointer flex gap-2 items-center w-full border-b border-b-gray-200 bg-blue-50"
                         onClick={() => {
                             setIsEditing(true)
                             setIsOpen(false)
                         }}>
-                        <Edit className="w-4 h-4" />
-                        <span className="text-xs md:text-sm">Edit Course</span>
+                        <Edit className="w-4 h-4 text-blue-500" />
+                        <span className="text-xs md:text-sm text-blue-500">Edit Course</span>
                     </button>
                     <button
-                        className="px-4 py-6 hover:bg-gray-100 flex gap-2 items-center"
+                        className="px-4 py-6 cursor-pointer flex gap-2 items-center bg-red-50 w-fit text"
                         onClick={handleDelete}>
-                        <Trash2 className="w-4 h-4" />
-                        <span className="text-xs md:text-sm">Delete Course</span>
+                        <Trash2 className="w-4 h-4 text-red-500" />
+                        <span className="text-xs block md:text-sm text-red-500">Delete Course</span>
                     </button>
                 </div>
             )}
