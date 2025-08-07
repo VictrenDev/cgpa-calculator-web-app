@@ -2,15 +2,19 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/authOptions"
 import { redirect } from "next/navigation"
 import Link from "next/link"
-import { getUserSessions } from "@/lib/serverActions"
+import { getUserSessions, hasAnyCourses } from "@/lib/serverActions"
+// import NoSessionPage from "./noSessionPage"
+import NoCourses from "./noCoursesPage"
 // import LogoutButton from "@/components/signOut"
 
 export default async function Dashboard() {
     const session = await getServerSession(authOptions)
-
     if (!session) {
         redirect("/login")
     }
+
+    const hasCourses = await hasAnyCourses()
+    if (!hasCourses) return <NoCourses />
     const { sessions, totalSessions, overallCGPA } = await getUserSessions()
     if (!overallCGPA) return
     return (

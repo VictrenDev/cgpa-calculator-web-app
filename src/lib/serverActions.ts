@@ -323,3 +323,116 @@ export async function getUserSessions() {
         overallCGPA,
     }
 }
+
+// Add this to your actions file
+export async function hasAnyCourses() {
+    const session = await getServerSession(authOptions)
+    if (!session?.user?.email) {
+        throw new Error("Not authenticated")
+    }
+
+    const email = session.user.email
+
+    const user = await prisma.user.findUnique({
+        where: { email },
+        include: {
+            sessions: {
+                include: {
+                    semester: {
+                        include: {
+                            courses: {
+                                take: 1, // Just check if at least one exists
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    })
+
+    if (!user) throw new Error("User not found")
+
+    return user.sessions.some((s) => s.semester.some((sem) => sem.courses.length > 0))
+}
+type CreateCourse = {
+    session: string
+    semester: string
+    courseTitle: string
+    courseCode: string
+    courseLoad: number
+    grade: string
+}
+export async function createMultipleCourses(courses: CreateCourse) {
+    const session = await getServerSession(authOptions)
+    if (!session?.user?.email) throw new Error("Not authenticated")
+
+    const user = await prisma.user.findUnique({
+        where: { email: session.user.email },
+    })
+
+    if (!user) throw new Error("User not found")
+
+    const courseData: {
+        courseTitle: string
+        courseCode: string
+        courseLoad: number
+        grade: string
+        semesterId: string
+    }[] = []
+
+    // Cache semester lookups to avoid redundant queries
+    const semesterCache = new Map<string, string>() // key: `${sessionName}-${semesterName}` → semesterId
+
+    for (const course of courses) {
+        const key = `${course.session}-${course.semester}`
+
+        let semesterId = semesterCache.get(key)
+
+        if (!semesterId) {
+            // 1. Find academic session
+            const sessionRecord = await prisma.academicSession.findFirst({
+                where: {
+                    name: course.session,
+                    userId: user.id,
+                },
+            })
+
+            if (!sessionRecord) {
+                throw new Error(`Session "${course.session}" not found for user`)
+            }
+
+            // 2. Find semester by name & sessionId
+            const semesterRecord = await prisma.semester.findFirst({
+                where: {
+                    name: course.semester,
+                    sessionId: sessionRecord.id,
+                },
+            })
+
+            if (!semesterRecord) {
+                throw new Error(
+                    `Semester "${course.semester}" not found in session "${course.session}"`
+                )
+            }
+
+            semesterId = semesterRecord.id
+            semesterCache.set(key, semesterId)
+        }
+
+        // 3. Push formatted course
+        courseData.push({
+            courseTitle: course.courseTitle,
+            courseCode: course.courseCode,
+            courseLoad: Number(course.courseLoad),
+            grade: course.grade,
+            semesterId,
+        })
+    }
+
+    // 4. Bulk insert
+    await prisma.course.createMany({
+        data: courseData,
+        skipDuplicates: true,
+    })
+    revalidatePath("/dashboard") // Optional
+}
