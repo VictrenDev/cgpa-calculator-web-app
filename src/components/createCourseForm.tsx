@@ -6,7 +6,7 @@ export default function CreateCourseModal() {
     return (
         <Link
             href="/dashboard/create-course"
-            className="fixed bottom-8 right-8 flex items-center justify-center gap-2 rounded-full bg-indigo-600 px-6 py-4 text-sm font-semibold text-white shadow-lg transition-all hover:bg-indigo-700 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            className="fixed bottom-8 right-8 flex items-center justify-center gap-2 rounded-full bg-blue-600 px-6 py-4 text-sm font-semibold text-white shadow-lg transition-all hover:bg-blue-700 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"

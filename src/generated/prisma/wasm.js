@@ -132,6 +132,19 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.AcademicProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  startYear: 'startYear',
+  universityName: 'universityName',
+  facultyName: 'facultyName',
+  departmentName: 'departmentName',
+  courseDuration: 'courseDuration',
+  gradePointSystem: 'gradePointSystem',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.AcademicSessionScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -202,6 +215,7 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  AcademicProfile: 'AcademicProfile',
   AcademicSession: 'AcademicSession',
   Semester: 'Semester',
   Course: 'Course',

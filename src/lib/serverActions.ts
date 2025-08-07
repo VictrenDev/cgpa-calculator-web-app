@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/authOptions"
 import { gradePointMap } from "./utilities"
 import { revalidatePath } from "next/cache"
+import { AcademicProfileInput, CreateCourse } from "./types"
 
 export async function createUser(formData: FormData) {
     try {
@@ -354,15 +355,8 @@ export async function hasAnyCourses() {
 
     return user.sessions.some((s) => s.semester.some((sem) => sem.courses.length > 0))
 }
-type CreateCourse = {
-    session: string
-    semester: string
-    courseTitle: string
-    courseCode: string
-    courseLoad: number
-    grade: string
-}
-export async function createMultipleCourses(courses: CreateCourse) {
+
+export async function createMultipleCourses(courses: CreateCourse[]) {
     const session = await getServerSession(authOptions)
     if (!session?.user?.email) throw new Error("Not authenticated")
 
@@ -380,46 +374,48 @@ export async function createMultipleCourses(courses: CreateCourse) {
         semesterId: string
     }[] = []
 
-    // Cache semester lookups to avoid redundant queries
-    const semesterCache = new Map<string, string>() // key: `${sessionName}-${semesterName}` → semesterId
+    const semesterCache = new Map<string, string>() // Cache: "session-semester" → semesterId
 
     for (const course of courses) {
         const key = `${course.session}-${course.semester}`
-
         let semesterId = semesterCache.get(key)
 
         if (!semesterId) {
-            // 1. Find academic session
-            const sessionRecord = await prisma.academicSession.findFirst({
+            // 1. Upsert AcademicSession
+            const sessionRecord = await prisma.academicSession.upsert({
                 where: {
-                    name: course.session,
+                    userId_name: {
+                        userId: user.id,
+                        name: course.session,
+                    },
+                },
+                update: {},
+                create: {
                     userId: user.id,
+                    name: course.session,
                 },
             })
 
-            if (!sessionRecord) {
-                throw new Error(`Session "${course.session}" not found for user`)
-            }
-
-            // 2. Find semester by name & sessionId
-            const semesterRecord = await prisma.semester.findFirst({
+            // 2. Upsert Semester
+            const semesterRecord = await prisma.semester.upsert({
                 where: {
+                    sessionId_name: {
+                        sessionId: sessionRecord.id,
+                        name: course.semester,
+                    },
+                },
+                update: {},
+                create: {
                     name: course.semester,
                     sessionId: sessionRecord.id,
                 },
             })
 
-            if (!semesterRecord) {
-                throw new Error(
-                    `Semester "${course.semester}" not found in session "${course.session}"`
-                )
-            }
-
             semesterId = semesterRecord.id
             semesterCache.set(key, semesterId)
         }
 
-        // 3. Push formatted course
+        // 3. Prepare course data
         courseData.push({
             courseTitle: course.courseTitle,
             courseCode: course.courseCode,
@@ -429,10 +425,81 @@ export async function createMultipleCourses(courses: CreateCourse) {
         })
     }
 
-    // 4. Bulk insert
+    // 4. Create courses
     await prisma.course.createMany({
         data: courseData,
         skipDuplicates: true,
     })
+
     revalidatePath("/dashboard") // Optional
+}
+
+export async function createAcademicProfile(input: AcademicProfileInput) {
+    const session = await getServerSession(authOptions)
+    if (!session?.user?.email) {
+        throw new Error("You must be logged in.")
+    }
+
+    const user = await prisma.user.findUnique({
+        where: { email: session.user.email },
+    })
+
+    if (!user) throw new Error("User not found.")
+
+    // Convert string inputs to number types here:
+    const startYearNum = Number(input.startYear)
+    const courseDurationNum = Number(input.courseDuration)
+    const gradePointSystemNum = Number(input.gradePointSystem)
+
+    if (isNaN(startYearNum) || isNaN(courseDurationNum) || isNaN(gradePointSystemNum)) {
+        throw new Error("Invalid numeric values provided")
+    }
+
+    const existing = await prisma.academicProfile.findUnique({
+        where: { userId: user.id },
+    })
+
+    if (existing) {
+        await prisma.academicProfile.update({
+            where: { userId: user.id },
+            data: {
+                ...input,
+                startYear: startYearNum,
+                courseDuration: courseDurationNum,
+                gradePointSystem: gradePointSystemNum,
+            },
+        })
+    } else {
+        await prisma.academicProfile.create({
+            data: {
+                ...input,
+                startYear: startYearNum,
+                courseDuration: courseDurationNum,
+                gradePointSystem: gradePointSystemNum,
+                userId: user.id,
+            },
+        })
+    }
+
+    revalidatePath("/dashboard")
+}
+
+export async function getAcademicProfileData(userId: string) {
+    const session = await getServerSession(authOptions)
+
+    if (!session) throw new Error("No session found")
+    const user = await prisma.user.findUnique({
+        where: {
+            id: userId,
+        },
+    })
+
+    if (!user) throw new Error("No user found")
+
+    const academicProfileData = await prisma.academicProfile.findUnique({
+        where: {
+            userId,
+        },
+    })
+    return academicProfileData
 }

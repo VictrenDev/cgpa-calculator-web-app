@@ -3,20 +3,32 @@ import { authOptions } from "@/lib/authOptions"
 import { redirect } from "next/navigation"
 import Link from "next/link"
 import { getUserSessions, hasAnyCourses } from "@/lib/serverActions"
-// import NoSessionPage from "./noSessionPage"
 import NoCourses from "./noCoursesPage"
-// import LogoutButton from "@/components/signOut"
+import AcademicProfileForm from "./createAcademicProfile" // 👈 Your profile form component
+import { prisma } from "@/lib/prisma" // adjust as needed
 
 export default async function Dashboard() {
     const session = await getServerSession(authOptions)
-    if (!session) {
-        redirect("/login")
+    if (!session?.user?.email) redirect("/login")
+
+    // 🔍 Check for academic profile
+    const user = await prisma.user.findUnique({
+        where: { email: session.user.email },
+        include: { academicProfile: true },
+    })
+    if (!user) redirect("/login")
+
+    if (!user.academicProfile) {
+        // 📄 Render academic profile creation form
+        return <AcademicProfileForm userId={user.id} />
     }
 
     const hasCourses = await hasAnyCourses()
     if (!hasCourses) return <NoCourses />
+
     const { sessions, totalSessions, overallCGPA } = await getUserSessions()
-    if (!overallCGPA) return
+    if (!overallCGPA) return null
+
     return (
         <>
             <div className="flex justify-end font-medium m-8 px-4 container-fluid">

@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model AcademicProfile
+ * 
+ */
+export type AcademicProfile = $Result.DefaultSelection<Prisma.$AcademicProfilePayload>
+/**
  * Model AcademicSession
  * 
  */
@@ -183,6 +188,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.academicProfile`: Exposes CRUD operations for the **AcademicProfile** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AcademicProfiles
+    * const academicProfiles = await prisma.academicProfile.findMany()
+    * ```
+    */
+  get academicProfile(): Prisma.AcademicProfileDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.academicSession`: Exposes CRUD operations for the **AcademicSession** model.
@@ -684,6 +699,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    AcademicProfile: 'AcademicProfile',
     AcademicSession: 'AcademicSession',
     Semester: 'Semester',
     Course: 'Course',
@@ -708,7 +724,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "academicSession" | "semester" | "course" | "account" | "verificationToken" | "session"
+      modelProps: "user" | "academicProfile" | "academicSession" | "semester" | "course" | "account" | "verificationToken" | "session"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -783,6 +799,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      AcademicProfile: {
+        payload: Prisma.$AcademicProfilePayload<ExtArgs>
+        fields: Prisma.AcademicProfileFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AcademicProfileFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicProfilePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AcademicProfileFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicProfilePayload>
+          }
+          findFirst: {
+            args: Prisma.AcademicProfileFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicProfilePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AcademicProfileFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicProfilePayload>
+          }
+          findMany: {
+            args: Prisma.AcademicProfileFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicProfilePayload>[]
+          }
+          create: {
+            args: Prisma.AcademicProfileCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicProfilePayload>
+          }
+          createMany: {
+            args: Prisma.AcademicProfileCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AcademicProfileCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicProfilePayload>[]
+          }
+          delete: {
+            args: Prisma.AcademicProfileDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicProfilePayload>
+          }
+          update: {
+            args: Prisma.AcademicProfileUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicProfilePayload>
+          }
+          deleteMany: {
+            args: Prisma.AcademicProfileDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AcademicProfileUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AcademicProfileUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicProfilePayload>[]
+          }
+          upsert: {
+            args: Prisma.AcademicProfileUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicProfilePayload>
+          }
+          aggregate: {
+            args: Prisma.AcademicProfileAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAcademicProfile>
+          }
+          groupBy: {
+            args: Prisma.AcademicProfileGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AcademicProfileGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AcademicProfileCountArgs<ExtArgs>
+            result: $Utils.Optional<AcademicProfileCountAggregateOutputType> | number
           }
         }
       }
@@ -1315,6 +1405,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    academicProfile?: AcademicProfileOmit
     academicSession?: AcademicSessionOmit
     semester?: SemesterOmit
     course?: CourseOmit
@@ -1724,6 +1815,7 @@ export namespace Prisma {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     Account?: boolean | User$AccountArgs<ExtArgs>
     Session?: boolean | User$SessionArgs<ExtArgs>
+    academicProfile?: boolean | User$academicProfileArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1768,6 +1860,7 @@ export namespace Prisma {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     Account?: boolean | User$AccountArgs<ExtArgs>
     Session?: boolean | User$SessionArgs<ExtArgs>
+    academicProfile?: boolean | User$academicProfileArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1779,6 +1872,7 @@ export namespace Prisma {
       sessions: Prisma.$AcademicSessionPayload<ExtArgs>[]
       Account: Prisma.$AccountPayload<ExtArgs>[]
       Session: Prisma.$SessionPayload<ExtArgs>[]
+      academicProfile: Prisma.$AcademicProfilePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2187,6 +2281,7 @@ export namespace Prisma {
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AcademicSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Account<T extends User$AccountArgs<ExtArgs> = {}>(args?: Subset<T, User$AccountArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Session<T extends User$SessionArgs<ExtArgs> = {}>(args?: Subset<T, User$SessionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    academicProfile<T extends User$academicProfileArgs<ExtArgs> = {}>(args?: Subset<T, User$academicProfileArgs<ExtArgs>>): Prisma__AcademicProfileClient<$Result.GetResult<Prisma.$AcademicProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2685,6 +2780,25 @@ export namespace Prisma {
   }
 
   /**
+   * User.academicProfile
+   */
+  export type User$academicProfileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicProfile
+     */
+    select?: AcademicProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicProfile
+     */
+    omit?: AcademicProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicProfileInclude<ExtArgs> | null
+    where?: AcademicProfileWhereInput
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2700,6 +2814,1171 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AcademicProfile
+   */
+
+  export type AggregateAcademicProfile = {
+    _count: AcademicProfileCountAggregateOutputType | null
+    _avg: AcademicProfileAvgAggregateOutputType | null
+    _sum: AcademicProfileSumAggregateOutputType | null
+    _min: AcademicProfileMinAggregateOutputType | null
+    _max: AcademicProfileMaxAggregateOutputType | null
+  }
+
+  export type AcademicProfileAvgAggregateOutputType = {
+    startYear: number | null
+    courseDuration: number | null
+    gradePointSystem: number | null
+  }
+
+  export type AcademicProfileSumAggregateOutputType = {
+    startYear: number | null
+    courseDuration: number | null
+    gradePointSystem: number | null
+  }
+
+  export type AcademicProfileMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    startYear: number | null
+    universityName: string | null
+    facultyName: string | null
+    departmentName: string | null
+    courseDuration: number | null
+    gradePointSystem: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AcademicProfileMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    startYear: number | null
+    universityName: string | null
+    facultyName: string | null
+    departmentName: string | null
+    courseDuration: number | null
+    gradePointSystem: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AcademicProfileCountAggregateOutputType = {
+    id: number
+    userId: number
+    startYear: number
+    universityName: number
+    facultyName: number
+    departmentName: number
+    courseDuration: number
+    gradePointSystem: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AcademicProfileAvgAggregateInputType = {
+    startYear?: true
+    courseDuration?: true
+    gradePointSystem?: true
+  }
+
+  export type AcademicProfileSumAggregateInputType = {
+    startYear?: true
+    courseDuration?: true
+    gradePointSystem?: true
+  }
+
+  export type AcademicProfileMinAggregateInputType = {
+    id?: true
+    userId?: true
+    startYear?: true
+    universityName?: true
+    facultyName?: true
+    departmentName?: true
+    courseDuration?: true
+    gradePointSystem?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AcademicProfileMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    startYear?: true
+    universityName?: true
+    facultyName?: true
+    departmentName?: true
+    courseDuration?: true
+    gradePointSystem?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AcademicProfileCountAggregateInputType = {
+    id?: true
+    userId?: true
+    startYear?: true
+    universityName?: true
+    facultyName?: true
+    departmentName?: true
+    courseDuration?: true
+    gradePointSystem?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AcademicProfileAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AcademicProfile to aggregate.
+     */
+    where?: AcademicProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AcademicProfiles to fetch.
+     */
+    orderBy?: AcademicProfileOrderByWithRelationInput | AcademicProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AcademicProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AcademicProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AcademicProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AcademicProfiles
+    **/
+    _count?: true | AcademicProfileCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AcademicProfileAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AcademicProfileSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AcademicProfileMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AcademicProfileMaxAggregateInputType
+  }
+
+  export type GetAcademicProfileAggregateType<T extends AcademicProfileAggregateArgs> = {
+        [P in keyof T & keyof AggregateAcademicProfile]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAcademicProfile[P]>
+      : GetScalarType<T[P], AggregateAcademicProfile[P]>
+  }
+
+
+
+
+  export type AcademicProfileGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AcademicProfileWhereInput
+    orderBy?: AcademicProfileOrderByWithAggregationInput | AcademicProfileOrderByWithAggregationInput[]
+    by: AcademicProfileScalarFieldEnum[] | AcademicProfileScalarFieldEnum
+    having?: AcademicProfileScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AcademicProfileCountAggregateInputType | true
+    _avg?: AcademicProfileAvgAggregateInputType
+    _sum?: AcademicProfileSumAggregateInputType
+    _min?: AcademicProfileMinAggregateInputType
+    _max?: AcademicProfileMaxAggregateInputType
+  }
+
+  export type AcademicProfileGroupByOutputType = {
+    id: string
+    userId: string
+    startYear: number
+    universityName: string
+    facultyName: string
+    departmentName: string
+    courseDuration: number
+    gradePointSystem: number
+    createdAt: Date
+    updatedAt: Date
+    _count: AcademicProfileCountAggregateOutputType | null
+    _avg: AcademicProfileAvgAggregateOutputType | null
+    _sum: AcademicProfileSumAggregateOutputType | null
+    _min: AcademicProfileMinAggregateOutputType | null
+    _max: AcademicProfileMaxAggregateOutputType | null
+  }
+
+  type GetAcademicProfileGroupByPayload<T extends AcademicProfileGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AcademicProfileGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AcademicProfileGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AcademicProfileGroupByOutputType[P]>
+            : GetScalarType<T[P], AcademicProfileGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AcademicProfileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    startYear?: boolean
+    universityName?: boolean
+    facultyName?: boolean
+    departmentName?: boolean
+    courseDuration?: boolean
+    gradePointSystem?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["academicProfile"]>
+
+  export type AcademicProfileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    startYear?: boolean
+    universityName?: boolean
+    facultyName?: boolean
+    departmentName?: boolean
+    courseDuration?: boolean
+    gradePointSystem?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["academicProfile"]>
+
+  export type AcademicProfileSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    startYear?: boolean
+    universityName?: boolean
+    facultyName?: boolean
+    departmentName?: boolean
+    courseDuration?: boolean
+    gradePointSystem?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["academicProfile"]>
+
+  export type AcademicProfileSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    startYear?: boolean
+    universityName?: boolean
+    facultyName?: boolean
+    departmentName?: boolean
+    courseDuration?: boolean
+    gradePointSystem?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AcademicProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "startYear" | "universityName" | "facultyName" | "departmentName" | "courseDuration" | "gradePointSystem" | "createdAt" | "updatedAt", ExtArgs["result"]["academicProfile"]>
+  export type AcademicProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AcademicProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AcademicProfileIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $AcademicProfilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AcademicProfile"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      startYear: number
+      universityName: string
+      facultyName: string
+      departmentName: string
+      courseDuration: number
+      gradePointSystem: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["academicProfile"]>
+    composites: {}
+  }
+
+  type AcademicProfileGetPayload<S extends boolean | null | undefined | AcademicProfileDefaultArgs> = $Result.GetResult<Prisma.$AcademicProfilePayload, S>
+
+  type AcademicProfileCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AcademicProfileFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AcademicProfileCountAggregateInputType | true
+    }
+
+  export interface AcademicProfileDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AcademicProfile'], meta: { name: 'AcademicProfile' } }
+    /**
+     * Find zero or one AcademicProfile that matches the filter.
+     * @param {AcademicProfileFindUniqueArgs} args - Arguments to find a AcademicProfile
+     * @example
+     * // Get one AcademicProfile
+     * const academicProfile = await prisma.academicProfile.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AcademicProfileFindUniqueArgs>(args: SelectSubset<T, AcademicProfileFindUniqueArgs<ExtArgs>>): Prisma__AcademicProfileClient<$Result.GetResult<Prisma.$AcademicProfilePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AcademicProfile that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AcademicProfileFindUniqueOrThrowArgs} args - Arguments to find a AcademicProfile
+     * @example
+     * // Get one AcademicProfile
+     * const academicProfile = await prisma.academicProfile.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AcademicProfileFindUniqueOrThrowArgs>(args: SelectSubset<T, AcademicProfileFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AcademicProfileClient<$Result.GetResult<Prisma.$AcademicProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AcademicProfile that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AcademicProfileFindFirstArgs} args - Arguments to find a AcademicProfile
+     * @example
+     * // Get one AcademicProfile
+     * const academicProfile = await prisma.academicProfile.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AcademicProfileFindFirstArgs>(args?: SelectSubset<T, AcademicProfileFindFirstArgs<ExtArgs>>): Prisma__AcademicProfileClient<$Result.GetResult<Prisma.$AcademicProfilePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AcademicProfile that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AcademicProfileFindFirstOrThrowArgs} args - Arguments to find a AcademicProfile
+     * @example
+     * // Get one AcademicProfile
+     * const academicProfile = await prisma.academicProfile.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AcademicProfileFindFirstOrThrowArgs>(args?: SelectSubset<T, AcademicProfileFindFirstOrThrowArgs<ExtArgs>>): Prisma__AcademicProfileClient<$Result.GetResult<Prisma.$AcademicProfilePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AcademicProfiles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AcademicProfileFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AcademicProfiles
+     * const academicProfiles = await prisma.academicProfile.findMany()
+     * 
+     * // Get first 10 AcademicProfiles
+     * const academicProfiles = await prisma.academicProfile.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const academicProfileWithIdOnly = await prisma.academicProfile.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AcademicProfileFindManyArgs>(args?: SelectSubset<T, AcademicProfileFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AcademicProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AcademicProfile.
+     * @param {AcademicProfileCreateArgs} args - Arguments to create a AcademicProfile.
+     * @example
+     * // Create one AcademicProfile
+     * const AcademicProfile = await prisma.academicProfile.create({
+     *   data: {
+     *     // ... data to create a AcademicProfile
+     *   }
+     * })
+     * 
+     */
+    create<T extends AcademicProfileCreateArgs>(args: SelectSubset<T, AcademicProfileCreateArgs<ExtArgs>>): Prisma__AcademicProfileClient<$Result.GetResult<Prisma.$AcademicProfilePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AcademicProfiles.
+     * @param {AcademicProfileCreateManyArgs} args - Arguments to create many AcademicProfiles.
+     * @example
+     * // Create many AcademicProfiles
+     * const academicProfile = await prisma.academicProfile.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AcademicProfileCreateManyArgs>(args?: SelectSubset<T, AcademicProfileCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AcademicProfiles and returns the data saved in the database.
+     * @param {AcademicProfileCreateManyAndReturnArgs} args - Arguments to create many AcademicProfiles.
+     * @example
+     * // Create many AcademicProfiles
+     * const academicProfile = await prisma.academicProfile.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AcademicProfiles and only return the `id`
+     * const academicProfileWithIdOnly = await prisma.academicProfile.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AcademicProfileCreateManyAndReturnArgs>(args?: SelectSubset<T, AcademicProfileCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AcademicProfilePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AcademicProfile.
+     * @param {AcademicProfileDeleteArgs} args - Arguments to delete one AcademicProfile.
+     * @example
+     * // Delete one AcademicProfile
+     * const AcademicProfile = await prisma.academicProfile.delete({
+     *   where: {
+     *     // ... filter to delete one AcademicProfile
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AcademicProfileDeleteArgs>(args: SelectSubset<T, AcademicProfileDeleteArgs<ExtArgs>>): Prisma__AcademicProfileClient<$Result.GetResult<Prisma.$AcademicProfilePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AcademicProfile.
+     * @param {AcademicProfileUpdateArgs} args - Arguments to update one AcademicProfile.
+     * @example
+     * // Update one AcademicProfile
+     * const academicProfile = await prisma.academicProfile.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AcademicProfileUpdateArgs>(args: SelectSubset<T, AcademicProfileUpdateArgs<ExtArgs>>): Prisma__AcademicProfileClient<$Result.GetResult<Prisma.$AcademicProfilePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AcademicProfiles.
+     * @param {AcademicProfileDeleteManyArgs} args - Arguments to filter AcademicProfiles to delete.
+     * @example
+     * // Delete a few AcademicProfiles
+     * const { count } = await prisma.academicProfile.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AcademicProfileDeleteManyArgs>(args?: SelectSubset<T, AcademicProfileDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AcademicProfiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AcademicProfileUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AcademicProfiles
+     * const academicProfile = await prisma.academicProfile.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AcademicProfileUpdateManyArgs>(args: SelectSubset<T, AcademicProfileUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AcademicProfiles and returns the data updated in the database.
+     * @param {AcademicProfileUpdateManyAndReturnArgs} args - Arguments to update many AcademicProfiles.
+     * @example
+     * // Update many AcademicProfiles
+     * const academicProfile = await prisma.academicProfile.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AcademicProfiles and only return the `id`
+     * const academicProfileWithIdOnly = await prisma.academicProfile.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AcademicProfileUpdateManyAndReturnArgs>(args: SelectSubset<T, AcademicProfileUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AcademicProfilePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AcademicProfile.
+     * @param {AcademicProfileUpsertArgs} args - Arguments to update or create a AcademicProfile.
+     * @example
+     * // Update or create a AcademicProfile
+     * const academicProfile = await prisma.academicProfile.upsert({
+     *   create: {
+     *     // ... data to create a AcademicProfile
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AcademicProfile we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AcademicProfileUpsertArgs>(args: SelectSubset<T, AcademicProfileUpsertArgs<ExtArgs>>): Prisma__AcademicProfileClient<$Result.GetResult<Prisma.$AcademicProfilePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AcademicProfiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AcademicProfileCountArgs} args - Arguments to filter AcademicProfiles to count.
+     * @example
+     * // Count the number of AcademicProfiles
+     * const count = await prisma.academicProfile.count({
+     *   where: {
+     *     // ... the filter for the AcademicProfiles we want to count
+     *   }
+     * })
+    **/
+    count<T extends AcademicProfileCountArgs>(
+      args?: Subset<T, AcademicProfileCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AcademicProfileCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AcademicProfile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AcademicProfileAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AcademicProfileAggregateArgs>(args: Subset<T, AcademicProfileAggregateArgs>): Prisma.PrismaPromise<GetAcademicProfileAggregateType<T>>
+
+    /**
+     * Group by AcademicProfile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AcademicProfileGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AcademicProfileGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AcademicProfileGroupByArgs['orderBy'] }
+        : { orderBy?: AcademicProfileGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AcademicProfileGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAcademicProfileGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AcademicProfile model
+   */
+  readonly fields: AcademicProfileFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AcademicProfile.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AcademicProfileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AcademicProfile model
+   */
+  interface AcademicProfileFieldRefs {
+    readonly id: FieldRef<"AcademicProfile", 'String'>
+    readonly userId: FieldRef<"AcademicProfile", 'String'>
+    readonly startYear: FieldRef<"AcademicProfile", 'Int'>
+    readonly universityName: FieldRef<"AcademicProfile", 'String'>
+    readonly facultyName: FieldRef<"AcademicProfile", 'String'>
+    readonly departmentName: FieldRef<"AcademicProfile", 'String'>
+    readonly courseDuration: FieldRef<"AcademicProfile", 'Int'>
+    readonly gradePointSystem: FieldRef<"AcademicProfile", 'Float'>
+    readonly createdAt: FieldRef<"AcademicProfile", 'DateTime'>
+    readonly updatedAt: FieldRef<"AcademicProfile", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AcademicProfile findUnique
+   */
+  export type AcademicProfileFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicProfile
+     */
+    select?: AcademicProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicProfile
+     */
+    omit?: AcademicProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which AcademicProfile to fetch.
+     */
+    where: AcademicProfileWhereUniqueInput
+  }
+
+  /**
+   * AcademicProfile findUniqueOrThrow
+   */
+  export type AcademicProfileFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicProfile
+     */
+    select?: AcademicProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicProfile
+     */
+    omit?: AcademicProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which AcademicProfile to fetch.
+     */
+    where: AcademicProfileWhereUniqueInput
+  }
+
+  /**
+   * AcademicProfile findFirst
+   */
+  export type AcademicProfileFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicProfile
+     */
+    select?: AcademicProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicProfile
+     */
+    omit?: AcademicProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which AcademicProfile to fetch.
+     */
+    where?: AcademicProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AcademicProfiles to fetch.
+     */
+    orderBy?: AcademicProfileOrderByWithRelationInput | AcademicProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AcademicProfiles.
+     */
+    cursor?: AcademicProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AcademicProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AcademicProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AcademicProfiles.
+     */
+    distinct?: AcademicProfileScalarFieldEnum | AcademicProfileScalarFieldEnum[]
+  }
+
+  /**
+   * AcademicProfile findFirstOrThrow
+   */
+  export type AcademicProfileFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicProfile
+     */
+    select?: AcademicProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicProfile
+     */
+    omit?: AcademicProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which AcademicProfile to fetch.
+     */
+    where?: AcademicProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AcademicProfiles to fetch.
+     */
+    orderBy?: AcademicProfileOrderByWithRelationInput | AcademicProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AcademicProfiles.
+     */
+    cursor?: AcademicProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AcademicProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AcademicProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AcademicProfiles.
+     */
+    distinct?: AcademicProfileScalarFieldEnum | AcademicProfileScalarFieldEnum[]
+  }
+
+  /**
+   * AcademicProfile findMany
+   */
+  export type AcademicProfileFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicProfile
+     */
+    select?: AcademicProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicProfile
+     */
+    omit?: AcademicProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which AcademicProfiles to fetch.
+     */
+    where?: AcademicProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AcademicProfiles to fetch.
+     */
+    orderBy?: AcademicProfileOrderByWithRelationInput | AcademicProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AcademicProfiles.
+     */
+    cursor?: AcademicProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AcademicProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AcademicProfiles.
+     */
+    skip?: number
+    distinct?: AcademicProfileScalarFieldEnum | AcademicProfileScalarFieldEnum[]
+  }
+
+  /**
+   * AcademicProfile create
+   */
+  export type AcademicProfileCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicProfile
+     */
+    select?: AcademicProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicProfile
+     */
+    omit?: AcademicProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicProfileInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AcademicProfile.
+     */
+    data: XOR<AcademicProfileCreateInput, AcademicProfileUncheckedCreateInput>
+  }
+
+  /**
+   * AcademicProfile createMany
+   */
+  export type AcademicProfileCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AcademicProfiles.
+     */
+    data: AcademicProfileCreateManyInput | AcademicProfileCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AcademicProfile createManyAndReturn
+   */
+  export type AcademicProfileCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicProfile
+     */
+    select?: AcademicProfileSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicProfile
+     */
+    omit?: AcademicProfileOmit<ExtArgs> | null
+    /**
+     * The data used to create many AcademicProfiles.
+     */
+    data: AcademicProfileCreateManyInput | AcademicProfileCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicProfileIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AcademicProfile update
+   */
+  export type AcademicProfileUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicProfile
+     */
+    select?: AcademicProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicProfile
+     */
+    omit?: AcademicProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicProfileInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AcademicProfile.
+     */
+    data: XOR<AcademicProfileUpdateInput, AcademicProfileUncheckedUpdateInput>
+    /**
+     * Choose, which AcademicProfile to update.
+     */
+    where: AcademicProfileWhereUniqueInput
+  }
+
+  /**
+   * AcademicProfile updateMany
+   */
+  export type AcademicProfileUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AcademicProfiles.
+     */
+    data: XOR<AcademicProfileUpdateManyMutationInput, AcademicProfileUncheckedUpdateManyInput>
+    /**
+     * Filter which AcademicProfiles to update
+     */
+    where?: AcademicProfileWhereInput
+    /**
+     * Limit how many AcademicProfiles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AcademicProfile updateManyAndReturn
+   */
+  export type AcademicProfileUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicProfile
+     */
+    select?: AcademicProfileSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicProfile
+     */
+    omit?: AcademicProfileOmit<ExtArgs> | null
+    /**
+     * The data used to update AcademicProfiles.
+     */
+    data: XOR<AcademicProfileUpdateManyMutationInput, AcademicProfileUncheckedUpdateManyInput>
+    /**
+     * Filter which AcademicProfiles to update
+     */
+    where?: AcademicProfileWhereInput
+    /**
+     * Limit how many AcademicProfiles to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicProfileIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AcademicProfile upsert
+   */
+  export type AcademicProfileUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicProfile
+     */
+    select?: AcademicProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicProfile
+     */
+    omit?: AcademicProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicProfileInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AcademicProfile to update in case it exists.
+     */
+    where: AcademicProfileWhereUniqueInput
+    /**
+     * In case the AcademicProfile found by the `where` argument doesn't exist, create a new AcademicProfile with this data.
+     */
+    create: XOR<AcademicProfileCreateInput, AcademicProfileUncheckedCreateInput>
+    /**
+     * In case the AcademicProfile was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AcademicProfileUpdateInput, AcademicProfileUncheckedUpdateInput>
+  }
+
+  /**
+   * AcademicProfile delete
+   */
+  export type AcademicProfileDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicProfile
+     */
+    select?: AcademicProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicProfile
+     */
+    omit?: AcademicProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicProfileInclude<ExtArgs> | null
+    /**
+     * Filter which AcademicProfile to delete.
+     */
+    where: AcademicProfileWhereUniqueInput
+  }
+
+  /**
+   * AcademicProfile deleteMany
+   */
+  export type AcademicProfileDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AcademicProfiles to delete
+     */
+    where?: AcademicProfileWhereInput
+    /**
+     * Limit how many AcademicProfiles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AcademicProfile without action
+   */
+  export type AcademicProfileDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicProfile
+     */
+    select?: AcademicProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicProfile
+     */
+    omit?: AcademicProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicProfileInclude<ExtArgs> | null
   }
 
 
@@ -9197,6 +10476,22 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const AcademicProfileScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    startYear: 'startYear',
+    universityName: 'universityName',
+    facultyName: 'facultyName',
+    departmentName: 'departmentName',
+    courseDuration: 'courseDuration',
+    gradePointSystem: 'gradePointSystem',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AcademicProfileScalarFieldEnum = (typeof AcademicProfileScalarFieldEnum)[keyof typeof AcademicProfileScalarFieldEnum]
+
+
   export const AcademicSessionScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -9378,6 +10673,7 @@ export namespace Prisma {
     sessions?: AcademicSessionListRelationFilter
     Account?: AccountListRelationFilter
     Session?: SessionListRelationFilter
+    academicProfile?: XOR<AcademicProfileNullableScalarRelationFilter, AcademicProfileWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -9393,6 +10689,7 @@ export namespace Prisma {
     sessions?: AcademicSessionOrderByRelationAggregateInput
     Account?: AccountOrderByRelationAggregateInput
     Session?: SessionOrderByRelationAggregateInput
+    academicProfile?: AcademicProfileOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -9411,6 +10708,7 @@ export namespace Prisma {
     sessions?: AcademicSessionListRelationFilter
     Account?: AccountListRelationFilter
     Session?: SessionListRelationFilter
+    academicProfile?: XOR<AcademicProfileNullableScalarRelationFilter, AcademicProfileWhereInput> | null
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -9441,6 +10739,88 @@ export namespace Prisma {
     emailVerified?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type AcademicProfileWhereInput = {
+    AND?: AcademicProfileWhereInput | AcademicProfileWhereInput[]
+    OR?: AcademicProfileWhereInput[]
+    NOT?: AcademicProfileWhereInput | AcademicProfileWhereInput[]
+    id?: StringFilter<"AcademicProfile"> | string
+    userId?: StringFilter<"AcademicProfile"> | string
+    startYear?: IntFilter<"AcademicProfile"> | number
+    universityName?: StringFilter<"AcademicProfile"> | string
+    facultyName?: StringFilter<"AcademicProfile"> | string
+    departmentName?: StringFilter<"AcademicProfile"> | string
+    courseDuration?: IntFilter<"AcademicProfile"> | number
+    gradePointSystem?: FloatFilter<"AcademicProfile"> | number
+    createdAt?: DateTimeFilter<"AcademicProfile"> | Date | string
+    updatedAt?: DateTimeFilter<"AcademicProfile"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type AcademicProfileOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    startYear?: SortOrder
+    universityName?: SortOrder
+    facultyName?: SortOrder
+    departmentName?: SortOrder
+    courseDuration?: SortOrder
+    gradePointSystem?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type AcademicProfileWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    AND?: AcademicProfileWhereInput | AcademicProfileWhereInput[]
+    OR?: AcademicProfileWhereInput[]
+    NOT?: AcademicProfileWhereInput | AcademicProfileWhereInput[]
+    startYear?: IntFilter<"AcademicProfile"> | number
+    universityName?: StringFilter<"AcademicProfile"> | string
+    facultyName?: StringFilter<"AcademicProfile"> | string
+    departmentName?: StringFilter<"AcademicProfile"> | string
+    courseDuration?: IntFilter<"AcademicProfile"> | number
+    gradePointSystem?: FloatFilter<"AcademicProfile"> | number
+    createdAt?: DateTimeFilter<"AcademicProfile"> | Date | string
+    updatedAt?: DateTimeFilter<"AcademicProfile"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId">
+
+  export type AcademicProfileOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    startYear?: SortOrder
+    universityName?: SortOrder
+    facultyName?: SortOrder
+    departmentName?: SortOrder
+    courseDuration?: SortOrder
+    gradePointSystem?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AcademicProfileCountOrderByAggregateInput
+    _avg?: AcademicProfileAvgOrderByAggregateInput
+    _max?: AcademicProfileMaxOrderByAggregateInput
+    _min?: AcademicProfileMinOrderByAggregateInput
+    _sum?: AcademicProfileSumOrderByAggregateInput
+  }
+
+  export type AcademicProfileScalarWhereWithAggregatesInput = {
+    AND?: AcademicProfileScalarWhereWithAggregatesInput | AcademicProfileScalarWhereWithAggregatesInput[]
+    OR?: AcademicProfileScalarWhereWithAggregatesInput[]
+    NOT?: AcademicProfileScalarWhereWithAggregatesInput | AcademicProfileScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AcademicProfile"> | string
+    userId?: StringWithAggregatesFilter<"AcademicProfile"> | string
+    startYear?: IntWithAggregatesFilter<"AcademicProfile"> | number
+    universityName?: StringWithAggregatesFilter<"AcademicProfile"> | string
+    facultyName?: StringWithAggregatesFilter<"AcademicProfile"> | string
+    departmentName?: StringWithAggregatesFilter<"AcademicProfile"> | string
+    courseDuration?: IntWithAggregatesFilter<"AcademicProfile"> | number
+    gradePointSystem?: FloatWithAggregatesFilter<"AcademicProfile"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"AcademicProfile"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AcademicProfile"> | Date | string
   }
 
   export type AcademicSessionWhereInput = {
@@ -9817,6 +11197,7 @@ export namespace Prisma {
     sessions?: AcademicSessionCreateNestedManyWithoutUserInput
     Account?: AccountCreateNestedManyWithoutUserInput
     Session?: SessionCreateNestedManyWithoutUserInput
+    academicProfile?: AcademicProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -9832,6 +11213,7 @@ export namespace Prisma {
     sessions?: AcademicSessionUncheckedCreateNestedManyWithoutUserInput
     Account?: AccountUncheckedCreateNestedManyWithoutUserInput
     Session?: SessionUncheckedCreateNestedManyWithoutUserInput
+    academicProfile?: AcademicProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -9847,6 +11229,7 @@ export namespace Prisma {
     sessions?: AcademicSessionUpdateManyWithoutUserNestedInput
     Account?: AccountUpdateManyWithoutUserNestedInput
     Session?: SessionUpdateManyWithoutUserNestedInput
+    academicProfile?: AcademicProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -9862,6 +11245,7 @@ export namespace Prisma {
     sessions?: AcademicSessionUncheckedUpdateManyWithoutUserNestedInput
     Account?: AccountUncheckedUpdateManyWithoutUserNestedInput
     Session?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    academicProfile?: AcademicProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -9898,6 +11282,96 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AcademicProfileCreateInput = {
+    id?: string
+    startYear: number
+    universityName: string
+    facultyName: string
+    departmentName: string
+    courseDuration: number
+    gradePointSystem?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutAcademicProfileInput
+  }
+
+  export type AcademicProfileUncheckedCreateInput = {
+    id?: string
+    userId: string
+    startYear: number
+    universityName: string
+    facultyName: string
+    departmentName: string
+    courseDuration: number
+    gradePointSystem?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AcademicProfileUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startYear?: IntFieldUpdateOperationsInput | number
+    universityName?: StringFieldUpdateOperationsInput | string
+    facultyName?: StringFieldUpdateOperationsInput | string
+    departmentName?: StringFieldUpdateOperationsInput | string
+    courseDuration?: IntFieldUpdateOperationsInput | number
+    gradePointSystem?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAcademicProfileNestedInput
+  }
+
+  export type AcademicProfileUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    startYear?: IntFieldUpdateOperationsInput | number
+    universityName?: StringFieldUpdateOperationsInput | string
+    facultyName?: StringFieldUpdateOperationsInput | string
+    departmentName?: StringFieldUpdateOperationsInput | string
+    courseDuration?: IntFieldUpdateOperationsInput | number
+    gradePointSystem?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AcademicProfileCreateManyInput = {
+    id?: string
+    userId: string
+    startYear: number
+    universityName: string
+    facultyName: string
+    departmentName: string
+    courseDuration: number
+    gradePointSystem?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AcademicProfileUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startYear?: IntFieldUpdateOperationsInput | number
+    universityName?: StringFieldUpdateOperationsInput | string
+    facultyName?: StringFieldUpdateOperationsInput | string
+    departmentName?: StringFieldUpdateOperationsInput | string
+    courseDuration?: IntFieldUpdateOperationsInput | number
+    gradePointSystem?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AcademicProfileUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    startYear?: IntFieldUpdateOperationsInput | number
+    universityName?: StringFieldUpdateOperationsInput | string
+    facultyName?: StringFieldUpdateOperationsInput | string
+    departmentName?: StringFieldUpdateOperationsInput | string
+    courseDuration?: IntFieldUpdateOperationsInput | number
+    gradePointSystem?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AcademicSessionCreateInput = {
@@ -10342,6 +11816,11 @@ export namespace Prisma {
     none?: SessionWhereInput
   }
 
+  export type AcademicProfileNullableScalarRelationFilter = {
+    is?: AcademicProfileWhereInput | null
+    isNot?: AcademicProfileWhereInput | null
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -10467,9 +11946,114 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
+  }
+
+  export type AcademicProfileCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    startYear?: SortOrder
+    universityName?: SortOrder
+    facultyName?: SortOrder
+    departmentName?: SortOrder
+    courseDuration?: SortOrder
+    gradePointSystem?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AcademicProfileAvgOrderByAggregateInput = {
+    startYear?: SortOrder
+    courseDuration?: SortOrder
+    gradePointSystem?: SortOrder
+  }
+
+  export type AcademicProfileMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    startYear?: SortOrder
+    universityName?: SortOrder
+    facultyName?: SortOrder
+    departmentName?: SortOrder
+    courseDuration?: SortOrder
+    gradePointSystem?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AcademicProfileMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    startYear?: SortOrder
+    universityName?: SortOrder
+    facultyName?: SortOrder
+    departmentName?: SortOrder
+    courseDuration?: SortOrder
+    gradePointSystem?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AcademicProfileSumOrderByAggregateInput = {
+    startYear?: SortOrder
+    courseDuration?: SortOrder
+    gradePointSystem?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type SemesterListRelationFilter = {
@@ -10549,17 +12133,6 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type SemesterScalarRelationFilter = {
     is?: SemesterWhereInput
     isNot?: SemesterWhereInput
@@ -10601,22 +12174,6 @@ export namespace Prisma {
 
   export type CourseSumOrderByAggregateInput = {
     courseLoad?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -10769,6 +12326,12 @@ export namespace Prisma {
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
+  export type AcademicProfileCreateNestedOneWithoutUserInput = {
+    create?: XOR<AcademicProfileCreateWithoutUserInput, AcademicProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AcademicProfileCreateOrConnectWithoutUserInput
+    connect?: AcademicProfileWhereUniqueInput
+  }
+
   export type AcademicSessionUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AcademicSessionCreateWithoutUserInput, AcademicSessionUncheckedCreateWithoutUserInput> | AcademicSessionCreateWithoutUserInput[] | AcademicSessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AcademicSessionCreateOrConnectWithoutUserInput | AcademicSessionCreateOrConnectWithoutUserInput[]
@@ -10788,6 +12351,12 @@ export namespace Prisma {
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
     createMany?: SessionCreateManyUserInputEnvelope
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
+  export type AcademicProfileUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<AcademicProfileCreateWithoutUserInput, AcademicProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AcademicProfileCreateOrConnectWithoutUserInput
+    connect?: AcademicProfileWhereUniqueInput
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -10852,6 +12421,16 @@ export namespace Prisma {
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
+  export type AcademicProfileUpdateOneWithoutUserNestedInput = {
+    create?: XOR<AcademicProfileCreateWithoutUserInput, AcademicProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AcademicProfileCreateOrConnectWithoutUserInput
+    upsert?: AcademicProfileUpsertWithoutUserInput
+    disconnect?: AcademicProfileWhereInput | boolean
+    delete?: AcademicProfileWhereInput | boolean
+    connect?: AcademicProfileWhereUniqueInput
+    update?: XOR<XOR<AcademicProfileUpdateToOneWithWhereWithoutUserInput, AcademicProfileUpdateWithoutUserInput>, AcademicProfileUncheckedUpdateWithoutUserInput>
+  }
+
   export type AcademicSessionUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AcademicSessionCreateWithoutUserInput, AcademicSessionUncheckedCreateWithoutUserInput> | AcademicSessionCreateWithoutUserInput[] | AcademicSessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AcademicSessionCreateOrConnectWithoutUserInput | AcademicSessionCreateOrConnectWithoutUserInput[]
@@ -10892,6 +12471,46 @@ export namespace Prisma {
     update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
+  export type AcademicProfileUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<AcademicProfileCreateWithoutUserInput, AcademicProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AcademicProfileCreateOrConnectWithoutUserInput
+    upsert?: AcademicProfileUpsertWithoutUserInput
+    disconnect?: AcademicProfileWhereInput | boolean
+    delete?: AcademicProfileWhereInput | boolean
+    connect?: AcademicProfileWhereUniqueInput
+    update?: XOR<XOR<AcademicProfileUpdateToOneWithWhereWithoutUserInput, AcademicProfileUpdateWithoutUserInput>, AcademicProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserCreateNestedOneWithoutAcademicProfileInput = {
+    create?: XOR<UserCreateWithoutAcademicProfileInput, UserUncheckedCreateWithoutAcademicProfileInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAcademicProfileInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutAcademicProfileNestedInput = {
+    create?: XOR<UserCreateWithoutAcademicProfileInput, UserUncheckedCreateWithoutAcademicProfileInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAcademicProfileInput
+    upsert?: UserUpsertWithoutAcademicProfileInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAcademicProfileInput, UserUpdateWithoutAcademicProfileInput>, UserUncheckedUpdateWithoutAcademicProfileInput>
   }
 
   export type UserCreateNestedOneWithoutSessionsInput = {
@@ -11010,14 +12629,6 @@ export namespace Prisma {
     create?: XOR<SemesterCreateWithoutCoursesInput, SemesterUncheckedCreateWithoutCoursesInput>
     connectOrCreate?: SemesterCreateOrConnectWithoutCoursesInput
     connect?: SemesterWhereUniqueInput
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type SemesterUpdateOneRequiredWithoutCoursesNestedInput = {
@@ -11211,6 +12822,17 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -11227,7 +12849,7 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type NestedFloatFilter<$PrismaModel = never> = {
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
     notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -11235,7 +12857,12 @@ export namespace Prisma {
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -11349,6 +12976,35 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AcademicProfileCreateWithoutUserInput = {
+    id?: string
+    startYear: number
+    universityName: string
+    facultyName: string
+    departmentName: string
+    courseDuration: number
+    gradePointSystem?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AcademicProfileUncheckedCreateWithoutUserInput = {
+    id?: string
+    startYear: number
+    universityName: string
+    facultyName: string
+    departmentName: string
+    courseDuration: number
+    gradePointSystem?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AcademicProfileCreateOrConnectWithoutUserInput = {
+    where: AcademicProfileWhereUniqueInput
+    create: XOR<AcademicProfileCreateWithoutUserInput, AcademicProfileUncheckedCreateWithoutUserInput>
+  }
+
   export type AcademicSessionUpsertWithWhereUniqueWithoutUserInput = {
     where: AcademicSessionWhereUniqueInput
     update: XOR<AcademicSessionUpdateWithoutUserInput, AcademicSessionUncheckedUpdateWithoutUserInput>
@@ -11435,6 +13091,117 @@ export namespace Prisma {
     expires?: DateTimeFilter<"Session"> | Date | string
   }
 
+  export type AcademicProfileUpsertWithoutUserInput = {
+    update: XOR<AcademicProfileUpdateWithoutUserInput, AcademicProfileUncheckedUpdateWithoutUserInput>
+    create: XOR<AcademicProfileCreateWithoutUserInput, AcademicProfileUncheckedCreateWithoutUserInput>
+    where?: AcademicProfileWhereInput
+  }
+
+  export type AcademicProfileUpdateToOneWithWhereWithoutUserInput = {
+    where?: AcademicProfileWhereInput
+    data: XOR<AcademicProfileUpdateWithoutUserInput, AcademicProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AcademicProfileUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startYear?: IntFieldUpdateOperationsInput | number
+    universityName?: StringFieldUpdateOperationsInput | string
+    facultyName?: StringFieldUpdateOperationsInput | string
+    departmentName?: StringFieldUpdateOperationsInput | string
+    courseDuration?: IntFieldUpdateOperationsInput | number
+    gradePointSystem?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AcademicProfileUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startYear?: IntFieldUpdateOperationsInput | number
+    universityName?: StringFieldUpdateOperationsInput | string
+    facultyName?: StringFieldUpdateOperationsInput | string
+    departmentName?: StringFieldUpdateOperationsInput | string
+    courseDuration?: IntFieldUpdateOperationsInput | number
+    gradePointSystem?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateWithoutAcademicProfileInput = {
+    id?: string
+    firstName?: string | null
+    lastName?: string | null
+    password?: string | null
+    email: string
+    verified?: boolean
+    emailVerified?: Date | string | null
+    image?: string | null
+    createdAt?: Date | string
+    sessions?: AcademicSessionCreateNestedManyWithoutUserInput
+    Account?: AccountCreateNestedManyWithoutUserInput
+    Session?: SessionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAcademicProfileInput = {
+    id?: string
+    firstName?: string | null
+    lastName?: string | null
+    password?: string | null
+    email: string
+    verified?: boolean
+    emailVerified?: Date | string | null
+    image?: string | null
+    createdAt?: Date | string
+    sessions?: AcademicSessionUncheckedCreateNestedManyWithoutUserInput
+    Account?: AccountUncheckedCreateNestedManyWithoutUserInput
+    Session?: SessionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAcademicProfileInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAcademicProfileInput, UserUncheckedCreateWithoutAcademicProfileInput>
+  }
+
+  export type UserUpsertWithoutAcademicProfileInput = {
+    update: XOR<UserUpdateWithoutAcademicProfileInput, UserUncheckedUpdateWithoutAcademicProfileInput>
+    create: XOR<UserCreateWithoutAcademicProfileInput, UserUncheckedCreateWithoutAcademicProfileInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAcademicProfileInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAcademicProfileInput, UserUncheckedUpdateWithoutAcademicProfileInput>
+  }
+
+  export type UserUpdateWithoutAcademicProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: AcademicSessionUpdateManyWithoutUserNestedInput
+    Account?: AccountUpdateManyWithoutUserNestedInput
+    Session?: SessionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAcademicProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: AcademicSessionUncheckedUpdateManyWithoutUserNestedInput
+    Account?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    Session?: SessionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutSessionsInput = {
     id?: string
     firstName?: string | null
@@ -11447,6 +13214,7 @@ export namespace Prisma {
     createdAt?: Date | string
     Account?: AccountCreateNestedManyWithoutUserInput
     Session?: SessionCreateNestedManyWithoutUserInput
+    academicProfile?: AcademicProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -11461,6 +13229,7 @@ export namespace Prisma {
     createdAt?: Date | string
     Account?: AccountUncheckedCreateNestedManyWithoutUserInput
     Session?: SessionUncheckedCreateNestedManyWithoutUserInput
+    academicProfile?: AcademicProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -11515,6 +13284,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Account?: AccountUpdateManyWithoutUserNestedInput
     Session?: SessionUpdateManyWithoutUserNestedInput
+    academicProfile?: AcademicProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -11529,6 +13299,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Account?: AccountUncheckedUpdateManyWithoutUserNestedInput
     Session?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    academicProfile?: AcademicProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type SemesterUpsertWithWhereUniqueWithoutSessionInput = {
@@ -11714,6 +13485,7 @@ export namespace Prisma {
     createdAt?: Date | string
     sessions?: AcademicSessionCreateNestedManyWithoutUserInput
     Session?: SessionCreateNestedManyWithoutUserInput
+    academicProfile?: AcademicProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountInput = {
@@ -11728,6 +13500,7 @@ export namespace Prisma {
     createdAt?: Date | string
     sessions?: AcademicSessionUncheckedCreateNestedManyWithoutUserInput
     Session?: SessionUncheckedCreateNestedManyWithoutUserInput
+    academicProfile?: AcademicProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountInput = {
@@ -11758,6 +13531,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: AcademicSessionUpdateManyWithoutUserNestedInput
     Session?: SessionUpdateManyWithoutUserNestedInput
+    academicProfile?: AcademicProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountInput = {
@@ -11772,6 +13546,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: AcademicSessionUncheckedUpdateManyWithoutUserNestedInput
     Session?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    academicProfile?: AcademicProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionInput = {
@@ -11786,6 +13561,7 @@ export namespace Prisma {
     createdAt?: Date | string
     sessions?: AcademicSessionCreateNestedManyWithoutUserInput
     Account?: AccountCreateNestedManyWithoutUserInput
+    academicProfile?: AcademicProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionInput = {
@@ -11800,6 +13576,7 @@ export namespace Prisma {
     createdAt?: Date | string
     sessions?: AcademicSessionUncheckedCreateNestedManyWithoutUserInput
     Account?: AccountUncheckedCreateNestedManyWithoutUserInput
+    academicProfile?: AcademicProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionInput = {
@@ -11830,6 +13607,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: AcademicSessionUpdateManyWithoutUserNestedInput
     Account?: AccountUpdateManyWithoutUserNestedInput
+    academicProfile?: AcademicProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionInput = {
@@ -11844,6 +13622,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: AcademicSessionUncheckedUpdateManyWithoutUserNestedInput
     Account?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    academicProfile?: AcademicProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type AcademicSessionCreateManyUserInput = {
