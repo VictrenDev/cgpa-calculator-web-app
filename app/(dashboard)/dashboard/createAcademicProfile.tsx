@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { createAcademicProfile } from "@/lib/serverActions"
 
-export default function AcademicProfileForm({ userId }: { userId: string }) {
+export default function AcademicProfileForm() {
     const [form, setForm] = useState({
         universityName: "",
         facultyName: "",
@@ -17,7 +17,7 @@ export default function AcademicProfileForm({ userId }: { userId: string }) {
     const [error, setError] = useState("")
     const [success, setSuccess] = useState(false)
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target
         setForm((prev) => ({ ...prev, [name]: value }))
     }
@@ -31,18 +31,18 @@ export default function AcademicProfileForm({ userId }: { userId: string }) {
             setSuccess(true)
             // Optional: refresh the page or redirect
             window.location.reload()
-        } catch (err: any) {
-            setError(err.message || "Something went wrong")
+            // } catch (err: ) {
+            //     setError(err.message || "Something went wrong")
         } finally {
             setLoading(false)
         }
     }
 
     return (
-        <section className="fixed w-full top-0 z-50 h-[100dvh] flex justify-center items-center bg-gray-400/20 backdrop-blur-[1.5px]">
+        <section className="fixed w-full top-0 z-50 h-screen flex justify-center items-center bg-gray-400/20 backdrop-blur-[1.5px] px-4 py-4">
             <form
                 onSubmit={handleSubmit}
-                className="max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg mt-12 space-y-6">
+                className="max-w-lg  mx-auto p-8 bg-white shadow-lg rounded-lg mt-12 space-y-6">
                 <div className="text-center">
                     <h2 className="text-2xl font-bold text-gray-800 mb-2">
                         Create Your Academic Profile

@@ -1,0 +1,85 @@
+"use server"
+
+import { authOptions } from "@/lib/authOptions"
+import { prisma } from "@/lib/prisma"
+import { getServerSession } from "next-auth"
+import { redirect } from "next/navigation"
+
+export const getUserAcademicStats = async () => {
+    const session = await getServerSession(authOptions)
+    if (!session?.user?.email) redirect("/login")
+    const user = await prisma.user.findUnique({
+        where: { email: session?.user?.email },
+        select: {
+            firstName: true,
+            lastName: true,
+            email: true,
+            academicProfile: {
+                select: {
+                    universityName: true,
+                    departmentName: true,
+                    gradePointSystem: true,
+                    startYear: true,
+                    courseDuration: true,
+                },
+            },
+            sessions: {
+                select: {
+                    semester: {
+                        select: {
+                            name: true,
+                            createdAt: true,
+                            courses: {
+                                select: { courseLoad: true, grade: true },
+                            },
+                            _count: {
+                                select: {
+                                    courses: {
+                                        where: {
+                                            grade: {
+                                                in: ["A", "B", "C"],
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    })
+
+    // Flatten courses for CGPA calculation
+    const allCourses = user?.sessions.flatMap((s) => s.semester.flatMap((sem) => sem.courses)) ?? []
+
+    // Determine latest semester
+    const allSemesters = user?.sessions.flatMap((s) => s.semester) ?? []
+    const currentSemester =
+        allSemesters.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())[0]?.name ?? ""
+
+    // Get total count of courses C and above (sum from all semesters)
+    const coursesCAndAbove = allSemesters.reduce((sum, sem) => sum + (sem._count.courses ?? 0), 0)
+
+    // CGPA calculation
+    const gradeMap5 = { A: 5, B: 4, C: 3, D: 2, E: 1, F: 0 }
+    const gradeMap4 = { A: 4, B: 3, C: 2, D: 1, F: 0 }
+    const gradeMap = user?.academicProfile?.gradePointSystem === 5 ? gradeMap5 : gradeMap4
+
+    let totalPoints = 0
+    let totalLoad = 0
+    for (const course of allCourses) {
+        const gradePoint = gradeMap[course.grade as keyof typeof gradeMap] ?? 0
+        totalPoints += gradePoint * course.courseLoad
+        totalLoad += course.courseLoad
+    }
+    const cgpa = totalLoad > 0 ? totalPoints / totalLoad : 0
+
+    return {
+        cgpa,
+        coursesCAndAbove,
+        allCourses,
+        currentSemester,
+        user,
+    }
+}
