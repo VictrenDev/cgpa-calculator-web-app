@@ -8,6 +8,7 @@
 /* Optional: Use the font globally via CSS variable */
 html {
     --primary-color: #65007d;
+    --background-bg: #fafafa;
     /* --dashboard-navigation-hover-color: rgb(64, 64, 255); */
     --dashboard-bg-color: #fafafa;
     --dashboard-body-color: #1e1e1e;

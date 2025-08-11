@@ -25,9 +25,11 @@ export default function LogoutUser() {
         <>
             <button
                 onClick={toggleVisibility}
-                className="py-3 px-4 rounded-md bg-gray-800 cursor-pointer text-xs text-white inline-flex gap-2 ml-auto">
-                <LogOut className="w-4 h-4 " /> Logout
+                className="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-md transition-colors hover:cursor-pointer">
+                <LogOut className="w-4 h-4" />
+                Sign Out
             </button>
+
             <section
                 onClick={toggleVisibility}
                 className={`${

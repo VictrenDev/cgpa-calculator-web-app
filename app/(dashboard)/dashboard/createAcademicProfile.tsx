@@ -39,76 +39,169 @@ export default function AcademicProfileForm({ userId }: { userId: string }) {
     }
 
     return (
-        <form
-            onSubmit={handleSubmit}
-            className="max-w-xl mx-auto p-8 bg-white shadow-md rounded-md mt-12">
-            <h2 className="text-xl font-bold mb-6">Create Your Academic Profile</h2>
+        <section className="fixed w-full top-0 z-50 h-[100dvh] flex justify-center items-center bg-gray-400/20 backdrop-blur-[1.5px]">
+            <form
+                onSubmit={handleSubmit}
+                className="max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg mt-12 space-y-6">
+                <div className="text-center">
+                    <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                        Create Your Academic Profile
+                    </h2>
+                    <p className="text-gray-600">Fill in your academic details to get started</p>
+                </div>
 
-            <div className="space-y-4">
-                <input
-                    name="universityName"
-                    value={form.universityName}
-                    onChange={handleChange}
-                    placeholder="University Name"
-                    required
-                    className="w-full border px-3 py-2 rounded"
-                />
-                <input
-                    name="facultyName"
-                    value={form.facultyName}
-                    onChange={handleChange}
-                    placeholder="Faculty Name"
-                    required
-                    className="w-full border px-3 py-2 rounded"
-                />
-                <input
-                    name="departmentName"
-                    value={form.departmentName}
-                    onChange={handleChange}
-                    placeholder="Department Name"
-                    required
-                    className="w-full border px-3 py-2 rounded"
-                />
-                <input
-                    name="startYear"
-                    type="number"
-                    value={form.startYear}
-                    onChange={handleChange}
-                    placeholder="Start Year"
-                    required
-                    className="w-full border px-3 py-2 rounded"
-                />
-                <input
-                    name="courseDuration"
-                    type="number"
-                    value={form.courseDuration}
-                    onChange={handleChange}
-                    placeholder="Course Duration (Years)"
-                    required
-                    className="w-full border px-3 py-2 rounded"
-                />
-                <input
-                    name="gradePointSystem"
-                    type="number"
-                    value={form.gradePointSystem}
-                    onChange={handleChange}
-                    placeholder="Grade Point System (e.g. 5 or 4)"
-                    required
-                    min={4}
-                    max={5}
-                    className="w-full border px-3 py-2 rounded"
-                />
-            </div>
+                <div className="space-y-5">
+                    <div>
+                        <label
+                            htmlFor="universityName"
+                            className="block text-sm font-medium text-gray-700 mb-1">
+                            University Name
+                        </label>
+                        <input
+                            id="universityName"
+                            name="universityName"
+                            value={form.universityName}
+                            onChange={handleChange}
+                            placeholder="e.g. Harvard University"
+                            required
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                        />
+                    </div>
 
-            {error && <p className="text-red-500 mt-4">{error}</p>}
-            {success && <p className="text-green-600 mt-4">Profile created!</p>}
+                    <div>
+                        <label
+                            htmlFor="facultyName"
+                            className="block text-sm font-medium text-gray-700 mb-1">
+                            Faculty Name
+                        </label>
+                        <input
+                            id="facultyName"
+                            name="facultyName"
+                            value={form.facultyName}
+                            onChange={handleChange}
+                            placeholder="e.g. Faculty of Engineering"
+                            required
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                        />
+                    </div>
 
-            <button
-                type="submit"
-                disabled={loading}
-                className="mt-6 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
-                {loading ? "Saving..." : "Create Profile"}
-            </button>
-        </form>
+                    <div>
+                        <label
+                            htmlFor="departmentName"
+                            className="block text-sm font-medium text-gray-700 mb-1">
+                            Department Name
+                        </label>
+                        <input
+                            id="departmentName"
+                            name="departmentName"
+                            value={form.departmentName}
+                            onChange={handleChange}
+                            placeholder="e.g. Computer Science"
+                            required
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                        />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label
+                                htmlFor="startYear"
+                                className="block text-sm font-medium text-gray-700 mb-1">
+                                Start Year
+                            </label>
+                            <input
+                                id="startYear"
+                                name="startYear"
+                                type="number"
+                                value={form.startYear}
+                                onChange={handleChange}
+                                placeholder="e.g. 2020"
+                                required
+                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                            />
+                        </div>
+
+                        <div>
+                            <label
+                                htmlFor="courseDuration"
+                                className="block text-sm font-medium text-gray-700 mb-1">
+                                Duration (Years)
+                            </label>
+                            <input
+                                id="courseDuration"
+                                name="courseDuration"
+                                type="number"
+                                value={form.courseDuration}
+                                onChange={handleChange}
+                                placeholder="e.g. 4"
+                                required
+                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label
+                            htmlFor="gradePointSystem"
+                            className="block text-sm font-medium text-gray-700 mb-1">
+                            Grade Point System
+                        </label>
+                        <select
+                            id="gradePointSystem"
+                            name="gradePointSystem"
+                            value={form.gradePointSystem}
+                            onChange={handleChange}
+                            required
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                            <option value="">Select grading system</option>
+                            <option value="4">4.0 Scale</option>
+                            <option value="5">5.0 Scale</option>
+                        </select>
+                    </div>
+                </div>
+
+                {error && (
+                    <div className="p-3 bg-red-50 text-red-700 rounded-md text-center">{error}</div>
+                )}
+
+                {success && (
+                    <div className="p-3 bg-green-50 text-green-700 rounded-md text-center">
+                        Profile created successfully!
+                    </div>
+                )}
+
+                <div className="text-center">
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className="w-full md:w-auto px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition disabled:opacity-70">
+                        {loading ? (
+                            <span className="flex items-center justify-center">
+                                <svg
+                                    className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24">
+                                    <circle
+                                        className="opacity-25"
+                                        cx="12"
+                                        cy="12"
+                                        r="10"
+                                        stroke="currentColor"
+                                        strokeWidth="4"></circle>
+                                    <path
+                                        className="opacity-75"
+                                        fill="currentColor"
+                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Processing...
+                            </span>
+                        ) : (
+                            "Create Profile"
+                        )}
+                    </button>
+                </div>
+            </form>
+        </section>
     )
 }

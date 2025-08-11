@@ -54,15 +54,15 @@ export default async function Dashboard() {
                                 </span>
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-12">
-                                <p className="bg-gray-50 flex-1 flex flex-col py-6 rounded-md px-4 ">
+                                <p className="bg-gray-100 flex-1 flex flex-col py-6 rounded-md px-4 ">
                                     <span className="text-gray-500 text-sm">Total Semesters</span>
                                     <span>{item.semester.length}</span>
                                 </p>
-                                <p className="bg-gray-50 flex-1 flex flex-col py-6 rounded-md px-4 ">
+                                <p className="bg-gray-100 flex-1 flex flex-col py-6 rounded-md px-4 ">
                                     <span className="text-gray-500 text-sm">Total Courses</span>
                                     <span>{totalCourses}</span>
                                 </p>
-                                <div className="bg-gray-50 flex-1 flex flex-col py-6 rounded-md px-4 ">
+                                <div className="bg-gray-100 flex-1 flex flex-col py-6 rounded-md px-4 ">
                                     <span className="text-gray-500 text-sm ">Session GPA</span>
                                     <div className="flex gap-4 text-xs">
                                         {item.semesters.map((semester) => (
@@ -78,7 +78,7 @@ export default async function Dashboard() {
                                         ))}
                                     </div>
                                 </div>
-                                <p className="bg-gray-50 flex-1 flex flex-col py-6 rounded-md px-4 ">
+                                <p className="bg-gray-100 flex-1 flex flex-col py-6 rounded-md px-4 ">
                                     <span className="text-gray-500 text-sm">Session CGPA</span>
                                     <span>{item.cgpa.toFixed(2)}</span>
                                 </p>
