@@ -1,3 +1,4 @@
+"use client"
 import { AccountData } from "@/lib/types"
 
 export default function AccountInformation({ ...account }: AccountData) {
