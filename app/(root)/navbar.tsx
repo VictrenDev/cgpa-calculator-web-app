@@ -80,7 +80,7 @@ export default function NavBar() {
                         <li>
                             <Link
                                 className="block bg-black text-white py-2 px-6 rounded-md hover:bg-gray-800 transition-colors"
-                                href="/signup"
+                                href="/login"
                                 onClick={() => setIsMenuOpen(false)}>
                                 Get Started
                             </Link>

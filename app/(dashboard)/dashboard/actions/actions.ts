@@ -3,6 +3,7 @@
 import { authOptions } from "@/lib/authOptions"
 import { prisma } from "@/lib/prisma"
 import { getServerSession } from "next-auth"
+import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
 export const getUserAcademicStats = async () => {
@@ -82,4 +83,60 @@ export const getUserAcademicStats = async () => {
         currentSemester,
         user,
     }
+}
+export const accountSettings = async () => {
+    const session = await getServerSession(authOptions)
+    if (!session?.user?.email) redirect("/login")
+    const user = await prisma.user.findUnique({
+        where: { email: session?.user?.email },
+        select: {
+            firstName: true,
+            lastName: true,
+            email: true,
+            academicProfile: {
+                select: {
+                    universityName: true,
+                    departmentName: true,
+                    // gradePointSystem: true,
+                    // startYear: true,
+                    // courseDuration: true,
+                },
+            },
+        },
+    })
+
+    return {
+        user,
+    }
+}
+
+export const updateAccountInfo = async (formData: FormData) => {
+    const session = await getServerSession(authOptions)
+    if (!session?.user?.email) throw new Error("Unauthorized")
+
+    const firstName = formData.get("firstName")?.toString().trim()
+    const lastName = formData.get("lastName")?.toString().trim()
+    const email = formData.get("email")?.toString().trim()
+    const universityName = formData.get("universityName")?.toString().trim()
+    const departmentName = formData.get("departmentName")?.toString().trim()
+    const userExists = await prisma.user.findUnique({ where: { email } })
+    if (userExists) {
+        throw new Error("User with this email already exists")
+    }
+    // Update user and academicProfile
+    await prisma.user.update({
+        where: { email: session.user.email },
+        data: {
+            firstName,
+            lastName,
+            email,
+            academicProfile: {
+                update: {
+                    universityName,
+                    departmentName,
+                },
+            },
+        },
+    })
+    revalidatePath("/dashboard/account-setting")
 }
