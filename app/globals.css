@@ -77,4 +77,11 @@ body {
         left: anchor(start);
         margin-top: 4px; /* spacing */
     }
+    .account-settings-navigation-links {
+        @apply w-full flex items-center gap-3 px-4 py-3  hover:cursor-pointer rounded-lg font-medium;
+    }
+
+    .is-editing-styles input {
+        @apply bg-gray-100 text-gray-500;
+    }
 }

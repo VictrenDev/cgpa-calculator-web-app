@@ -33,7 +33,7 @@ export default function MainSettingsPage({ data }: { data: AcademicInfoData }) {
         }
     }
     return (
-        <div className="container mx-auto p-6 max-w-4xl">
+        <div className="container mx-auto p-4 pt-0 max-w-4xl">
             <div className="mb-6">
                 <Link href="/dashboard" className="flex items-center text-blue-600 hover:underline">
                     <ArrowLeft className="w-4 h-4 mr-1" />
@@ -52,7 +52,11 @@ export default function MainSettingsPage({ data }: { data: AcademicInfoData }) {
                         onClick={() => {
                             setActivePage("profile")
                         }}
-                        className="w-full flex items-center gap-3 px-4 py-3 bg-blue-50 text-blue-700 rounded-lg font-medium">
+                        className={`account-settings-navigation-links ${
+                            activePage === "profile"
+                                ? "bg-blue-50 text-blue-700"
+                                : "text-gray-700 hover:bg-gray-100"
+                        }`}>
                         <User className="w-5 h-5" />
                         Profile
                     </button>
@@ -60,19 +64,24 @@ export default function MainSettingsPage({ data }: { data: AcademicInfoData }) {
                         onClick={() => {
                             setActivePage("security")
                         }}
-                        className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 rounded-lg text-gray-700">
+                        className={`account-settings-navigation-links ${
+                            activePage === "security"
+                                ? "bg-blue-50 text-blue-700"
+                                : "text-gray-700 hover:bg-gray-100"
+                        }`}>
                         <Lock className="w-5 h-5" />
                         Security
                     </button>
-                    <button className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 rounded-lg text-gray-700">
-                        <Mail className="w-5 h-5" />
-                        Notifications
-                    </button>
+
                     <button
                         onClick={() => {
                             setActivePage("academic-info")
                         }}
-                        className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 rounded-lg text-gray-700">
+                        className={`account-settings-navigation-links ${
+                            activePage === "academic-info"
+                                ? "bg-blue-50 text-blue-700"
+                                : "text-gray-700 hover:bg-gray-100"
+                        }`}>
                         <BookOpen className="w-5 h-5" />
                         Academic Info
                     </button>

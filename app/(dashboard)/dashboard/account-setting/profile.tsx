@@ -2,9 +2,10 @@
 import { Trash2, User } from "lucide-react"
 import { updateAccountInfo } from "../actions/actions"
 import { AcademicInfoData } from "./main-page"
+import { useState } from "react"
 
 export default function Profile({ data }: { data: AcademicInfoData }) {
-    console.log(data)
+    const [isEditingProfileData, setIsEditingProfileData] = useState<boolean>(true)
     return (
         <div className="md:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
             <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
@@ -12,7 +13,9 @@ export default function Profile({ data }: { data: AcademicInfoData }) {
                 Profile Information
             </h2>
 
-            <form action={updateAccountInfo} className="space-y-4">
+            <form
+                action={updateAccountInfo}
+                className={`space-y-4 ${isEditingProfileData ? "is-editing-styles" : ""}`}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -21,8 +24,9 @@ export default function Profile({ data }: { data: AcademicInfoData }) {
                         <input
                             type="text"
                             name="firstname"
+                            disabled={isEditingProfileData}
                             defaultValue={`${data?.user?.firstName ?? ""}`}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            className="w-full  px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                         />
                     </div>
                     <div>
@@ -32,6 +36,7 @@ export default function Profile({ data }: { data: AcademicInfoData }) {
                         <input
                             type="text"
                             name="lastname"
+                            disabled={isEditingProfileData}
                             defaultValue={`${data?.user?.lastName ?? ""}`}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                         />
@@ -42,6 +47,7 @@ export default function Profile({ data }: { data: AcademicInfoData }) {
                     <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
                     <input
                         type="email"
+                        disabled={isEditingProfileData}
                         name="email"
                         defaultValue={`${data?.user?.email ?? ""}`}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
@@ -55,6 +61,7 @@ export default function Profile({ data }: { data: AcademicInfoData }) {
                         </label>
                         <input
                             type="text"
+                            disabled={isEditingProfileData}
                             name="univeristy"
                             defaultValue={`${data?.user?.academicProfile?.universityName ?? ""}`}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
@@ -66,6 +73,7 @@ export default function Profile({ data }: { data: AcademicInfoData }) {
                         </label>
                         <input
                             type="text"
+                            disabled={isEditingProfileData}
                             name="department"
                             defaultValue={`${data?.user?.academicProfile?.departmentName ?? ""}`}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
@@ -73,10 +81,18 @@ export default function Profile({ data }: { data: AcademicInfoData }) {
                     </div>
                 </div>
 
-                <div className="pt-4 border-t border-gray-200 flex justify-end">
+                <div className="pt-4 border-t border-gray-200 flex gap-4 justify-end">
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setIsEditingProfileData((prev) => !prev)
+                        }}
+                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:cursor-pointer ">
+                        {isEditingProfileData ? "Edit Profile Data" : "Lock Profile Data"}
+                    </button>
                     <button
                         type="submit"
-                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 hover:cursor-pointer">
                         Save Changes
                     </button>
                 </div>
