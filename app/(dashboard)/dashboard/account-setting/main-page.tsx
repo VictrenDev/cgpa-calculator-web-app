@@ -1,5 +1,5 @@
 "use client"
-import { ArrowLeft, User, Lock, Mail, Trash2, BookOpen, Settings } from "lucide-react"
+import { ArrowLeft, User, Lock, Trash2, BookOpen, Settings } from "lucide-react"
 import Link from "next/link"
 import AccountInfo from "./account-info"
 import { useState } from "react"
