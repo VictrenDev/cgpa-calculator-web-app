@@ -84,4 +84,24 @@ body {
     .is-editing-styles input {
         @apply bg-gray-100 text-gray-500;
     }
+
+    /* For the editing state */
+    .is-editing-styles input:not([disabled]),
+    .is-editing-styles select:not([disabled]),
+    .is-editing-styles textarea:not([disabled]) {
+        background-color: #f8fafc;
+        border-color: #cbd5e1;
+    }
+
+    /* Navigation links */
+    .account-settings-navigation-links {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        transition: all 0.2s ease;
+        font-weight: 500;
+    }
 }

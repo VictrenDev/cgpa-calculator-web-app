@@ -86,7 +86,7 @@ export const getUserAcademicStats = async () => {
 }
 export const accountSettings = async () => {
     const session = await getServerSession(authOptions)
-    if (!session?.user?.email) redirect("/login")
+    if (!session?.user?.id) redirect("/login")
     const user = await prisma.user.findUnique({
         where: { email: session?.user?.email },
         select: {
@@ -110,7 +110,37 @@ export const accountSettings = async () => {
     }
 }
 
-export const updateAccountInfo = async (formData: FormData) => {
+export const updateProfileInfo = async (formData: FormData) => {
+    const session = await getServerSession(authOptions)
+    if (!session?.user?.id) throw new Error("Unauthorized")
+
+    const firstName = formData.get("firstName")?.toString().trim()
+    const lastName = formData.get("lastName")?.toString().trim()
+    const email = formData.get("email")?.toString().trim()
+    const universityName = formData.get("universityName")?.toString().trim()
+    const departmentName = formData.get("departmentName")?.toString().trim()
+    const userExists = await prisma.user.findUnique({ where: { email } })
+    if (userExists) {
+        throw new Error("User with this email already exists")
+    }
+    // Update user and academicProfile
+    await prisma.user.update({
+        where: { email: session.user.email },
+        data: {
+            firstName,
+            lastName,
+            email,
+            academicProfile: {
+                update: {
+                    universityName,
+                    departmentName,
+                },
+            },
+        },
+    })
+    revalidatePath("/dashboard/account-setting")
+}
+export const updateAcademicInfo = async (formData: FormData) => {
     const session = await getServerSession(authOptions)
     if (!session?.user?.email) throw new Error("Unauthorized")
 
@@ -139,4 +169,11 @@ export const updateAccountInfo = async (formData: FormData) => {
         },
     })
     revalidatePath("/dashboard/account-setting")
+}
+
+export const deleteUser = async () => {
+    const session = await getServerSession(authOptions)
+    const user = session?.user?.id
+    await prisma.user.delete({ where: { id: user } })
+    return redirect("/login")
 }

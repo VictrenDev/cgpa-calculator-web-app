@@ -1,6 +1,6 @@
 "use client"
 import { Trash2, User } from "lucide-react"
-import { updateAccountInfo } from "../actions/actions"
+import { deleteUser, updateProfileInfo } from "../actions/actions"
 import { AcademicInfoData } from "./main-page"
 import { useState } from "react"
 
@@ -14,7 +14,7 @@ export default function Profile({ data }: { data: AcademicInfoData }) {
             </h2>
 
             <form
-                action={updateAccountInfo}
+                action={updateProfileInfo}
                 className={`space-y-4 ${isEditingProfileData ? "is-editing-styles" : ""}`}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -108,7 +108,9 @@ export default function Profile({ data }: { data: AcademicInfoData }) {
                     Once you delete your account, there is no going back. All your data will be
                     permanently removed.
                 </p>
-                <button className="mt-4 px-4 py-2 border border-red-600 text-red-600 rounded-md hover:bg-red-50">
+                <button
+                    onClick={deleteUser}
+                    className="mt-4 px-4 py-2 border border-red-600 text-red-600 rounded-md hover:bg-red-50">
                     Delete My Account
                 </button>
             </div>
