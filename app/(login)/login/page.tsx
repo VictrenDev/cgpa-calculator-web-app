@@ -45,7 +45,7 @@ export default function Login() {
 
     return (
         <section className="w-full min-h-[100dvh] fixed top-0 bg-gray-300/30 flex justify-center items-center">
-            <div className="w-[400px] p-6 mx-4 bg-white rounded-xl text-gray-700 container">
+            <div className="w-full max-w-md p-6 mx-4 bg-white rounded-xl text-gray-700 container">
                 <p className="text-3xl text-gray-800 mb-8 text-center">Login</p>
 
                 <form onSubmit={handleSubmit} className="text-sm md:text-base">
