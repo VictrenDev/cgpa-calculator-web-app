@@ -169,13 +169,13 @@ export default function NavigationData({
                                     </div>
 
                                     <div className="flex justify-between">
-                                        <span>University:</span>
-                                        <span>{user?.academicProfile?.universityName}</span>
+                                        <span>Institution:</span>
+                                        <span className="text-gray-500">{user?.academicProfile?.universityName}</span>
                                     </div>
 
                                     <div className="flex justify-between">
-                                        <span>Expected Graduation Year:</span>
-                                        <span>{expectedGraduationYear}</span>
+                                        <span>Grad Year:</span>
+                                        <span className="text-gray-500">{expectedGraduationYear}</span>
                                     </div>
                                 </div>
                             </div>
@@ -188,7 +188,7 @@ export default function NavigationData({
                                     setIsOpen(false);
                                 }}
                                 href="/dashboard/account-setting"
-                                className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors justify-center">
+                                className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors ">
                                 <Settings className="w-4 h-4" />
                                 Account Settings
                             </Link>
