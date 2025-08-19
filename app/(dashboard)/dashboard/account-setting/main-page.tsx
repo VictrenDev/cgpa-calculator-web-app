@@ -69,7 +69,7 @@ export default function MainSettingsPage({ data }: { data: AcademicInfoData }) {
                         Security
                     </button>
 
-                    <button
+                    {/* <button
                         onClick={() => {
                             setActivePage("academic-info");
                         }}
@@ -78,11 +78,11 @@ export default function MainSettingsPage({ data }: { data: AcademicInfoData }) {
                         }`}>
                         <BookOpen className="w-5 h-5" />
                         Academic Info
-                    </button>
-                    <button className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 rounded-lg text-red-600 mt-8">
+                    </button> */}
+                    {/* <button className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 rounded-lg text-red-600 mt-8">
                         <Trash2 className="w-5 h-5" />
                         Delete Account
-                    </button>
+                    </button> */}
                 </div>
 
                 {/* Main Content */}
