@@ -1,17 +1,21 @@
-import { Plus_Jakarta_Sans } from "next/font/google"
-import "/app/globals.css"
+import { Plus_Jakarta_Sans } from "next/font/google";
+import "/app/globals.css";
+import { Toaster } from "sonner";
 
 const plusJakarta = Plus_Jakarta_Sans({
     subsets: ["latin"],
     weight: ["200", "300", "400", "500", "600", "700", "800"],
     display: "swap",
     variable: "--font-plus-jakarta",
-})
+});
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en" className={plusJakarta.className}>
-            <body>{children}</body>
+            <body>
+                {children}
+                <Toaster position="top-center" expand={false} richColors closeButton />
+            </body>
         </html>
-    )
+    );
 }

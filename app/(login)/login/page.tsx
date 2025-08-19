@@ -4,28 +4,28 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 export default function Login() {
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
-    const [error, setError] = useState("");
+    const [showPassword, setShowPassword] = useState<boolean>(false);
     const [isSigningIn, setIsSigningIn] = useState<boolean>(false);
     const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
-        setIsSigningIn(true);
         e.preventDefault();
-        setError("");
 
         const email = emailRef.current?.value;
         const password = passwordRef.current?.value;
 
         if (!email || !password) {
-            setError("Email and password are required");
+            toast.error("Email and password are required");
             return;
         }
         try {
+            setIsSigningIn(true);
             const result = await signIn("credentials", {
                 redirect: false, // We’ll redirect manually
                 email,
@@ -33,30 +33,63 @@ export default function Login() {
             });
 
             if (result?.error) {
-                setError("Invalid email or password");
+                toast.error("Invalid login details. Please check your login credentials again");
+            } else {
+                toast.success("Please wait while we log you in...");
+                router.push("/dashboard");
             }
         } finally {
             setIsSigningIn(false);
-            router.push("/dashboard");
         }
     };
 
     return (
-        <section className="w-full h-screen fixed top-0 bg-gray-300/30 flex justify-center items-center">
-            <div className="w-120 p-4 pt-4 mx-4 bg-white rounded-xl text-gray-700 container">
-                <h1 className="text-2xl md:text-4xl font-bold text-gray-800 mb-2">Login to your Account</h1>
-                <p className="text-sm text-gray-600 mb-6">
-                    Don&apos;t have an account?
-                    <u className="inline-block ml-2">
-                        <Link href="/signup">Signup</Link>
-                    </u>
-                </p>
-
-                {error && <p className="text-red-600 mb-2">{error}</p>}
+        <section className="w-full min-h-[100dvh] fixed top-0 bg-gray-300/30 flex justify-center items-center">
+            <div className="w-[400px] p-6 mx-4 bg-white rounded-xl text-gray-700 container">
+                <p className="text-3xl text-gray-800 mb-8 text-center">Login</p>
 
                 <form onSubmit={handleSubmit} className="text-sm md:text-base">
-                    <input ref={emailRef} type="email" name="email" placeholder="Email Address" className="input-default-style" />
-                    <input ref={passwordRef} name="password" type="password" placeholder="Password" className="input-default-style" />
+                    <fieldset className="flex flex-col gap-3">
+                        <div>
+                            <label htmlFor="email" className="text-sm font-medium">
+                                Email Address
+                            </label>
+                            <input ref={emailRef} type="email" name="email" placeholder="Email Address" className="input-default-style" />
+                        </div>
+                        <div>
+                            <label htmlFor="password" className="text-sm font-medium">
+                                Password
+                            </label>
+                            <div className="relative">
+                                <input
+                                    ref={passwordRef}
+                                    name="password"
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="Password"
+                                    className="input-default-style pr-10"
+                                />
+                                <button
+                                    type="button"
+                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:cursor-pointer hover:text-gray-700"
+                                    onClick={() => setShowPassword(!showPassword)}>
+                                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                </button>
+                            </div>
+                            <div className="flex items-center gap-2 mt-2">
+                                <input
+                                    type="checkbox"
+                                    id="showPassword"
+                                    className="cursor-pointer"
+                                    checked={showPassword}
+                                    onChange={(e) => setShowPassword(e.target.checked)}
+                                />
+                                <label htmlFor="showPassword" className="text-gray-500 text-sm cursor-pointer">
+                                    Show Password
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+
                     <button
                         type="submit"
                         disabled={isSigningIn}
@@ -72,6 +105,12 @@ export default function Login() {
                             "Sign In"
                         )}
                     </button>
+                    <p className="text-sm text-center text-gray-600 ">
+                        Don&apos;t have an account?
+                        <u className="inline-block ml-2">
+                            <Link href="/signup">Signup</Link>
+                        </u>
+                    </p>
 
                     {/* <div className="flex justify-between gap-6 my-4 mt-2 items-center">
                         <div className="w-full h-[1px] bg-gray-300"></div>
