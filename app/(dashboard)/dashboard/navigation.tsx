@@ -1,29 +1,29 @@
-"use client"
-import { ChevronDown, Settings } from "lucide-react"
-import LogoutUser from "./logoutScreen"
-import Link from "next/link"
-import { useEffect, useRef, useState } from "react"
+"use client";
+import { ChevronDown, Settings } from "lucide-react";
+import LogoutUser from "./logoutScreen";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 type AcademicProfile = {
-    universityName: string
-    departmentName: string
-    gradePointSystem: number
-    startYear: number
-    courseDuration: number
-}
+    universityName: string;
+    departmentName: string;
+    gradePointSystem: number;
+    startYear: number;
+    courseDuration: number;
+};
 
 type UserProps = {
-    firstName: string | null
-    lastName: string | null
-    email: string
-    academicProfile: AcademicProfile | null
-} | null
+    firstName: string | null;
+    lastName: string | null;
+    email: string;
+    academicProfile: AcademicProfile | null;
+} | null;
 type Props = {
-    user: UserProps
-    cgpa: number
-    currentSemester?: string
-    totalCourses?: number
-    coursesCAndAbove?: number
-}
+    user: UserProps;
+    cgpa: number;
+    currentSemester?: string;
+    totalCourses?: number;
+    coursesCAndAbove?: number;
+};
 
 export default function NavigationData({
     user,
@@ -32,76 +32,76 @@ export default function NavigationData({
     totalCourses,
     coursesCAndAbove,
 }: Props) {
-    const [isOpen, setIsOpen] = useState(false)
-    const modalRef = useRef<HTMLDivElement | null>(null)
+    const [isOpen, setIsOpen] = useState(false);
+    const modalRef = useRef<HTMLDivElement | null>(null);
 
     // Handle click outside
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-                setIsOpen(false)
+                setIsOpen(false);
             }
         }
 
         if (isOpen) {
-            document.addEventListener("mousedown", handleClickOutside)
+            document.addEventListener("mousedown", handleClickOutside);
         } else {
-            document.removeEventListener("mousedown", handleClickOutside)
+            document.removeEventListener("mousedown", handleClickOutside);
         }
 
         // Cleanup
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside)
-        }
-    }, [isOpen])
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isOpen]);
 
-    let gradeClass: string
-    const cgpaFormatted = Number(cgpa.toFixed(2))
+    let gradeClass: string;
+    const cgpaFormatted = Number(cgpa.toFixed(2));
 
     switch (true) {
         case cgpaFormatted >= 4.5:
-            gradeClass = "First Class"
-            break
+            gradeClass = "First Class";
+            break;
         case cgpaFormatted >= 3.5:
-            gradeClass = "Second Class Upper"
-            break
+            gradeClass = "Second Class Upper";
+            break;
         case cgpaFormatted >= 3.0:
-            gradeClass = "Second Class Lower"
-            break
+            gradeClass = "Second Class Lower";
+            break;
         case cgpaFormatted >= 2.5:
-            gradeClass = "Third Class Upper"
-            break
+            gradeClass = "Third Class Upper";
+            break;
         case cgpaFormatted >= 2.0:
-            gradeClass = "Third Class Lower"
-            break
+            gradeClass = "Third Class Lower";
+            break;
         default:
-            gradeClass = "Pass"
+            gradeClass = "Pass";
     }
 
-    const firstName = user?.firstName ?? ""
-    const lastName = user?.lastName ?? ""
-    const name = user ? `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim() : ""
+    const firstName = user?.firstName ?? "";
+    const lastName = user?.lastName ?? "";
+    const name = user ? `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim() : "";
     const nameAbbrv = name
         ? name
               .split(" ")
               .map((w) => w[0])
               .join("")
               .toUpperCase()
-        : ""
+        : "";
 
-    const total = totalCourses ?? 0
-    const coursesAbove = coursesCAndAbove ?? 0
-    const coursePercentage = total > 0 ? (coursesAbove / total) * 100 : 0
-    const startYear: number = user?.academicProfile?.startYear ?? 0
-    const courseDuration: number = user?.academicProfile?.courseDuration ?? 0
-    const expectedGraduationYear: number = startYear + courseDuration
+    const total = totalCourses ?? 0;
+    const coursesAbove = coursesCAndAbove ?? 0;
+    const coursePercentage = total > 0 ? (coursesAbove / total) * 100 : 0;
+    const startYear: number = user?.academicProfile?.startYear ?? 0;
+    const courseDuration: number = user?.academicProfile?.courseDuration ?? 0;
+    const expectedGraduationYear: number = startYear + courseDuration;
     return (
         <section className="sticky top-0 mb-4 w-full bg-[var(--background-bg)] z-50">
             <div ref={modalRef} className="container-fluid py-4 flex justify-end items-center ">
                 <div ref={modalRef} className="relative">
                     <button
                         onClick={() => {
-                            setIsOpen((prev) => !prev)
+                            setIsOpen((prev) => !prev);
                         }}
                         className="flex gap-2 items-center py-2 px-4 bg-white rounded-sm shadow-xs cursor-pointer">
                         <div className="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-full text-sm">
@@ -111,15 +111,9 @@ export default function NavigationData({
                             <p className="font-semibold text-gray-700">
                                 {firstName} {lastName}
                             </p>
-                            <p className="text-gray-500">
-                                {user?.academicProfile?.departmentName ?? "N/A"}
-                            </p>
+                            <p className="text-gray-500">{user?.academicProfile?.departmentName ?? "N/A"}</p>
                         </div>
-                        <ChevronDown
-                            className={`ml-2 w-4 h-4 text-gray-500 transition-transform ${
-                                isOpen ? "rotate-180" : ""
-                            } `}
-                        />
+                        <ChevronDown className={`ml-2 w-4 h-4 text-gray-500 transition-transform ${isOpen ? "rotate-180" : ""} `} />
                     </button>
 
                     {/* Enhanced Dropdown Content */}
@@ -154,9 +148,7 @@ export default function NavigationData({
                                     <div className="flex justify-between">
                                         <span>CGPA:</span>
                                         <span className="font-medium text-green-600">
-                                            {cgpa.toFixed(2)}/
-                                            {user?.academicProfile?.gradePointSystem.toFixed(2) ??
-                                                0}
+                                            {cgpa.toFixed(2)}/{user?.academicProfile?.gradePointSystem.toFixed(2) ?? 0}
                                         </span>
                                     </div>
 
@@ -164,8 +156,7 @@ export default function NavigationData({
                                         <div className="flex justify-between">
                                             <span>Credits:</span>
                                             <span>
-                                                {coursesCAndAbove}/{totalCourses} (
-                                                {coursePercentage.toFixed()}%)
+                                                {coursesCAndAbove}/{totalCourses} ({coursePercentage.toFixed()}%)
                                             </span>
                                         </div>
                                         <div className="w-full bg-gray-200 h-1 mt-1 rounded-full">
@@ -194,26 +185,26 @@ export default function NavigationData({
                         <div className="p-2">
                             <Link
                                 onClick={() => {
-                                    setIsOpen(false)
+                                    setIsOpen(false);
                                 }}
                                 href="/dashboard/account-setting"
                                 className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors justify-center">
                                 <Settings className="w-4 h-4" />
                                 Account Settings
                             </Link>
-                            <Link
+                            {/* <Link
                                 onClick={() => {
                                     setIsOpen(false)
                                 }}
                                 href="/dashboard/academic-report"
                                 className="block w-full text-center px-3 py-2 mb-1 text-xs text-blue-600 hover:bg-blue-50 rounded-md transition-colors">
                                 View full academic report →
-                            </Link>
+                            </Link> */}
                             <LogoutUser />
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-    )
+    );
 }

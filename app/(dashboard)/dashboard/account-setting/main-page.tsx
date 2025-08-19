@@ -1,37 +1,37 @@
-"use client"
-import { ArrowLeft, User, Lock, Trash2, BookOpen, Settings } from "lucide-react"
-import Link from "next/link"
-import AccountInfo from "./account-info"
-import { useState } from "react"
-import Security from "./security"
-import Profile from "./profile"
+"use client";
+import { ArrowLeft, User, Lock, Trash2, BookOpen, Settings } from "lucide-react";
+import Link from "next/link";
+import AccountInfo from "./account-info";
+import { useState } from "react";
+import Security from "./security";
+import Profile from "./profile";
 type AcademicProfile = {
-    universityName: string
-    departmentName: string
-}
+    universityName: string;
+    departmentName: string;
+};
 
 export type AcademicInfoData = {
-    firstName: string
-    lastName: string
-    email: string
-    academicProfile: AcademicProfile
-} | null
+    firstName: string;
+    lastName: string;
+    email: string;
+    academicProfile: AcademicProfile;
+} | null;
 
 export default function MainSettingsPage({ data }: { data: AcademicInfoData }) {
-    const [activePage, setActivePage] = useState<string>("profile")
+    const [activePage, setActivePage] = useState<string>("profile");
 
     const renderActivePage = () => {
         switch (activePage) {
             case "academic-info":
-                return <AccountInfo />
+                return <AccountInfo />;
             case "security":
-                return <Security />
+                return <Security />;
             case "profile":
-                return <Profile data={data} />
+                return <Profile data={data} />;
             default:
-                return <AccountInfo />
+                return <AccountInfo />;
         }
-    }
+    };
     return (
         <div className="container mx-auto p-4 pt-0 max-w-4xl">
             <div className="mb-6">
@@ -50,24 +50,20 @@ export default function MainSettingsPage({ data }: { data: AcademicInfoData }) {
                 <div className="space-y-2">
                     <button
                         onClick={() => {
-                            setActivePage("profile")
+                            setActivePage("profile");
                         }}
                         className={`account-settings-navigation-links ${
-                            activePage === "profile"
-                                ? "bg-blue-50 text-blue-700"
-                                : "text-gray-700 hover:bg-gray-100"
+                            activePage === "profile" ? "bg-blue-50 text-blue-700" : "text-gray-700 hover:bg-gray-100"
                         }`}>
                         <User className="w-5 h-5" />
                         Profile
                     </button>
                     <button
                         onClick={() => {
-                            setActivePage("security")
+                            setActivePage("security");
                         }}
                         className={`account-settings-navigation-links ${
-                            activePage === "security"
-                                ? "bg-blue-50 text-blue-700"
-                                : "text-gray-700 hover:bg-gray-100"
+                            activePage === "security" ? "bg-blue-50 text-blue-700" : "text-gray-700 hover:bg-gray-100"
                         }`}>
                         <Lock className="w-5 h-5" />
                         Security
@@ -75,12 +71,10 @@ export default function MainSettingsPage({ data }: { data: AcademicInfoData }) {
 
                     <button
                         onClick={() => {
-                            setActivePage("academic-info")
+                            setActivePage("academic-info");
                         }}
                         className={`account-settings-navigation-links ${
-                            activePage === "academic-info"
-                                ? "bg-blue-50 text-blue-700"
-                                : "text-gray-700 hover:bg-gray-100"
+                            activePage === "academic-info" ? "bg-blue-50 text-blue-700" : "text-gray-700 hover:bg-gray-100"
                         }`}>
                         <BookOpen className="w-5 h-5" />
                         Academic Info
@@ -95,5 +89,5 @@ export default function MainSettingsPage({ data }: { data: AcademicInfoData }) {
                 {renderActivePage()}
             </div>
         </div>
-    )
+    );
 }

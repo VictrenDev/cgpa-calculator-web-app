@@ -6,6 +6,19 @@ import { useState } from "react"
 
 export default function Profile({ data }: { data: AcademicInfoData }) {
     const [isEditingProfileData, setIsEditingProfileData] = useState<boolean>(true)
+
+    const [isDeleting, setIsDeleting] = useState(false)
+
+    const handleDelete = async () => {
+        setIsDeleting(true)
+        try {
+            await deleteUser()
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setIsDeleting(false)
+        }
+    }
     return (
         <div className="md:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
             <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
@@ -23,7 +36,7 @@ export default function Profile({ data }: { data: AcademicInfoData }) {
                         </label>
                         <input
                             type="text"
-                            name="firstname"
+                            name="firstName"
                             disabled={isEditingProfileData}
                             defaultValue={`${data?.user?.firstName ?? ""}`}
                             className="w-full  px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
@@ -35,7 +48,7 @@ export default function Profile({ data }: { data: AcademicInfoData }) {
                         </label>
                         <input
                             type="text"
-                            name="lastname"
+                            name="lastName"
                             disabled={isEditingProfileData}
                             defaultValue={`${data?.user?.lastName ?? ""}`}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
@@ -62,7 +75,7 @@ export default function Profile({ data }: { data: AcademicInfoData }) {
                         <input
                             type="text"
                             disabled={isEditingProfileData}
-                            name="univeristy"
+                            name="univeristyName"
                             defaultValue={`${data?.user?.academicProfile?.universityName ?? ""}`}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                         />
@@ -74,7 +87,7 @@ export default function Profile({ data }: { data: AcademicInfoData }) {
                         <input
                             type="text"
                             disabled={isEditingProfileData}
-                            name="department"
+                            name="departmentName"
                             defaultValue={`${data?.user?.academicProfile?.departmentName ?? ""}`}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                         />
@@ -109,9 +122,12 @@ export default function Profile({ data }: { data: AcademicInfoData }) {
                     permanently removed.
                 </p>
                 <button
-                    onClick={deleteUser}
-                    className="mt-4 px-4 py-2 border border-red-600 text-red-600 rounded-md hover:bg-red-50">
-                    Delete My Account
+                    onClick={handleDelete}
+                    disabled={isDeleting}
+                    className={`mt-4 px-4 py-2 border border-red-600 text-red-600 rounded-md hover:bg-red-50 hover:cursor-pointer ${
+                        isDeleting ? "bg-red-50 text-red-500" : ""
+                    }`}>
+                    {isDeleting ? "Deleting Account..." : "Delete Account"}
                 </button>
             </div>
         </div>

@@ -116,20 +116,19 @@ export const updateProfileInfo = async (formData: FormData) => {
 
     const firstName = formData.get("firstName")?.toString().trim()
     const lastName = formData.get("lastName")?.toString().trim()
-    const email = formData.get("email")?.toString().trim()
+    // const email = formData.get("email")?.toString().trim()
     const universityName = formData.get("universityName")?.toString().trim()
     const departmentName = formData.get("departmentName")?.toString().trim()
-    const userExists = await prisma.user.findUnique({ where: { email } })
-    if (userExists) {
-        throw new Error("User with this email already exists")
-    }
+    // const userExists = await prisma.user.findUnique({ where: { id: session?.user?.id } })
+    // if (userExists) {
+    //     throw new Error("User with this email already exists")
+    // }
     // Update user and academicProfile
     await prisma.user.update({
-        where: { email: session.user.email },
+        where: { id: session.user.id },
         data: {
             firstName,
             lastName,
-            email,
             academicProfile: {
                 update: {
                     universityName,
