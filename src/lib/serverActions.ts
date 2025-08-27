@@ -36,7 +36,7 @@ export async function createUser(formData: FormData) {
                 verified: true,
             },
         });
-        console.log(newUser);
+        // console.log(newUser);
     } catch (error) {
         console.log(error);
     }
@@ -101,7 +101,7 @@ export async function createCourse(formData: FormData) {
                 semesterId: semester.id,
             },
         });
-        console.log(createCourse);
+        // console.log(createCourse);
         revalidatePath("/dashboard");
     } catch (error) {
         console.log(error);
@@ -448,7 +448,9 @@ export async function createAcademicProfile(input: AcademicProfileInput) {
     const gradePointSystemNum = Number(input.gradePointSystem);
 
     if (isNaN(startYearNum) || isNaN(courseDurationNum) || isNaN(gradePointSystemNum)) {
-        throw new Error("Invalid numeric values provided");
+        return {
+            errorMessage: "Invalid numeric values provided",
+        };
     }
 
     const existing = await prisma.academicProfile.findUnique({

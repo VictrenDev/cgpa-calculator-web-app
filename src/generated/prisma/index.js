@@ -207,7 +207,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\FM-C\\Web Development\\cgpa-calculator-web-app-main\\src\\generated\\prisma",
+      "value": "C:\\Users\\FM-C\\Developement Lab\\cgpa-calculator-web-app-main\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -221,7 +221,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\FM-C\\Web Development\\cgpa-calculator-web-app-main\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\FM-C\\Developement Lab\\cgpa-calculator-web-app-main\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { createAcademicProfile } from "@/lib/serverActions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import useSWR from "swr";
 export default function AcademicProfileForm() {
     const [form, setForm] = useState({
         universityName: "",
@@ -13,6 +14,12 @@ export default function AcademicProfileForm() {
         courseDuration: 4,
         gradePointSystem: 5,
     });
+    const fetcher = async (url: string) => {
+        const response = await fetch(url);
+        return await response.json();
+    };
+    const { data } = useSWR("http://universities.hipolabs.com/search?country=nigeria", fetcher);
+    const { data: faculties } = useSWR("/faculties.json", fetcher);
     const router = useRouter();
     const [loading, setLoading] = useState(false);
 
@@ -28,8 +35,10 @@ export default function AcademicProfileForm() {
             await createAcademicProfile({ ...form });
             toast.success("Academic Profile has been created successfully");
             router.refresh();
-        } catch (err: any) {
-            toast.error(err.message || "Something went wrong");
+        } catch (error) {
+            if (error instanceof Error) {
+                toast.error("Something went wrong");
+            }
         } finally {
             setLoading(false);
         }
@@ -56,7 +65,16 @@ export default function AcademicProfileForm() {
                             placeholder="e.g. Harvard University"
                             required
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                            list="university-list"
                         />
+                        <datalist id="university-list">
+                            {data &&
+                                data?.map((universities: { name: string }, index: number) => (
+                                    <option key={index} value={universities.name}>
+                                        {universities.name}
+                                    </option>
+                                ))}
+                        </datalist>
                     </div>
 
                     <div>
@@ -71,7 +89,16 @@ export default function AcademicProfileForm() {
                             placeholder="e.g. Faculty of Engineering"
                             required
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                            list="facultyList"
                         />
+                        <datalist id="facultyList">
+                            {faculties &&
+                                Object.keys(faculties)?.map((faculty, index) => (
+                                    <option key={index} value={faculty}>
+                                        {faculty}
+                                    </option>
+                                ))}
+                        </datalist>
                     </div>
 
                     <div>
@@ -86,7 +113,15 @@ export default function AcademicProfileForm() {
                             placeholder="e.g. Computer Science"
                             required
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                            list="departmentList"
                         />
+                        <datalist id="departmentList">
+                            {faculties?.[form.facultyName]?.map((dep: string) => (
+                                <option key={dep} value={dep}>
+                                    {dep}
+                                </option>
+                            ))}
+                        </datalist>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">

@@ -108,7 +108,7 @@ export default function NavigationData({
                             {nameAbbrv}
                         </div>
                         <div className="text-xs text-left">
-                            <p className="font-semibold text-gray-700">
+                            <p className="font-semibold text-gray-700 capitalize">
                                 {firstName} {lastName}
                             </p>
                             <p className="text-gray-500">{user?.academicProfile?.departmentName ?? "N/A"}</p>
@@ -128,7 +128,7 @@ export default function NavigationData({
                                     {nameAbbrv}
                                 </div>
                                 <div className="text-left">
-                                    <p className="font-medium text-gray-900 ">
+                                    <p className="font-medium text-gray-900 capitalize">
                                         {firstName} {lastName}
                                     </p>
                                     <p className="text-xs text-gray-500">{user?.email}</p>

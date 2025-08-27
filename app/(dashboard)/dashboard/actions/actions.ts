@@ -171,8 +171,8 @@ export const updateAcademicInfo = async (formData: FormData) => {
 
 export const deleteUser = async () => {
     const session = await getServerSession(authOptions);
-    const user = session?.user?.id;
-    await prisma.user.delete({ where: { id: user } });
+    if (!session) throw new Error("No user Session");
+    await prisma.user.delete({ where: { id: session.user.id } });
     return redirect("/login");
 };
 

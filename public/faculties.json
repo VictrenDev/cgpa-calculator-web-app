@@ -1,0 +1,82 @@
+{
+    "Engineering": [
+        "Electrical Engineering",
+        "Electronic Engineering",
+        "Mechanical Engineering",
+        "Civil Engineering",
+        "Computer Engineering",
+        "Chemical Engineering",
+        "Petroleum Engineering",
+        "Biomedical Engineering",
+        "Industrial Engineering",
+        "Materials Science and Engineering",
+        "Environmental Engineering"
+    ],
+    "Science": [
+        "Physics",
+        "Chemistry",
+        "Biology",
+        "Mathematics",
+        "Statistics",
+        "Geology",
+        "Computer Science",
+        "Environmental Science",
+        "Biochemistry",
+        "Microbiology"
+    ],
+    "Humanities": ["English", "History", "Philosophy", "Languages", "Performing Arts", "Visual Arts", "Music", "Theatre", "Religious Studies"],
+    "Social Sciences": [
+        "Economics",
+        "Sociology",
+        "Political Science",
+        "Psychology",
+        "Anthropology",
+        "International Relations",
+        "Human Geography",
+        "Education",
+        "Law",
+        "Public Administration"
+    ],
+    "Business": [
+        "Accounting",
+        "Finance",
+        "Marketing",
+        "Management",
+        "Human Resource Management",
+        "Entrepreneurship",
+        "Supply Chain Management",
+        "Economics",
+        "Business Analytics"
+    ],
+    "Medicine & Health Sciences": [
+        "Medicine",
+        "Pharmacy",
+        "Nursing",
+        "Dentistry",
+        "Physiotherapy",
+        "Public Health",
+        "Medical Laboratory Science",
+        "Anatomy",
+        "Physiology",
+        "Pharmacology"
+    ],
+    "Agriculture & Environmental": [
+        "Agricultural Engineering",
+        "Crop Science",
+        "Animal Science",
+        "Soil Science",
+        "Forestry",
+        "Environmental Management",
+        "Fisheries",
+        "Horticulture"
+    ],
+    "Law": ["Civil Law", "Criminal Law", "International Law", "Corporate Law", "Constitutional Law"],
+    "Education": [
+        "Science Education",
+        "Mathematics Education",
+        "Computer Science Education",
+        "Arts Education",
+        "Educational Management",
+        "Adult Education"
+    ]
+}
