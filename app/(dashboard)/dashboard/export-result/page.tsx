@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 
 export default async function Page() {
     const userSessionData = await getServerSession(authOptions);
+
     if (!userSessionData) {
         throw new Error("User must be signed in first");
     }
@@ -12,9 +13,8 @@ export default async function Page() {
         where: { id: userSessionData.user.id },
         include: { sessions: { include: { semester: { include: { courses: true } } } } },
     });
-    // if (!userExists) {
-    //     throw new Error("User must be signed in first");
-    // }
-    // console.log(userData);
+    if (!userData) {
+        return { notFound: true };
+    }
     return <ExportResultPage data={userData} />;
 }
