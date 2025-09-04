@@ -1,16 +1,27 @@
 "use client";
 import * as XLSX from "xlsx";
 
-export default function ExportResultPage() {
+export default function ExportResultPage({ data }) {
+    let rows = [];
+    let name = [data.firstName, data.lastName].filter(Boolean).join(" ");
+    data.sessions.forEach((session) => {
+        session.semester.forEach((semester) => {
+            semester.courses.forEach((course) => {
+                rows.push({
+                    Session: session.name,
+                    Semester: semester.name,
+                    Course: course.courseTitle,
+                    Load: course.courseLoad,
+                    Grade: course.grade,
+                });
+            });
+        });
+    });
     const exportExcel = () => {
-        const data = [
-            { name: "ictor", index: 1 },
-            { name: "Maya", index: 2 },
-        ];
-        const worksheet = XLSX.utils.json_to_sheet(data);
+        const worksheet = XLSX.utils.json_to_sheet(rows);
         const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Results");
-        XLSX.writeFile(workbook, "Results.xlsx");
+        XLSX.utils.book_append_sheet(workbook, worksheet, `Result Sheet for ${name}`);
+        XLSX.writeFile(workbook, `Result for ${name}.xlsx`);
     };
     return (
         <div>

@@ -8,10 +8,13 @@ export default async function Page() {
     if (!userSessionData) {
         throw new Error("User must be signed in first");
     }
-    const userExists = await prisma.user.findUnique({ where: { id: userSessionData.user.id } });
-    if (!userExists) {
-        throw new Error("User must be signed in first");
-    }
-    console.log(userSessionData);
-    return <ExportResultPage />;
+    const userData = await prisma.user.findUnique({
+        where: { id: userSessionData.user.id },
+        include: { sessions: { include: { semester: { include: { courses: true } } } } },
+    });
+    // if (!userExists) {
+    //     throw new Error("User must be signed in first");
+    // }
+    // console.log(userData);
+    return <ExportResultPage data={userData} />;
 }
