@@ -12,7 +12,6 @@ export default function ResetPassword() {
     const [isSigningIn, setIsSigningIn] = useState<boolean>(false);
     const searchParams = useSearchParams();
     const token = searchParams.get("token");
-    console.log(token);
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
