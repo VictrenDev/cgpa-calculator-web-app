@@ -129,7 +129,9 @@ exports.Prisma.UserScalarFieldEnum = {
   verified: 'verified',
   emailVerified: 'emailVerified',
   image: 'image',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  resetToken: 'resetToken',
+  resetTokenExpiry: 'resetTokenExpiry'
 };
 
 exports.Prisma.AcademicProfileScalarFieldEnum = {
