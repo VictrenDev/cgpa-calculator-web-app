@@ -95,7 +95,7 @@ export default function Home() {
                     <ScrollEffect as="div" delay={200} className="flex flex-wrap gap-4">
                         <Link
                             className="bg-black text-white py-2 px-6 rounded-md hover:bg-gray-800 transition-colors"
-                            href="/signup">
+                            href="/auth/signup">
                             Get Started
                         </Link>
                         <Link

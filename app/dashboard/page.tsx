@@ -10,7 +10,7 @@ import CreateCourseModal from "@/components/createCourseForm";
 
 export default async function Dashboard() {
     const session = await getServerSession(authOptions);
-    if (!session?.user?.email) redirect("/login");
+    if (!session?.user?.email) redirect("/auth/login");
 
     // 🔍 Check for academic profile
     const user = await prisma.user.findUnique({

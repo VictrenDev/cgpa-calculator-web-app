@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
 import { Loader2 } from "lucide-react";
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import axios from "axios";
 
@@ -23,15 +23,15 @@ export default function ResetPassword() {
             return;
         }
         try {
-            const res = await axios.post("/api/auth/reset-password", {
+            setIsSigningIn(true);
+            await axios.post("/api/auth/reset-password", {
                 token,
                 password: passwordRef.current?.value,
             });
-            if (res.data.success) {
-                toast.success("Password reset was successful. Redirecting to login page...");
-            }
+            toast.success("Password reset successful. Please wait while we redirect you to the login page");
         } finally {
             setIsSigningIn(false);
+            redirect("/auth/login");
         }
     };
 
