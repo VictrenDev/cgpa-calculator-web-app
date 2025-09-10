@@ -31,7 +31,7 @@ export default function Login() {
                 email,
                 password,
             });
-
+            console.log(result);
             if (result?.error) {
                 toast.error("Invalid login details. Please check your login credentials again");
             } else {
@@ -113,7 +113,7 @@ export default function Login() {
                     <p className="text-sm text-center text-gray-600 ">
                         Don&apos;t have an account?
                         <u className="inline-block ml-2">
-                            <Link href="/signup">Signup</Link>
+                            <Link href="/auth/signup">Signup</Link>
                         </u>
                     </p>
 
