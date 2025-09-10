@@ -75,17 +75,22 @@ export default function Login() {
                                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                                 </button>
                             </div>
-                            <div className="flex items-center gap-2 mt-2">
-                                <input
-                                    type="checkbox"
-                                    id="showPassword"
-                                    className="cursor-pointer"
-                                    checked={showPassword}
-                                    onChange={(e) => setShowPassword(e.target.checked)}
-                                />
-                                <label htmlFor="showPassword" className="text-gray-500 text-sm cursor-pointer">
-                                    Show Password
-                                </label>
+                            <div className="flex mt-2 justify-between">
+                                <div className="flex items-center gap-2">
+                                    <input
+                                        type="checkbox"
+                                        id="showPassword"
+                                        className="cursor-pointer"
+                                        checked={showPassword}
+                                        onChange={(e) => setShowPassword(e.target.checked)}
+                                    />
+                                    <label htmlFor="showPassword" className="text-gray-500 text-sm cursor-pointer">
+                                        Show Password
+                                    </label>
+                                </div>
+                                <p className="text-sm text-gray-500">
+                                    <Link href={"/auth/forgot-password"}>Forgot password?</Link>
+                                </p>
                             </div>
                         </div>
                     </fieldset>
