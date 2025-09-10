@@ -74,9 +74,7 @@ export async function POST(req: Request) {
 </body>`;
     // Setup transporter correctly
     const transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false,
+        service: "gmail",
         auth: {
             user: process.env.EMAIL_ADDRESS,
             pass: process.env.EMAIL_PASSWORD,
@@ -84,15 +82,12 @@ export async function POST(req: Request) {
     } as SMTPTransport.Options);
 
     try {
-        const info = await transporter.sendMail({
+        await transporter.sendMail({
             from: process.env.EMAIL_ADDRESS,
             to: email,
             subject: "Password Reset",
             html: emailTemplate,
         });
-
-        console.log("Email sent:", info.messageId);
-        console.log("Preview URL:", nodemailer.getTestMessageUrl(info));
 
         return NextResponse.json({ success: true });
     } catch (err) {

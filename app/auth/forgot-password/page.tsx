@@ -2,17 +2,19 @@
 import { useRef, useState } from "react";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 // import { toast } from "sonner";
 export default function ForgotPassword() {
     const emailRef = useRef<HTMLInputElement>(null);
     const [isSigningIn, setIsSigningIn] = useState<boolean>(false);
 
     const handleResetPassword = async () => {
-        console.log("clicked");
         try {
             setIsSigningIn(true);
             const res = await axios.post("/api/auth/forgot-password", { email: emailRef.current?.value });
-            console.log(res);
+            if (res.data?.success) {
+                toast.success("Password reset Link sent. Please check your email for reset link");
+            }
         } catch (error) {
             if (error instanceof Error) {
                 console.log(error);

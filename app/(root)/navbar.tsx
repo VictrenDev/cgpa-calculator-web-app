@@ -29,7 +29,7 @@ export default function NavBar() {
                             </li>
                         ))}
                     </ul>
-                    <Link className="bg-black text-white py-2 px-6 rounded-md hover:bg-gray-800 transition-colors" href="/login">
+                    <Link className="bg-black text-white py-2 px-6 rounded-md hover:bg-gray-800 transition-colors" href="/auth/login">
                         Get Started
                     </Link>
                 </div>
@@ -63,7 +63,7 @@ export default function NavBar() {
                         <li>
                             <Link
                                 className="block bg-black text-white py-2 px-6 rounded-md hover:bg-gray-800 transition-colors"
-                                href="/login"
+                                href="/auth/login"
                                 onClick={() => setIsMenuOpen(false)}>
                                 Get Started
                             </Link>
