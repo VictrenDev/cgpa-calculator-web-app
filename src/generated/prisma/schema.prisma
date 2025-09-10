@@ -9,19 +9,21 @@ datasource db {
 }
 
 model User {
-  id              String            @id @default(uuid())
-  firstName       String?
-  lastName        String?
-  password        String?
-  email           String            @unique
-  verified        Boolean           @default(false)
-  emailVerified   DateTime?
-  image           String?
-  sessions        AcademicSession[]
-  createdAt       DateTime          @default(now())
-  Account         Account[]
-  Session         Session[]
-  academicProfile AcademicProfile?
+  id               String            @id @default(uuid())
+  firstName        String?
+  lastName         String?
+  password         String?
+  email            String            @unique
+  verified         Boolean           @default(false)
+  emailVerified    DateTime?
+  image            String?
+  sessions         AcademicSession[]
+  createdAt        DateTime          @default(now())
+  Account          Account[]
+  Session          Session[]
+  academicProfile  AcademicProfile?
+  resetToken       String?
+  resetTokenExpiry DateTime?
 }
 
 model AcademicProfile {

@@ -1636,6 +1636,8 @@ export namespace Prisma {
     emailVerified: Date | null
     image: string | null
     createdAt: Date | null
+    resetToken: string | null
+    resetTokenExpiry: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1648,6 +1650,8 @@ export namespace Prisma {
     emailVerified: Date | null
     image: string | null
     createdAt: Date | null
+    resetToken: string | null
+    resetTokenExpiry: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1660,6 +1664,8 @@ export namespace Prisma {
     emailVerified: number
     image: number
     createdAt: number
+    resetToken: number
+    resetTokenExpiry: number
     _all: number
   }
 
@@ -1674,6 +1680,8 @@ export namespace Prisma {
     emailVerified?: true
     image?: true
     createdAt?: true
+    resetToken?: true
+    resetTokenExpiry?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1686,6 +1694,8 @@ export namespace Prisma {
     emailVerified?: true
     image?: true
     createdAt?: true
+    resetToken?: true
+    resetTokenExpiry?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1698,6 +1708,8 @@ export namespace Prisma {
     emailVerified?: true
     image?: true
     createdAt?: true
+    resetToken?: true
+    resetTokenExpiry?: true
     _all?: true
   }
 
@@ -1783,6 +1795,8 @@ export namespace Prisma {
     emailVerified: Date | null
     image: string | null
     createdAt: Date
+    resetToken: string | null
+    resetTokenExpiry: Date | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1812,6 +1826,8 @@ export namespace Prisma {
     emailVerified?: boolean
     image?: boolean
     createdAt?: boolean
+    resetToken?: boolean
+    resetTokenExpiry?: boolean
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     Account?: boolean | User$AccountArgs<ExtArgs>
     Session?: boolean | User$SessionArgs<ExtArgs>
@@ -1829,6 +1845,8 @@ export namespace Prisma {
     emailVerified?: boolean
     image?: boolean
     createdAt?: boolean
+    resetToken?: boolean
+    resetTokenExpiry?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1841,6 +1859,8 @@ export namespace Prisma {
     emailVerified?: boolean
     image?: boolean
     createdAt?: boolean
+    resetToken?: boolean
+    resetTokenExpiry?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1853,9 +1873,11 @@ export namespace Prisma {
     emailVerified?: boolean
     image?: boolean
     createdAt?: boolean
+    resetToken?: boolean
+    resetTokenExpiry?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "password" | "email" | "verified" | "emailVerified" | "image" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "password" | "email" | "verified" | "emailVerified" | "image" | "createdAt" | "resetToken" | "resetTokenExpiry", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     Account?: boolean | User$AccountArgs<ExtArgs>
@@ -1884,6 +1906,8 @@ export namespace Prisma {
       emailVerified: Date | null
       image: string | null
       createdAt: Date
+      resetToken: string | null
+      resetTokenExpiry: Date | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2320,6 +2344,8 @@ export namespace Prisma {
     readonly emailVerified: FieldRef<"User", 'DateTime'>
     readonly image: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
+    readonly resetToken: FieldRef<"User", 'String'>
+    readonly resetTokenExpiry: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -10470,7 +10496,9 @@ export namespace Prisma {
     verified: 'verified',
     emailVerified: 'emailVerified',
     image: 'image',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    resetToken: 'resetToken',
+    resetTokenExpiry: 'resetTokenExpiry'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -10670,6 +10698,8 @@ export namespace Prisma {
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     image?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
+    resetToken?: StringNullableFilter<"User"> | string | null
+    resetTokenExpiry?: DateTimeNullableFilter<"User"> | Date | string | null
     sessions?: AcademicSessionListRelationFilter
     Account?: AccountListRelationFilter
     Session?: SessionListRelationFilter
@@ -10686,6 +10716,8 @@ export namespace Prisma {
     emailVerified?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    resetToken?: SortOrderInput | SortOrder
+    resetTokenExpiry?: SortOrderInput | SortOrder
     sessions?: AcademicSessionOrderByRelationAggregateInput
     Account?: AccountOrderByRelationAggregateInput
     Session?: SessionOrderByRelationAggregateInput
@@ -10705,6 +10737,8 @@ export namespace Prisma {
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     image?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
+    resetToken?: StringNullableFilter<"User"> | string | null
+    resetTokenExpiry?: DateTimeNullableFilter<"User"> | Date | string | null
     sessions?: AcademicSessionListRelationFilter
     Account?: AccountListRelationFilter
     Session?: SessionListRelationFilter
@@ -10721,6 +10755,8 @@ export namespace Prisma {
     emailVerified?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    resetToken?: SortOrderInput | SortOrder
+    resetTokenExpiry?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -10739,6 +10775,8 @@ export namespace Prisma {
     emailVerified?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    resetToken?: StringNullableWithAggregatesFilter<"User"> | string | null
+    resetTokenExpiry?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   }
 
   export type AcademicProfileWhereInput = {
@@ -11194,6 +11232,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     createdAt?: Date | string
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     sessions?: AcademicSessionCreateNestedManyWithoutUserInput
     Account?: AccountCreateNestedManyWithoutUserInput
     Session?: SessionCreateNestedManyWithoutUserInput
@@ -11210,6 +11250,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     createdAt?: Date | string
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     sessions?: AcademicSessionUncheckedCreateNestedManyWithoutUserInput
     Account?: AccountUncheckedCreateNestedManyWithoutUserInput
     Session?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -11226,6 +11268,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions?: AcademicSessionUpdateManyWithoutUserNestedInput
     Account?: AccountUpdateManyWithoutUserNestedInput
     Session?: SessionUpdateManyWithoutUserNestedInput
@@ -11242,6 +11286,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions?: AcademicSessionUncheckedUpdateManyWithoutUserNestedInput
     Account?: AccountUncheckedUpdateManyWithoutUserNestedInput
     Session?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -11258,6 +11304,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     createdAt?: Date | string
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -11270,6 +11318,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -11282,6 +11332,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type AcademicProfileCreateInput = {
@@ -11848,6 +11900,8 @@ export namespace Prisma {
     emailVerified?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
+    resetToken?: SortOrder
+    resetTokenExpiry?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -11860,6 +11914,8 @@ export namespace Prisma {
     emailVerified?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
+    resetToken?: SortOrder
+    resetTokenExpiry?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -11872,6 +11928,8 @@ export namespace Prisma {
     emailVerified?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
+    resetToken?: SortOrder
+    resetTokenExpiry?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -13136,6 +13194,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     createdAt?: Date | string
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     sessions?: AcademicSessionCreateNestedManyWithoutUserInput
     Account?: AccountCreateNestedManyWithoutUserInput
     Session?: SessionCreateNestedManyWithoutUserInput
@@ -13151,6 +13211,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     createdAt?: Date | string
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     sessions?: AcademicSessionUncheckedCreateNestedManyWithoutUserInput
     Account?: AccountUncheckedCreateNestedManyWithoutUserInput
     Session?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -13182,6 +13244,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions?: AcademicSessionUpdateManyWithoutUserNestedInput
     Account?: AccountUpdateManyWithoutUserNestedInput
     Session?: SessionUpdateManyWithoutUserNestedInput
@@ -13197,6 +13261,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions?: AcademicSessionUncheckedUpdateManyWithoutUserNestedInput
     Account?: AccountUncheckedUpdateManyWithoutUserNestedInput
     Session?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -13212,6 +13278,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     createdAt?: Date | string
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     Account?: AccountCreateNestedManyWithoutUserInput
     Session?: SessionCreateNestedManyWithoutUserInput
     academicProfile?: AcademicProfileCreateNestedOneWithoutUserInput
@@ -13227,6 +13295,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     createdAt?: Date | string
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     Account?: AccountUncheckedCreateNestedManyWithoutUserInput
     Session?: SessionUncheckedCreateNestedManyWithoutUserInput
     academicProfile?: AcademicProfileUncheckedCreateNestedOneWithoutUserInput
@@ -13282,6 +13352,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Account?: AccountUpdateManyWithoutUserNestedInput
     Session?: SessionUpdateManyWithoutUserNestedInput
     academicProfile?: AcademicProfileUpdateOneWithoutUserNestedInput
@@ -13297,6 +13369,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Account?: AccountUncheckedUpdateManyWithoutUserNestedInput
     Session?: SessionUncheckedUpdateManyWithoutUserNestedInput
     academicProfile?: AcademicProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -13483,6 +13557,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     createdAt?: Date | string
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     sessions?: AcademicSessionCreateNestedManyWithoutUserInput
     Session?: SessionCreateNestedManyWithoutUserInput
     academicProfile?: AcademicProfileCreateNestedOneWithoutUserInput
@@ -13498,6 +13574,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     createdAt?: Date | string
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     sessions?: AcademicSessionUncheckedCreateNestedManyWithoutUserInput
     Session?: SessionUncheckedCreateNestedManyWithoutUserInput
     academicProfile?: AcademicProfileUncheckedCreateNestedOneWithoutUserInput
@@ -13529,6 +13607,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions?: AcademicSessionUpdateManyWithoutUserNestedInput
     Session?: SessionUpdateManyWithoutUserNestedInput
     academicProfile?: AcademicProfileUpdateOneWithoutUserNestedInput
@@ -13544,6 +13624,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions?: AcademicSessionUncheckedUpdateManyWithoutUserNestedInput
     Session?: SessionUncheckedUpdateManyWithoutUserNestedInput
     academicProfile?: AcademicProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -13559,6 +13641,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     createdAt?: Date | string
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     sessions?: AcademicSessionCreateNestedManyWithoutUserInput
     Account?: AccountCreateNestedManyWithoutUserInput
     academicProfile?: AcademicProfileCreateNestedOneWithoutUserInput
@@ -13574,6 +13658,8 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     image?: string | null
     createdAt?: Date | string
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
     sessions?: AcademicSessionUncheckedCreateNestedManyWithoutUserInput
     Account?: AccountUncheckedCreateNestedManyWithoutUserInput
     academicProfile?: AcademicProfileUncheckedCreateNestedOneWithoutUserInput
@@ -13605,6 +13691,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions?: AcademicSessionUpdateManyWithoutUserNestedInput
     Account?: AccountUpdateManyWithoutUserNestedInput
     academicProfile?: AcademicProfileUpdateOneWithoutUserNestedInput
@@ -13620,6 +13708,8 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions?: AcademicSessionUncheckedUpdateManyWithoutUserNestedInput
     Account?: AccountUncheckedUpdateManyWithoutUserNestedInput
     academicProfile?: AcademicProfileUncheckedUpdateOneWithoutUserNestedInput

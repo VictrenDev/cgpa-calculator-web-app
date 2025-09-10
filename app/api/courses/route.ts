@@ -1,34 +1,18 @@
-// // src/app/api/courses/route.ts
-// import { NextRequest, NextResponse } from "next/server"
-
-// export async function POST(req: NextRequest) {
-//     try {
-//         const data = await req.json()
-//         console.log("Received data:", data)
-
-//         return NextResponse.json({ message: "Course received successfully", data }, { status: 200 })
-//     } catch (error) {
-//         console.error("API error:", error)
-//         return NextResponse.json({ error: "Internal server error" }, { status: 500 })
-//     }
-// }
-
-// src/app/api/courses/route.ts
-import { NextRequest, NextResponse } from "next/server"
-import { prisma } from "@/lib/prisma"
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
 export async function POST(req: NextRequest) {
-    const body = await req.json()
+    const body = await req.json();
 
-    const { session, semester, courseTitle, courseCode, courseLoad, grade, userEmail } = body
+    const { session, semester, courseTitle, courseCode, courseLoad, grade, userEmail } = body;
 
     try {
         // Example logic to find or create session/semester, then create course
         const user = await prisma.user.findUnique({
             where: { email: userEmail },
-        })
+        });
 
-        if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 })
+        if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
 
         // Create or find session
         const sessionRecord = await prisma.session.upsert({
@@ -43,7 +27,7 @@ export async function POST(req: NextRequest) {
                 userId: user.id,
                 name: session,
             },
-        })
+        });
 
         // Create or find semester
         const semesterRecord = await prisma.semester.upsert({
@@ -58,7 +42,7 @@ export async function POST(req: NextRequest) {
                 sessionId: sessionRecord.id,
                 name: semester,
             },
-        })
+        });
 
         const course = await prisma.course.create({
             data: {
@@ -68,11 +52,11 @@ export async function POST(req: NextRequest) {
                 grade,
                 semesterId: semesterRecord.id,
             },
-        })
+        });
 
-        return NextResponse.json(course, { status: 201 })
+        return NextResponse.json(course, { status: 201 });
     } catch (err) {
-        console.error("Error creating course:", err)
-        return NextResponse.json({ error: "Something went wrong" }, { status: 500 })
+        console.error("Error creating course:", err);
+        return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
     }
 }
