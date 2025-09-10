@@ -66,7 +66,7 @@ export default function Signup() {
 
                 if (result?.error) {
                     toast.error("Login failed after signup. Please try logging in manually.");
-                    router.push("/login");
+                    router.push("/auth/login");
                 } else {
                     router.push("/dashboard");
                 }
@@ -169,7 +169,7 @@ export default function Signup() {
                 </form>
                 <p className="text-sm text-gray-600 mt-4 text-center">
                     Already have an account?
-                    <Link href="/login" className="ml-1 underline font-medium">
+                    <Link href="/auth/login" className="ml-1 underline font-medium">
                         Login
                     </Link>
                 </p>

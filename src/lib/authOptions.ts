@@ -96,11 +96,8 @@ export const authOptions: NextAuthOptions = {
             return session;
         },
         async signIn({ user }) {
-            const dbUser = await prisma.user.findUnique({
-                where: { id: user.id! },
-            });
-
-            return dbUser?.verified ?? true;
+            const dbUser = await prisma.user.findUnique({ where: { id: user.id! } });
+            return dbUser ? true : false;
         },
         async redirect({ baseUrl }) {
             // Use Vercel's URL if available
