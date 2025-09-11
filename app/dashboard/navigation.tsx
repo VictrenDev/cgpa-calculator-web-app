@@ -3,6 +3,7 @@ import { ChevronDown, Settings } from "lucide-react";
 import LogoutUser from "./logoutScreen";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import ExportResultComponent from "./export-result/ExportResults";
 type AcademicProfile = {
     universityName: string;
     departmentName: string;
@@ -182,7 +183,7 @@ export default function NavigationData({
                         </div>
 
                         {/* Action Section */}
-                        <div className="p-2">
+                        <div className="p-2 grid space-y-2">
                             <Link
                                 onClick={() => {
                                     setIsOpen(false);
@@ -192,6 +193,7 @@ export default function NavigationData({
                                 <Settings className="w-4 h-4" />
                                 Account Settings
                             </Link>
+                            <ExportResultComponent />
                             {/* <Link
                                 onClick={() => {
                                     setIsOpen(false)

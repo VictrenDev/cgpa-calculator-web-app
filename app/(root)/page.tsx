@@ -1,12 +1,59 @@
-import ScrollEffect from "@/components/intersectionObserver"
-import Link from "next/link"
-import NavBar from "./navbar"
-import type { Metadata } from "next"
+import ScrollEffect from "@/components/intersectionObserver";
+import Link from "next/link";
+import NavBar from "./navbar";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Cumulative Grade Point Average Calculator",
-    description: "Lorem 123",
-}
+    title: "CGPA Calculator | Free Online Cumulative GPA Calculator",
+    description:
+        "Easily calculate your Cumulative Grade Point Average (CGPA) with our free online CGPA Calculator. Supports multiple semesters, GPA scales, weighted/unweighted systems, and provides accurate results for students in universities, colleges, and schools.",
+    keywords: [
+        "CGPA Calculator",
+        "Cumulative GPA Calculator",
+        "GPA to CGPA",
+        "GPA Calculator",
+        "Grade Point Average",
+        "University CGPA Calculator",
+        "College GPA Calculator",
+        "Semester GPA Calculator",
+        "CGPA to Percentage",
+        "Online CGPA Tool",
+    ],
+    authors: [{ name: "Victren" }],
+    creator: "Victren",
+    publisher: "Victren",
+    openGraph: {
+        title: "CGPA Calculator – Free Online GPA & Cumulative Calculator",
+        description:
+            "Calculate your Cumulative Grade Point Average (CGPA) quickly and accurately. Perfect for students across universities, colleges, and schools.",
+        url: "https://yourdomain.com/cgpa-calculator",
+        siteName: "Your Website Name",
+        type: "website",
+        images: [
+            {
+                url: "https://yourdomain.com/images/cgpa-calculator-og.png",
+                width: 1200,
+                height: 630,
+                alt: "CGPA Calculator Preview",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Free CGPA Calculator – Accurate & Easy to Use",
+        description: "Instantly compute your Cumulative GPA with our free CGPA Calculator. Supports multiple grading systems and semesters.",
+        images: ["https://yourdomain.com/images/cgpa-calculator-twitter.png"],
+        creator: "@YourTwitterHandle",
+    },
+    robots: {
+        index: true,
+        follow: true,
+    },
+    category: "education",
+    alternates: {
+        canonical: "https://yourdomain.com/cgpa-calculator",
+    },
+};
 
 export default function Home() {
     return (
@@ -15,37 +62,26 @@ export default function Home() {
             <NavBar />
             {/* HERO SECTION */}
             <header className="py-12 md:py-20" id="hero">
-                <ScrollEffect
-                    as="h1"
-                    className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                <ScrollEffect as="h1" className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
                     Welcome to Your Student Dashboard – Track Your Academic Journey Effortlessly
                 </ScrollEffect>
                 <ScrollEffect as="p" delay={100} className="mt-4 text-lg md:text-xl text-gray-600">
                     Stay updated with your grades, progress, and academic goals all in one place.
                 </ScrollEffect>
-                <ScrollEffect
-                    as="div"
-                    delay={200}
-                    className="mt-8 md:mt-12 h-60 md:h-96 w-full bg-gray-200 rounded-lg"></ScrollEffect>
+                <ScrollEffect as="div" delay={200} className="mt-8 md:mt-12 h-60 md:h-96 w-full bg-gray-200 rounded-lg"></ScrollEffect>
             </header>
 
             {/* FEATURES */}
             <section className="py-12 md:py-20 lg:py-32" id="features">
-                <ScrollEffect
-                    as="p"
-                    className="text-sm mb-2 md:mb-4 uppercase tracking-wider text-gray-500">
+                <ScrollEffect as="p" className="text-sm mb-2 md:mb-4 uppercase tracking-wider text-gray-500">
                     Features
                 </ScrollEffect>
-                <ScrollEffect
-                    as="h2"
-                    delay={100}
-                    className="text-2xl md:text-4xl lg:text-5xl mb-4 font-bold">
+                <ScrollEffect as="h2" delay={100} className="text-2xl md:text-4xl lg:text-5xl mb-4 font-bold">
                     Explore the Key Features of Our Application
                 </ScrollEffect>
                 <ScrollEffect as="p" delay={200} className="pb-6 text-lg text-gray-600">
-                    Our CGPA Calculator offers a comprehensive overview of your academic
-                    performance. With interactive charts and summary cards, you can easily track
-                    your progress and set achievable goals.
+                    Our CGPA Calculator offers a comprehensive overview of your academic performance. With interactive charts and summary cards, you
+                    can easily track your progress and set achievable goals.
                 </ScrollEffect>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 mt-8">
@@ -69,9 +105,7 @@ export default function Home() {
                             delay={index * 200}
                             className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                             <div className="bg-gray-200 w-full h-48 rounded-lg"></div>
-                            <p className="mt-6 font-semibold text-xl md:text-2xl">
-                                {feature.title}
-                            </p>
+                            <p className="mt-6 font-semibold text-xl md:text-2xl">{feature.title}</p>
                             <p className="mt-2 md:mt-4 text-gray-600">{feature.desc}</p>
                         </ScrollEffect>
                     ))}
@@ -79,37 +113,26 @@ export default function Home() {
             </section>
 
             {/* CALL TO ACTION */}
-            <section
-                className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 py-12 md:py-20 items-center"
-                id="contact">
+            <section className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 py-12 md:py-20 items-center" id="contact">
                 <div>
-                    <ScrollEffect
-                        as="h2"
-                        className="text-2xl md:text-4xl lg:text-5xl pb-4 md:pb-6 font-bold">
+                    <ScrollEffect as="h2" className="text-2xl md:text-4xl lg:text-5xl pb-4 md:pb-6 font-bold">
                         Join Our CGPA Calculator Today
                     </ScrollEffect>
                     <ScrollEffect as="p" delay={100} className="pb-4 md:pb-6 text-lg text-gray-600">
-                        Track your academic performance effortlessly and achieve your goals with our
-                        intuitive tool.
+                        Track your academic performance effortlessly and achieve your goals with our intuitive tool.
                     </ScrollEffect>
                     <ScrollEffect as="div" delay={200} className="flex flex-wrap gap-4">
-                        <Link
-                            className="bg-black text-white py-2 px-6 rounded-md hover:bg-gray-800 transition-colors"
-                            href="/auth/signup">
+                        <Link className="bg-black text-white py-2 px-6 rounded-md hover:bg-gray-800 transition-colors" href="/auth/signup">
                             Get Started
                         </Link>
-                        <Link
-                            className="border border-black text-black py-2 px-6 rounded-md hover:bg-gray-100 transition-colors"
-                            href="/learn-more">
+                        <Link className="border border-black text-black py-2 px-6 rounded-md hover:bg-gray-100 transition-colors" href="/learn-more">
                             Learn More
                         </Link>
                     </ScrollEffect>
                 </div>
 
-                <ScrollEffect
-                    as="div"
-                    className="bg-gray-200 h-64 md:h-80 rounded-lg"></ScrollEffect>
+                <ScrollEffect as="div" className="bg-gray-200 h-64 md:h-80 rounded-lg"></ScrollEffect>
             </section>
         </div>
-    )
+    );
 }

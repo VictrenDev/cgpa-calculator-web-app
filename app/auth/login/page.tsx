@@ -120,7 +120,7 @@ export default function Login() {
                     {/* <div className="flex justify-between gap-6 my-4 mt-2 items-center">
                         <div className="w-full h-[1px] bg-gray-300"></div>
                         <p className="text-gray-300 text-xs whitespace-nowrap w-fit">or login with</p>
-                        <div className="w-full h-[1px] bg-gray-300"></div>
+                        <div classNamWe="w-full h-[1px] bg-gray-300"></div>
                     </div> */}
 
                     {/* <button
