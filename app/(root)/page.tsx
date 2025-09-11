@@ -4,15 +4,62 @@ import NavBar from "./navbar";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Cumulative Grade Point Average Calculator",
-    description: "Lorem 123",
+    title: "CGPA Calculator | Free Online Cumulative GPA Calculator",
+    description:
+        "Easily calculate your Cumulative Grade Point Average (CGPA) with our free online CGPA Calculator. Supports multiple semesters, GPA scales, weighted/unweighted systems, and provides accurate results for students in universities, colleges, and schools.",
+    keywords: [
+        "CGPA Calculator",
+        "Cumulative GPA Calculator",
+        "GPA to CGPA",
+        "GPA Calculator",
+        "Grade Point Average",
+        "University CGPA Calculator",
+        "College GPA Calculator",
+        "Semester GPA Calculator",
+        "CGPA to Percentage",
+        "Online CGPA Tool",
+    ],
+    authors: [{ name: "Victren" }],
+    creator: "Victren",
+    publisher: "Victren",
+    openGraph: {
+        title: "CGPA Calculator – Free Online GPA & Cumulative Calculator",
+        description:
+            "Calculate your Cumulative Grade Point Average (CGPA) quickly and accurately. Perfect for students across universities, colleges, and schools.",
+        url: "https://yourdomain.com/cgpa-calculator",
+        siteName: "Your Website Name",
+        type: "website",
+        images: [
+            {
+                url: "https://yourdomain.com/images/cgpa-calculator-og.png",
+                width: 1200,
+                height: 630,
+                alt: "CGPA Calculator Preview",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Free CGPA Calculator – Accurate & Easy to Use",
+        description: "Instantly compute your Cumulative GPA with our free CGPA Calculator. Supports multiple grading systems and semesters.",
+        images: ["https://yourdomain.com/images/cgpa-calculator-twitter.png"],
+        creator: "@YourTwitterHandle",
+    },
+    robots: {
+        index: true,
+        follow: true,
+    },
+    category: "education",
+    alternates: {
+        canonical: "https://yourdomain.com/cgpa-calculator",
+    },
 };
 
 export default function Home() {
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* NAVBAR */}
-                <NavBar />
+            <NavBar />
             {/* HERO SECTION */}
             <header className="py-12 md:py-20" id="hero">
                 <ScrollEffect as="h1" className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
