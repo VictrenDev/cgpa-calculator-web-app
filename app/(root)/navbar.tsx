@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import Login from "./Login";
+import { SessionProvider } from "next-auth/react";
 
 export default function NavBar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,9 +31,9 @@ export default function NavBar() {
                             </li>
                         ))}
                     </ul>
-                    <Link className="bg-black text-white py-2 px-6 rounded-md hover:bg-gray-800 transition-colors" href="/auth/login">
-                        Get Started
-                    </Link>
+                    <SessionProvider>
+                        <Login />
+                    </SessionProvider>
                 </div>
 
                 {/* Mobile Button */}
@@ -61,12 +63,9 @@ export default function NavBar() {
                             </li>
                         ))}
                         <li>
-                            <Link
-                                className="block bg-black text-white py-2 px-6 rounded-md hover:bg-gray-800 transition-colors"
-                                href="/auth/login"
-                                onClick={() => setIsMenuOpen(false)}>
-                                Get Started
-                            </Link>
+                            <SessionProvider>
+                                <Login />
+                            </SessionProvider>
                         </li>
                     </ul>
                 </div>
