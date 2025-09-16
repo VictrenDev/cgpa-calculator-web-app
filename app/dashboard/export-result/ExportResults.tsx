@@ -4,6 +4,8 @@ import useSWR from "swr";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import { Prisma } from "@/generated/prisma";
+import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 type UserInfo = Prisma.UserGetPayload<{
     include: { sessions: { include: { semester: { include: { courses: true } } } } };
@@ -13,16 +15,13 @@ const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 export default function ExportResultClient() {
     const { data: userData, error, isLoading } = useSWR<UserInfo>("/api/export-result", fetcher);
-
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error.message}</div>;
+    if (error) return toast.error("Sorry! Something unexpected happened");
     if (!userData) return <div>User not found</div>;
 
     const name = [userData.firstName, userData.lastName].filter(Boolean).join(" ") || "User";
 
     const exportExcel = () => {
         const workbook = XLSX.utils.book_new();
-
         userData.sessions.forEach((session) => {
             const rows = session.semester.flatMap((semester) =>
                 semester.courses.map((course) => ({
@@ -61,9 +60,19 @@ export default function ExportResultClient() {
         <>
             {userData.sessions.length !== 0 && (
                 <button
-                    className="bg-blue-500 text-white cursor-pointer py-2 px-4 rounded-sm hover:bg-blue-600 transition-colors"
-                    onClick={exportExcel}>
-                    Download Exported Result
+                    className={`${
+                        isLoading ? "bg-blue-200" : "bg-blue-500 hover:bg-blue-600"
+                    } text-white cursor-pointer py-2 px-4 rounded-sm transition-colors flex gap-3 justify-center`}
+                    onClick={exportExcel}
+                    disabled={isLoading}>
+                    {isLoading ? (
+                        <>
+                            {" "}
+                            <Loader2 className="animate-spin" /> Downloading...
+                        </>
+                    ) : (
+                        "Download Exported Result"
+                    )}
                 </button>
             )}
         </>
