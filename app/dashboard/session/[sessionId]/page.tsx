@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import ResultsTable from "@/components/resultTable";
 import { calculateGPA, calculateGradePoint } from "@/lib/utilities";
 import CreateCourseModal from "@/components/createCourseForm";
+
 type RawCourse = {
     id: string;
     createdAt: Date;
