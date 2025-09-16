@@ -5,6 +5,8 @@ import NavigationBar from "app/dashboard/topNavigationBar";
 // import MainNavigationBar from "@/components/sideNavigationBar"
 import SessionProviderWrapper from "@/components/sessionproviderwrapper";
 import { Toaster } from "sonner";
+import { Suspense } from "react";
+import DashboardSkeleton from "@/components/Dashboard UI/DashboardSkeleton";
 
 const plusJakarta = Plus_Jakarta_Sans({
     subsets: ["latin"],
@@ -29,7 +31,9 @@ export default function RootLayout({
                 {/* <MainNavigationBar /> */}
                 <main className=" w-full overflow-y-auto bg-[var(--background-bg)]">
                     <NavigationBar />
-                    <SessionProviderWrapper>{children}</SessionProviderWrapper>
+                    <SessionProviderWrapper>
+                        <Suspense fallback={<DashboardSkeleton />}>{children}</Suspense>
+                    </SessionProviderWrapper>
                 </main>
                 <Toaster position="top-center" expand={false} richColors closeButton />
             </body>
