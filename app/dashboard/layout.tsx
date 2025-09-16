@@ -6,7 +6,7 @@ import NavigationBar from "app/dashboard/topNavigationBar";
 import SessionProviderWrapper from "@/components/sessionproviderwrapper";
 import { Toaster } from "sonner";
 import { Suspense } from "react";
-import DashboardSkeleton from "@/components/Dashboard UI/DashboardSkeleton";
+import DashboardSkeleton from "@/components/Dashboard Skeleton UI/DashboardSkeleton";
 
 const plusJakarta = Plus_Jakarta_Sans({
     subsets: ["latin"],
