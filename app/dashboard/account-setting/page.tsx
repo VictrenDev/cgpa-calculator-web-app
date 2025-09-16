@@ -1,7 +1,16 @@
-import { accountSettings } from "../actions/actions";
 import MainSettingsPage from "./main-page";
+import { Suspense } from "react";
+import ProfilePage from "./profilepage"; // ✅ safe import here (server → server)
+import ProfileSkeleton from "./ProfileSkeleton";
 
-export default async function SettingsPage() {
-    const data = await accountSettings();
-    return <MainSettingsPage data={data} />;
+export default function SettingsPage() {
+    return (
+        <MainSettingsPage
+            renderProfile={
+                <Suspense fallback={<ProfileSkeleton />}>
+                    <ProfilePage />
+                </Suspense>
+            }
+        />
+    );
 }

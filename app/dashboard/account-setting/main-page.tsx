@@ -2,24 +2,10 @@
 import { ArrowLeft, User, Lock, Settings } from "lucide-react";
 import Link from "next/link";
 import AccountInfo from "./account-info";
-import { useState } from "react";
 import Security from "./security";
-import Profile from "./profile";
-type AcademicProfile = {
-    universityName: string;
-    departmentName: string;
-} | null;
+import { useState } from "react";
 
-export type AcademicInfoData = {
-    user: {
-        firstName: string;
-        lastName: string;
-        email: string;
-        academicProfile: AcademicProfile;
-    } | null;
-};
-
-export default function MainSettingsPage({ data }: { data: AcademicInfoData }) {
+export default function MainSettingsPage({ renderProfile }: { renderProfile: React.ReactNode }) {
     const [activePage, setActivePage] = useState<string>("profile");
 
     const renderActivePage = () => {
@@ -29,7 +15,8 @@ export default function MainSettingsPage({ data }: { data: AcademicInfoData }) {
             case "security":
                 return <Security />;
             case "profile":
-                return <Profile data={data} />;
+                return renderProfile;
+
             default:
                 return <AccountInfo />;
         }
@@ -70,7 +57,6 @@ export default function MainSettingsPage({ data }: { data: AcademicInfoData }) {
                         <Lock className="w-5 h-5" />
                         Security
                     </button>
-
                 </div>
 
                 {/* Main Content */}

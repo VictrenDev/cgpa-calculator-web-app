@@ -1,8 +1,20 @@
 "use client";
 import { Trash2, User } from "lucide-react";
 import { deleteUser, updateProfileInfo } from "../actions/actions";
-import { AcademicInfoData } from "./main-page";
 import { useState } from "react";
+type AcademicProfile = {
+    universityName: string;
+    departmentName: string;
+} | null;
+
+export type AcademicInfoData = {
+    user: {
+        firstName: string;
+        lastName: string;
+        email: string;
+        academicProfile: AcademicProfile;
+    } | null;
+};
 
 export default function Profile({ data }: { data: AcademicInfoData }) {
     const [isEditingProfileData, setIsEditingProfileData] = useState<boolean>(true);
