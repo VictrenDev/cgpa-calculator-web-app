@@ -17,7 +17,7 @@ export default async function Dashboard() {
         where: { email: session.user.email },
         include: { academicProfile: true },
     });
-    if (!user) redirect("/login");
+    if (!user) redirect("/auth/login");
 
     if (!user.academicProfile) {
         // 📄 Render academic profile creation form

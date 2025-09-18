@@ -1,10 +1,11 @@
 import { prisma } from "@/lib/prisma";
 import crypto from "crypto";
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
-import SMTPTransport from "nodemailer/lib/smtp-transport";
+import { Resend } from "resend";
 
 export async function POST(req: Request) {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    console.log(process.env.RESEND_API_KEY);
     const { email } = await req.json();
     if (!email) return NextResponse.json({ error: "Email is required" }, { status: 400 });
 
@@ -72,22 +73,15 @@ export async function POST(req: Request) {
         </tr>
     </table>
 </body>`;
-    // Setup transporter correctly
-    const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-            user: process.env.EMAIL_ADDRESS,
-            pass: process.env.EMAIL_PASSWORD,
-        },
-    } as SMTPTransport.Options);
 
     try {
-        await transporter.sendMail({
-            from: process.env.EMAIL_ADDRESS,
+        const { data } = await resend.emails.send({
+            from: "send.cgpacalculator",
             to: email,
             subject: "Password Reset",
             html: emailTemplate,
         });
+        console.log(data);
 
         return NextResponse.json({ success: true });
     } catch (err) {
