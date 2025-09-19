@@ -181,7 +181,7 @@ export const deleteUser = async () => {
     const session = await getServerSession(authOptions);
     if (!session) throw new Error("No user Session");
     await prisma.user.delete({ where: { id: session.user.id } });
-    return redirect("/login");
+    return redirect("/auth/login");
 };
 
 export const getSessionYears = async () => {
