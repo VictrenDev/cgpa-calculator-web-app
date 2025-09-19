@@ -1,7 +1,8 @@
 "use client";
 import { Trash2, User } from "lucide-react";
-import { deleteUser, updateProfileInfo } from "../actions/actions";
+import { updateProfileInfo } from "../actions/actions";
 import { useState } from "react";
+import DeleteAccount from "../deleteAccount";
 type AcademicProfile = {
     universityName: string;
     departmentName: string;
@@ -19,17 +20,6 @@ export type AcademicInfoData = {
 export default function Profile({ data }: { data: AcademicInfoData }) {
     const [isEditingProfileData, setIsEditingProfileData] = useState<boolean>(true);
 
-    const [isDeleting, setIsDeleting] = useState(false);
-    const handleDelete = async () => {
-        setIsDeleting(true);
-        try {
-            await deleteUser();
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setIsDeleting(false);
-        }
-    };
     return (
         <div className="md:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
             <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
@@ -121,14 +111,7 @@ export default function Profile({ data }: { data: AcademicInfoData }) {
                 <p className="text-sm text-gray-600 mt-1">
                     Once you delete your account, there is no going back. All your data will be permanently removed.
                 </p>
-                <button
-                    onClick={handleDelete}
-                    disabled={isDeleting}
-                    className={`mt-4 px-4 py-2 border border-red-600 text-red-600 rounded-md hover:bg-red-50 hover:cursor-pointer ${
-                        isDeleting ? "bg-red-50 text-red-500" : ""
-                    }`}>
-                    {isDeleting ? "Deleting Account..." : "Delete Account"}
-                </button>
+                <DeleteAccount />
             </div>
         </div>
     );
