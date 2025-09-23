@@ -8,7 +8,8 @@ export default function ForgotPassword() {
     const emailRef = useRef<HTMLInputElement>(null);
     const [isSigningIn, setIsSigningIn] = useState<boolean>(false);
 
-    const handleResetPassword = async () => {
+    const handleResetPassword = async (e: React.FormEvent) => {
+        e.preventDefault();
         try {
             setIsSigningIn(true);
             const res = await axios.post("/api/auth/forgot-password", { email: emailRef.current?.value });
@@ -25,7 +26,7 @@ export default function ForgotPassword() {
     };
 
     return (
-        <section className="w-full min-h-[100dvh] fixed top-0 bg-gray-300/30 flex justify-center items-center">
+        <form onSubmit={handleResetPassword} className="w-full min-h-[100dvh] fixed top-0 bg-gray-300/30 flex justify-center items-center">
             <div className="w-full max-w-md p-6 mx-4 bg-white rounded-xl text-gray-700 container">
                 <p className="text-3xl text-gray-800 mb-8 text-center">Reset Password</p>
 
@@ -41,7 +42,6 @@ export default function ForgotPassword() {
 
                     <button
                         type="submit"
-                        onClick={handleResetPassword}
                         disabled={isSigningIn}
                         className={`w-full p-3 rounded-lg flex justify-center items-center text-white font-medium ${
                             isSigningIn ? "bg-gray-800" : "bg-black"
@@ -57,6 +57,6 @@ export default function ForgotPassword() {
                     </button>
                 </div>
             </div>
-        </section>
+        </form>
     );
 }
