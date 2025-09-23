@@ -76,13 +76,12 @@ export async function POST(req: Request) {
 </body>`;
 
     try {
-        const { data } = await resend.emails.send({
+        await resend.emails.send({
             from: "email@cgpacalc.name.ng",
             to: email,
             subject: "Password Reset",
             html: emailTemplate,
         });
-        console.log(data);
 
         return NextResponse.json({ success: true });
     } catch (err) {
