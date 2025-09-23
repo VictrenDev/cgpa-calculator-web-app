@@ -1,10 +1,11 @@
 import { prisma } from "@/lib/prisma";
 import crypto from "crypto";
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
-import SMTPTransport from "nodemailer/lib/smtp-transport";
+import { Resend } from "resend";
 
 export async function POST(req: Request) {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    console.log(process.env.RESEND_API_KEY);
     const { email } = await req.json();
     if (!email) return NextResponse.json({ error: "Email is required" }, { status: 400 });
 
@@ -40,7 +41,8 @@ export async function POST(req: Request) {
                     <tr>
                         <td style="padding: 30px;">
                             <p style="margin: 0 0 20px 0; color: #333333; line-height: 1.6;">Hello ${name},</p>
-                            <p style="margin: 0 0 20px 0; color: #333333; line-height: 1.6;">We received a request to reset your password. Click the button below to create a new password:</p>
+                            <p style="margin: 0 0 20px 0; color: #333333; line-height: 1.6;">We received a request to reset your password. Click the button below to create a new password: </p>
+                            <p>Password resets after <b> 15 mins</b></p>
                             
                             <!-- Reset button -->
                             <table width="100%" cellpadding="0" cellspacing="0">
@@ -72,22 +74,15 @@ export async function POST(req: Request) {
         </tr>
     </table>
 </body>`;
-    // Setup transporter correctly
-    const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-            user: process.env.EMAIL_ADDRESS,
-            pass: process.env.EMAIL_PASSWORD,
-        },
-    } as SMTPTransport.Options);
 
     try {
-        await transporter.sendMail({
-            from: process.env.EMAIL_ADDRESS,
+        const { data } = await resend.emails.send({
+            from: "email@cgpacalc.name.ng",
             to: email,
             subject: "Password Reset",
             html: emailTemplate,
         });
+        console.log(data);
 
         return NextResponse.json({ success: true });
     } catch (err) {
