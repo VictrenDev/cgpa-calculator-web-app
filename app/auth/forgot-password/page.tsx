@@ -71,13 +71,13 @@ export default function ForgotPassword() {
                         disabled={isSigningIn || disabled}
                         className={`w-full p-3 rounded-lg flex justify-center items-center text-white font-medium ${
                             isSigningIn ? "bg-gray-800" : "bg-black"
-                        } hover:bg-gray-800 active:bg-gray-900 transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed shadow-sm hover:shadow-md mt-8 mb-4 cursor-pointer`}>
+                        } hover:bg-gray-800 active:bg-gray-900 transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed shadow-sm hover:shadow-md mt-3 mb-4 cursor-pointer`}>
                         {isSigningIn ? (
                             <>
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending...
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending reset link...
                             </>
                         ) : disabled ? (
-                            `Wait ${countdown}s`
+                            `Resend link after ${countdown}s`
                         ) : (
                             "Send Reset Link"
                         )}
